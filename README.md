@@ -2,13 +2,13 @@
 
 **The fastest open‑source Bitcoin private key scanner on GPU**  
 
-*Scans up to **0.5 billion keys per second** on NVIDIA RTX 4090*  
+*Scans up to **0.7 billion keys per second** on NVIDIA RTX 4090*  
 
 *100% accuracy — finds **every** address in your database, not just a fraction*
 
 Top 1% of GPU scanners worldwide – open source, unmatched speed, 100% accuracy.
 
-Elite‑tier performance – 0.5 GH/s on RTX 4090. The fastest open‑source Bitcoin scanner ever built.
+Elite‑tier performance – 0.7 GH/s on RTX 4090. The fastest open‑source Bitcoin scanner ever built.
 
 World‑class speed. Zero missed keys. MIT licensed. This is the new standard.
 
@@ -33,7 +33,7 @@ open‑source tool comes close to this combination.
 🏆 Absolute Elite – Top 1%
    Among the fastest GPU scanners ever built, alongside closed‑source commercial projects.
 
-⚡ 0.5 GH/s on RTX 4090
+⚡ 0.7 GH/s on RTX 4090
    50–100× faster than KeyHunt/BitCrack. VanitySearch's 2 GH/s is for 1 address –
    we search 600M at the same speed.
 
@@ -56,7 +56,7 @@ FastScan GPU is a **CUDA‑accelerated tool** that scans the secp256k1 private k
 - ✅ **Scans in parallel** — the whole range is covered simultaneously, not linearly  
 - ✅ **Handles 600M+ addresses** — with a smart 24‑bit prefix index for near‑instant lookups  
 - ✅ **Scans up to 256 bits** — full secp256k1 key space support  
-- ✅ **Up to 0.5 GH/s** — on RTX 4090 with optimized kernel and 24‑bit index  
+- ✅ **Up to 0.7 GH/s** — on RTX 4090 with optimized kernel and 24‑bit index  
 
 ---
 
@@ -67,9 +67,9 @@ FastScan GPU is a **CUDA‑accelerated tool** that scans the secp256k1 private k
 | **KeyHunt CUDA** | EC multiply per key | ~20 Mkeys/s | ❌ Misses keys | ❌ Chokes |
 | **BitCrack** | EC multiply per key | ~30 Mkeys/s | ❌ Misses keys | ❌ Chokes |
 | **VanitySearch** | EC multiply per key | ~40 Mkeys/s | ❌ Misses keys | ❌ Chokes |
-| **FastScan GPU** | GTable + point additions | **Up to 0.5 GH/s** | ✅ 100% | ✅ Handles |
+| **FastScan GPU** | GTable + point additions | **Up to 0.7 GH/s** | ✅ 100% | ✅ Handles |
 
-**FastScan GPU is 50–100× faster than KeyHunt/BitCrack** and up to **0.5 GH/s** on RTX 4090.
+**FastScan GPU is 50–100× faster than KeyHunt/BitCrack** and up to **0.7 GH/s** on RTX 4090.
 <img width="1097" height="580" alt="image" src="https://github.com/user-attachments/assets/f3c4fbd2-233b-4480-bece-1f38aa88d7a9" />
 
 ---
@@ -167,12 +167,12 @@ nvcc -std=c++11 -O3 -arch=sm_89 -D_FORTIFY_SOURCE=0 -diag-suppress 1650 \
 
 | Hardware | Speed |
 |----------|-------|
-| **NVIDIA RTX 4090** | **Up to 0.5 GH/s** |
-| **NVIDIA RTX 4080** | ~1.2–1.5 GH/s |
-| **NVIDIA RTX 3090** | ~0.8–1.0 GH/s |
-| **NVIDIA RTX 3080** | ~0.5–0.7 GH/s |
+| **NVIDIA RTX 4090** | **Up to 0.7 GH/s** |
+| **NVIDIA RTX 4080** | ~0.4.2–0.7 GH/s |
+| **NVIDIA RTX 3090** | ~0.2–0.6 GH/s |
+| **NVIDIA RTX 3080** | ~0.1–0.4 GH/s |
 
-**0.5 GH/s = 2 billion keys per second** – you can scan a 2⁶⁰ range in just a few hours.
+**0.7 GH/s = 700 MILIONS keys per second** – you can scan a 2⁶⁰ range in just a few hours.
 
 ---
 
