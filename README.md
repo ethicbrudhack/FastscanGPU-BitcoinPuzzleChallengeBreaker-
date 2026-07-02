@@ -14,6 +14,7 @@ World‑class speed. Zero missed keys. MIT licensed. This is the new standard.
 
 Not just faster – mathematically correct. Built for professionals, not for toys.
 
+video: https://www.youtube.com/watch?v=UWiEqoI33-A
 ---
 📊 Why FastScan GPU? :
 
