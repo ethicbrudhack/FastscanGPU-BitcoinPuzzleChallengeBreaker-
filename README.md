@@ -34,7 +34,7 @@ open‑source tool comes close to this combination.
    Finds every key in range. Verified against libsecp256k1. No false negatives.
 
 🔓 Open Source (MIT)
-   Unique at this performance level. Fully transparent, auditable, and free.
+   Unique at this performance level. Fully transparent, auditable.
 
 🧠 Parallel Range Scanning
    Key at the end of the range is found in minutes, not weeks. Linear scanners waste
