@@ -1,0 +1,1 @@
+# FastscanGPU-BitcoinPuzzleChallengeBreaker-
