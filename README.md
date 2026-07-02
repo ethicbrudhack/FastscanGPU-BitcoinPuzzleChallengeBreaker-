@@ -1,12 +1,19 @@
-# ⚡ FastScan GPU
+# ⚡ FastScan GPU 
 
 **The fastest open‑source Bitcoin private key scanner on GPU**  
+
 *Scans up to **0.5 billion keys per second** on NVIDIA RTX 4090*  
+
 *100% accuracy — finds **every** address in your database, not just a fraction*
+
 Top 1% of GPU scanners worldwide – open source, unmatched speed, 100% accuracy.
+
 Elite‑tier performance – 0.5 GH/s on RTX 4090. The fastest open‑source Bitcoin scanner ever built.
+
 World‑class speed. Zero missed keys. MIT licensed. This is the new standard.
+
 Not just faster – mathematically correct. Built for professionals, not for toys.
+
 ---
 📊 Why FastScan GPU? :
 
@@ -253,6 +260,7 @@ PRs and issues are welcome! Areas for improvement:
 **MIT** – free to, modify, and distribute.  If you bought the code 😉
 
 ---
+contact: kevinvunderg@gmail.com
 
 ## ⭐ Star This Project
 
