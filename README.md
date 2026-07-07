@@ -1,5 +1,6 @@
 
 # ⚡ FastScan GPU v2 major update !! 
+new video: https://www.youtube.com/watch?v=cHEYq2Dw_SY
 updated info: 
 🔥 MAJOR UPDATE v2.0 – Kernel Fully Rewritten!
 FastScan GPU has been completely re-architected. Now hitting 0.9 GH/s on RTX 4090 – and this is just the beginning.
