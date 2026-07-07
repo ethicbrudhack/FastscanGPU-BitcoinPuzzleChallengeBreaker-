@@ -19,6 +19,7 @@ P₀ + G  →  _PointAdd() + _ModInv()  // expensive!
 P₀ + 2G →  _PointAdd() + _ModInv()  // expensive again!
 ...
 The new kernel groups 128 keys and computes ONE modular inversion for the entire batch:
+<img width="1095" height="573" alt="image" src="https://github.com/user-attachments/assets/7a890c81-4c53-4549-83a0-e847ea1172c5" />
 
 text
 dx[0..127] = Gx[0..127] - P₀.x        // cheap subtraction
