@@ -1,4 +1,4 @@
-<img width="1600" height="1000" alt="chunk_evolution" src="https://github.com/user-attachments/assets/1ebdaa10-2189-4c6d-9006-ae8af2009281" />
+
 # ⚡ FastScan GPU v2 major update !! 
 updated info: 
 🔥 MAJOR UPDATE v2.0 – Kernel Fully Rewritten!
@@ -20,6 +20,8 @@ P₀ + G  →  _PointAdd() + _ModInv()  // expensive!
 P₀ + 2G →  _PointAdd() + _ModInv()  // expensive again!
 ...
 The new kernel groups 128 keys and computes ONE modular inversion for the entire batch:
+<img width="1600" height="1000" alt="chunk_evolution" src="https://github.com/user-attachments/assets/c857407b-8393-4ebc-b3ff-2270be90b21a" />
+
 <img width="1095" height="573" alt="image" src="https://github.com/user-attachments/assets/7a890c81-4c53-4549-83a0-e847ea1172c5" />
 
 text
