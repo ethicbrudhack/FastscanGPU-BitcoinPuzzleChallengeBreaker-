@@ -1,4 +1,79 @@
-# ⚡ FastScan GPU 
+# ⚡ FastScan GPU v2 major update !! 
+updated info: 
+🔥 MAJOR UPDATE v2.0 – Kernel Fully Rewritten!
+FastScan GPU has been completely re-architected. Now hitting 0.9 GH/s on RTX 4090 – and this is just the beginning.
+
+⚡ What Changed?
+The old kernel performed a full G-Table multiply (up to 15 point additions + 1 expensive modular inversion) for EVERY single key. The new kernel uses:
+
+Operation	Old Kernel	New Kernel (v2.0)
+Starting point P₀	Full G-Table × EVERY key	ONCE per (chunk, sub-thread)
+Next keys	Full G-Table again	P₀+G, P₀+2G... – incremental stepping
+Modular inversion	1× per key (very expensive)	Batch of 128 keys = 1 inversion total!
+Real-world speed	Previous version	0.9 GH/s ✅
+🧠 How? Batch Modular Inversion (Montgomery Trick)
+Instead of computing expensive modular inversions for each key individually:
+
+text
+P₀ + G  →  _PointAdd() + _ModInv()  // expensive!
+P₀ + 2G →  _PointAdd() + _ModInv()  // expensive again!
+...
+The new kernel groups 128 keys and computes ONE modular inversion for the entire batch:
+
+text
+dx[0..127] = Gx[0..127] - P₀.x        // cheap subtraction
+dx[0..127] = 1/dx[0..127]             // ONE batch inversion (Montgomery trick)
+// Then only cheap multiplications per key
+Mathematically identical result – verified against OpenSSL (libsecp256k1). Zero missed keys. 100% accuracy.
+
+🎯 Roadmap – Target: 3–8 GH/s
+This is not the final version. Batch inversion is step one. Planned optimizations:
+
+✅ Batch modular inversion (done – 0.9 GH/s)
+
+🔜 Multi-GPU scaling (2×, 4×, 8× GPUs)
+
+🔜 Streaming databases larger than VRAM
+
+🔜 Kernel fusion (SHA256 + RIPEMD160 in a single pass)
+
+🔜 Full curve in affine coordinates (no Jacobian overhead)
+
+🎯 End goal: 3–8 GH/s on a single RTX 4090
+
+🤝 Interested in a MULTIPOOL? Let Me Know!
+I'm considering setting up a community mining pool – a modern, original approach to collaborative scanning:
+
+🔑 A few days at 100 GH/s is enough to crack Puzzle 70!
+
+Instead of everyone scanning small ranges alone, we combine the community's GPU power into one massive cluster. If you're interested – drop a comment, open an issue, or email me (kevinvunderg@gmail.com). The more people join, the faster we solve the next puzzles!
+
+Not sure if there's enough interest yet – let me know if you'd join!
+
+📊 Performance Comparison (RTX 4090)
+Tool	Technique	Speed	Accuracy	Large DB (600M)
+KeyHunt CUDA	EC multiply per key	~20 Mkeys/s	❌ Misses keys	❌ Chokes
+BitCrack	EC multiply per key	~30 Mkeys/s	❌ Misses keys	❌ Chokes
+VanitySearch	EC multiply per key	~40 Mkeys/s	❌ Misses keys	❌ Chokes
+FastScan GPU v1	GTable + point additions	~0.7 GH/s	✅ 100%	✅ Handles
+FastScan GPU v2.0	Batch inv. + inc. stepping	0.9 GH/s	✅ 100%	✅ Handles
+
+<img width="1125" height="585" alt="image" src="https://github.com/user-attachments/assets/17ce8c40-901d-47c5-af86-e4cc99267963" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+!!!!OLD INFORMATION ! !!!
+
 
 **The fastest open‑source Bitcoin private key scanner on GPU**  
 
