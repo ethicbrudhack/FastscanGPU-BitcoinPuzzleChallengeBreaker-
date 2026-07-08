@@ -1,3 +1,4 @@
+UPDATE: I'm starting to build a pool for all those who believe in my project and chunks! my script achieved a maximum speed for this architecture of about 3.5gh/s that max for this architecture for rtx4090<img width="1105" height="547" alt="image" src="https://github.com/user-attachments/assets/18086a19-4bd0-46db-8c09-e8fb17302f8c" />
 
 # ⚡ FastScan GPU v2 major update !! 
 new video: https://www.youtube.com/watch?v=cHEYq2Dw_SY
