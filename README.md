@@ -22,7 +22,8 @@ Gtable: https://drive.google.com/file/d/1IggsvXIFmHWjiw4Rh-bKAKwWJ0OYxL9l/view?u
 Independent FastscanGPU Code: https://drive.google.com/file/d/1i-fn8DL8AvYbocCLn_HIZSuetUfCA-eE/view?usp=drive_link
 
 ````
-
+Telegram: https://t.me/+39k4WcVDfYhiMWFk
+yt video: https://www.youtube.com/watch?v=xV7tdUcGEhg
 ## ⚠️ Uczciwa nota o split-key / Honest note about split-key
 
 **PL — przeczytaj zanim dołączysz:**
