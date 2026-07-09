@@ -1,354 +1,312 @@
-UPDATE: I'm starting to build a pool for all those who believe in my project and chunks! my script achieved a maximum speed for this architecture of about 3.5gh/s that max for this architecture for rtx4090<img width="1105" height="547" alt="image" src="https://github.com/user-attachments/assets/18086a19-4bd0-46db-8c09-e8fb17302f8c" />
+# Bitcoin Puzzle / Wallet Pool (split-key) — GPU
 
-# ⚡ FastScan GPU v2 major update !! 
-new video: https://www.youtube.com/watch?v=cHEYq2Dw_SY
-updated info: 
-🔥 MAJOR UPDATE v2.0 – Kernel Fully Rewritten!
-FastScan GPU has been completely re-architected. Now hitting 0.9 GH/s on RTX 4090 – and this is just the beginning.
-
-⚡ What Changed?
-The old kernel performed a full G-Table multiply (up to 15 point additions + 1 expensive modular inversion) for EVERY single key. The new kernel uses:
-
-Operation	Old Kernel	New Kernel (v2.0)
-Starting point P₀	Full G-Table × EVERY key	ONCE per (chunk, sub-thread)
-Next keys	Full G-Table again	P₀+G, P₀+2G... – incremental stepping
-Modular inversion	1× per key (very expensive)	Batch of 128 keys = 1 inversion total!
-Real-world speed	Previous version	0.9 GH/s ✅
-🧠 How? Batch Modular Inversion (Montgomery Trick)
-Instead of computing expensive modular inversions for each key individually:
-
-text
-P₀ + G  →  _PointAdd() + _ModInv()  // expensive!
-P₀ + 2G →  _PointAdd() + _ModInv()  // expensive again!
-...
-The new kernel groups 128 keys and computes ONE modular inversion for the entire batch:
-<img width="1600" height="1000" alt="chunk_evolution" src="https://github.com/user-attachments/assets/c857407b-8393-4ebc-b3ff-2270be90b21a" />
-
-<img width="1095" height="573" alt="image" src="https://github.com/user-attachments/assets/7a890c81-4c53-4549-83a0-e847ea1172c5" />
-
-text
-dx[0..127] = Gx[0..127] - P₀.x        // cheap subtraction
-dx[0..127] = 1/dx[0..127]             // ONE batch inversion (Montgomery trick)
-// Then only cheap multiplications per key
-Mathematically identical result – verified against OpenSSL (libsecp256k1). Zero missed keys. 100% accuracy.
-
-🎯 Roadmap – Target: 3–8 GH/s
-This is not the final version. Batch inversion is step one. Planned optimizations:
-
-✅ Batch modular inversion (done – 0.9 GH/s)
-
-🔜 Multi-GPU scaling (2×, 4×, 8× GPUs)
-
-🔜 Streaming databases larger than VRAM
-
-🔜 Kernel fusion (SHA256 + RIPEMD160 in a single pass)
-
-🔜 Full curve in affine coordinates (no Jacobian overhead)
-
-🎯 End goal: 3–8 GH/s on a single RTX 4090
-
-🤝 Interested in a MULTIPOOL? Let Me Know!
-I'm considering setting up a community mining pool – a modern, original approach to collaborative scanning:
-
-🔑 A few days at 100 GH/s is enough to crack Puzzle 70!
-
-Instead of everyone scanning small ranges alone, we combine the community's GPU power into one massive cluster. If you're interested – drop a comment, open an issue, or email me (kevinvunderg@gmail.com). The more people join, the faster we solve the next puzzles!
-
-Not sure if there's enough interest yet – let me know if you'd join!
-
-📊 Performance Comparison (RTX 4090)
-Tool	Technique	Speed	Accuracy	Large DB (600M)
-KeyHunt CUDA	EC multiply per key	~20 Mkeys/s	❌ Misses keys	❌ Chokes
-BitCrack	EC multiply per key	~30 Mkeys/s	❌ Misses keys	❌ Chokes
-VanitySearch	EC multiply per key	~40 Mkeys/s	❌ Misses keys	❌ Chokes
-FastScan GPU v1	GTable + point additions	~0.7 GH/s	✅ 100%	✅ Handles
-FastScan GPU v2.0	Batch inv. + inc. stepping	0.9 GH/s	✅ 100%	✅ Handles
-
-<img width="1125" height="585" alt="image" src="https://github.com/user-attachments/assets/17ce8c40-901d-47c5-af86-e4cc99267963" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-!!!!OLD INFORMATION ! !!!
-
-
-**The fastest open‑source Bitcoin private key scanner on GPU**  
-
-*Scans up to **0.7 billion keys per second** on NVIDIA RTX 4090*  
-
-*100% accuracy — finds **every** address in your database, not just a fraction*
-
-Top 1% of GPU scanners worldwide – open source, unmatched speed, 100% accuracy.
-
-Elite‑tier performance – 0.7 GH/s on RTX 4090. The fastest open‑source Bitcoin scanner ever built.
-
-World‑class speed. Zero missed keys. MIT licensed. This is the new standard.
-
-Not just faster – mathematically correct. Built for professionals, not for toys.
-
-video: https://www.youtube.com/watch?v=UWiEqoI33-A
----<img width="1101" height="578" alt="image" src="https://github.com/user-attachments/assets/09dbfdfa-c6b6-406b-a04d-78b6ede80461" />
-
-📊 Why FastScan GPU? :
-
-While other tools like KeyHunt and BitCrack are stuck in the amateur league – missing keys,
-crashing, and grinding through ranges linearly – FastScan GPU operates in the elite tier,
-alongside closed‑source commercial projects used by professional puzzle‑hunting teams.
-
-VanitySearch may hit 2 GH/s – but it searches only one address. FastScan GPU searches
-600 million addresses at the same speed. That is the difference between a toy and a
-professional tool.
-
-The competition claims speed. We deliver speed + accuracy + transparency. No other
-open‑source tool comes close to this combination.
-
-⚡ Features :
-
-🏆 Absolute Elite – Top 1%
-   Among the fastest GPU scanners ever built, alongside closed‑source commercial projects.
-
-⚡ 0.7 GH/s on RTX 4090
-   50–100× faster than KeyHunt/BitCrack. VanitySearch's 2 GH/s is for 1 address –
-   we search 600M at the same speed.
-
-✅ 100% Accuracy
-   Finds every key in range. Verified against libsecp256k1. No false negatives.
-
-🔓 Open Source (MIT)
-   Unique at this performance level. Fully transparent, auditable.
-
-🧠 Parallel Range Scanning
-   Key at the end of the range is found in minutes, not weeks. Linear scanners waste
-   99.9% of their time.
-  
-   
-## 🚀 What is FastScan GPU?
-
-FastScan GPU is a **CUDA‑accelerated tool** that scans the secp256k1 private key space and checks each key against your own database of Bitcoin addresses (hash160). Unlike other scanners (KeyHunt, BitCrack, VanitySearch), it:
-
-- ✅ **Never misses a key** — mathematically verified correctness against libsecp256k1  
-- ✅ **Scans in parallel** — the whole range is covered simultaneously, not linearly  
-- ✅ **Handles 600M+ addresses** — with a smart 24‑bit prefix index for near‑instant lookups  
-- ✅ **Scans up to 256 bits** — full secp256k1 key space support  
-- ✅ **Up to 0.7 GH/s** — on RTX 4090 with optimized kernel and 24‑bit index  
+> **PL:** Rozproszony pool GPU do szukania kluczy Bitcoin: **Puzzle #71** (jeden adres,
+> mały zakres) oraz **zapomniane portfele** (baza tysięcy adresów, duży zakres).
+> Serwer rozdaje rozłączne segmenty pracy (zero dubli), workerzy liczą na GPU,
+> a nagroda dzielona jest wg wkładu.
+>
+> **EN:** Distributed GPU pool for finding Bitcoin keys: **Puzzle #71** (single address,
+> small range) and **forgotten wallets** (a database of thousands of addresses, large
+> range). The server hands out disjoint work segments (no overlap), workers compute on
+> the GPU, and the reward is split by contribution.
 
 ---
 
-## 📊 Performance Comparison (RTX 4090)
+## ⚠️ Uczciwa nota o split-key / Honest note about split-key
 
-| Tool | Technique | Speed | Accuracy | Large DB (600M) |
-|------|-----------|-------|----------|-----------------|
-| **KeyHunt CUDA** | EC multiply per key | ~20 Mkeys/s | ❌ Misses keys | ❌ Chokes |
-| **BitCrack** | EC multiply per key | ~30 Mkeys/s | ❌ Misses keys | ❌ Chokes |
-| **VanitySearch** | EC multiply per key | ~40 Mkeys/s | ❌ Misses keys | ❌ Chokes |
-| **FastScan GPU** | GTable + point additions | **Up to 0.7 GH/s** | ✅ 100% | ✅ Handles |
+**PL — przeczytaj zanim dołączysz:**
+- Ten pool używa **split-key**. Worker znajduje tylko **połowę klucza** (`share d`).
+  Pełny klucz składa **operator poola**, który zna sekret `s`.
+- **To NIE jest kryptograficzna gwarancja podziału nagrody.** W chwili trafienia
+- W praktyce oznacza to, że **podział nagrody opiera się na ZAUFANIU do operatora**
+  (tak samo jak w innych poolach typu „kto znajdzie, ma klucz”).
+- Dołączając, akceptujesz ten model świadomie.
 
-**FastScan GPU is 50–100× faster than KeyHunt/BitCrack** and up to **0.7 GH/s** on RTX 4090.
-<img width="1097" height="580" alt="image" src="https://github.com/user-attachments/assets/f3c4fbd2-233b-4480-bece-1f38aa88d7a9" />
-
----
-
-## 🔧 How It Works
-
-Instead of computing `k·G` from scratch for every key, we split `k` into 16‑bit chunks:
-
-```
-k = c0 + c1·2^16 + c2·2^32 + ... + c15·2^240
-k·G = c0·G + c1·(2^16·G) + c2·(2^32·G) + ... + c15·(2^240·G)
-```
-
-Each `ci·(2^(16i)·G)` is a **table lookup** – O(1). Only **15 point additions** remain per key.
-
-### Key Optimisations
-
-| Feature | Benefit |
-|---------|---------|
-| **GTable pre‑computation** | 1M points stored in VRAM – no EC multiplication per key |
-| **24‑bit prefix index** | Reduces lookups from ~30 to ~6 random memory accesses – **~5× faster** |
-| **Parallel range scanning** | Entire range scanned simultaneously – key at end found in minutes, not weeks |
-| **Zero‑copy progress** | Live speed/coverage updates without CUDA synchronisation overhead |
-| **mmap address loading** | No RAM duplication – 11GB+ database loaded lazily |
+**EN — read before joining:**
+- This pool uses **split-key**. A worker only finds **half of the key** (`share d`).
+  The full key is assembled by the **pool operator**, who knows the
+  secret `s`.
+- In practice the reward split **relies on TRUST in the operator** (as in other pools:
+  "whoever finds it holds the key").
+- By joining you accept this model knowingly.
 
 ---
 
-## 📦 Required Files
+## 💰 Podział nagrody / Reward split
 
-### Data files (REQUIRED for every run)
-
-| File | Size | Description |
-|------|------|-------------|
-| `gtableX.bin` | 32 MB | Precomputed G‑table (X coordinate) – 16 chunks × 65536 × 32 bytes |
-| `gtableY.bin` | 32 MB | Precomputed G‑table (Y coordinate) |
-| `addresses.bin` | depends | Your hash160 database – **sorted ascending**, 20 bytes/record |
-
-### Generated automatically
-
-| File | Description |
-|------|-------------|
-| `found.txt` | Found keys/addresses (appended, never overwritten) |
-| `progress.txt` | Scan state for `--resume` (saved every 10 minutes) |
+| | PL | EN |
+|---|---|---|
+| **40%** | znalazca | finder |
+| **55%** | reszta kopaczy wg wkładu | rest of miners by contribution |
+| **5%** | operator | operator |
 
 ---
+### 🔐 Rejestracja / Registration
 
-## 🛠️ Compilation
+**PL:** Zanim uruchomisz workera, musisz **zarejestrować się na stronie**:
+👉 **https://fastscangpu.duckdns.org/**
+
+Podczas rejestracji podajesz:
+- **Nick** – wyświetlany w rankingu,
+- **Adres Bitcoin** – na który trafi nagroda (NIE MOŻNA GO PÓŹNIEJ ZMIENIĆ!),
+- **Hasło** – używane do logowania na stronie i do uruchomienia workera.
+
+**EN:** Before you run the worker, you must **register on the website**:
+👉 **https://fastscangpu.duckdns.org/**
+
+During registration you provide:
+- **Nick** – displayed in the leaderboard,
+- **Bitcoin address** – where the reward will be sent (CANNOT BE CHANGED LATER!),
+- **Password** – used to log in to the website and to run the worker.
+---
+example:
+python3 pool_worker.py --server https://fastscangpu.duckdns.org --worker SatoshiHunter --password mojeHaslo123 --binary ./fastscan or ./fastscan.exe
+---
+## 🚀 Jak dołączyć (kopacz) / How to join (miner)
+
+**Wymagania / Requirements:** karta NVIDIA (CUDA), Python 3, binarka `fastscan`
+i pliki `gtableX.bin`, `gtableY.bin` w tym samym katalogu.
 
 ```bash
-nvcc -std=c++11 -O3 -arch=sm_89 -D_FORTIFY_SOURCE=0 -diag-suppress 1650 \
-     -o fastscan_gpu main.cu -I. -lsecp256k1 -lssl -lcrypto -lcuda -lcudart
+# PL: Linux / EN: Linux
+python3 pool_worker.py \
+  --server https://fastscangpu.duckdns.org \
+  --worker TWOJ_NICK \
+  --binary ./fastscan
+  --password TWOJE_HASLO
+# PL: Windows (cmd/PowerShell) / EN: Windows (cmd/PowerShell)
+python pool_worker.py \
+  --server https://fastscangpu.duckdns.org \
+  --worker TWOJ_NICK \
+  --password YOUR_PASSWORD
+  --binary fastscan.exe
 ```
+example : python3 pool_worker.py --server https://fastscangpu.duckdns.org --worker SatoshiHunter --password mojeHaslo123 --binary ./fastscan or ./fastscan.exe
 
-- `-arch=sm_89` – adjust to your GPU (e.g. `sm_86` for RTX 30xx, `sm_89` for RTX 40xx)  
-- Required: `libsecp256k1`, `libssl`/`libcrypto` (OpenSSL), CUDA Toolkit  
-- POSIX environment (Linux, WSL) required for `mmap()`
+- Serwer sam mówi workerowi **co** i **w jakim zakresie** skanować (tryb wybiera operator).
+- W trybie **wallets** dodaj lokalną bazę adresów: `--db adresy_unique.bin`.
+- Worker **sam** wysyła znaleziony `share` na serwer. Znaleziska są zapisywane
+  lokalnie (trwale) i ponawiane, więc **nie przepadną przy awarii sieci**.
 
----
+- The server tells the worker **what** to scan and **within what range** (the mode is selected by the operator).
+- In **wallets** mode, add the local address database: `--db adresy_unique.bin`.
+- The worker **automatically** sends any found `share` to the server. Findings are saved
+  locally (persistently) and retried, so **they will not be lost in the event of a network failure**.
 
-## 🚀 Usage
+## 🖥️ Uruchomienie serwera (operator) / Run the server (operator)
 
 ```bash
-./fastscan_gpu <addresses.bin> <start_bit> <end_bit> [--resume] [--mode=comp|uncomp|both]
-```
+# PL: tryb puzzle (jeden adres) / EN: puzzle mode (single address)
+python3 pool_server.py init --mode puzzle \
+  --address 1PWo3JeB9jrGwfHDNpdGK54CRas7fsVzXU --start-bit 70 --end-bit 71
+# !!! ZAPISZ wypisany SECRET s / SAVE the printed SECRET s !!!
 
-| Argument | Description |
-|----------|-------------|
-| `addresses.bin` | Path to sorted hash160 file (20 B/record) |
-| `start_bit` | Starting bit of key range (e.g. `0`) |
-| `end_bit` | Ending bit of range – scans `[2^start, 2^end - 1]` |
-| `--resume` | Resume from `progress.txt` (ignores CLI start/end) |
-| `--mode=comp` | Only search **compressed** addresses (faster) |
-| `--mode=uncomp` | Only search **uncompressed** addresses (faster) |
-| `--mode=both` | Search both types (default) |
+# PL: tryb wallets (baza .bin, domyslnie comp+uncomp) / EN: wallets mode (.bin DB, default comp+uncomp)
+python3 pool_server.py init --mode wallets \
+  --db adresy_unique.bin --start-bit 253 --end-bit 256
 
-### Examples
 
+
+---
+
+## 🧩 Jak to działa / How it works
+
+1. **PL:** Operator losuje sekret `s` 
+   **EN:** The operator draws a secret `s` 
+2. **PL:** Worker skanuje przydzielony zakres hash160 z celem. **EN:** The worker scans its assigned range
+   and comparing hash160 against the target.
+3. **PL:** Trafienie → worker zna tylko `d` (pół-klucz), wysyła go na serwer.
+   **EN:** On a hit → the worker knows only `d` (half-key) and sends it to the server.
+4. **PL:** Serwer składa pełny klucz i weryfikuje adres.
+   **EN:** The server assembles the full key and verifies the address.
+
+---
+
+## 📂 Pliki / Files
+
+| Plik / File | Opis (PL) | Description (EN) |
+| :--- | :--- | :--- |
+| `fastscan` (Linux) | Uniwersalna binarka GPU na Linux (wszystkie karty) | Universal GPU binary for Linux (all cards) |
+| `fastscan.exe` (Windows) | Binarka GPU dla nowszych kart (RTX 20xx, 30xx, 40xx, 50xx+) | GPU binary for newer cards (RTX 20xx, 30xx, 40xx, 50xx+) |
+| `fastscan_legacy.exe` (Windows) | Binarka GPU dla starszych kart (GTX 9xx, GTX 10xx) | GPU binary for older cards (GTX 9xx, GTX 10xx) |
+| `libcrypto-3-x64.dll` (Windows) | Biblioteka OpenSSL (kryptografia) | OpenSSL library (cryptography) |
+| `libssl-3-x64.dll` (Windows) | Biblioteka OpenSSL (TLS/SSL) | OpenSSL library (TLS/SSL) |
+| `libsecp256k1.dll` (Windows) | Biblioteka krzywej eliptycznej Bitcoin | Bitcoin elliptic curve library |
+| `mman.dll` (Windows) | Implementacja mmap dla Windows | mmap implementation for Windows |
+| `gtableX.bin` | Tablice matematyczne (punkt G) – wymagane | Mathematical tables (point G) – required |
+| `gtableY.bin` | Tablice matematyczne (punkt G) – wymagane | Mathematical tables (point G) – required |
+| `gtable_compX.bin` | Tablice dla skompresowanych adresów | Tables for compressed addresses |
+| `gtable_compY.bin` | Tablice dla skompresowanych adresów | Tables for compressed addresses |
+| `pool_worker.py` | Python koordynator (łączy z serwerem) | Python coordinator (connects to server) |
+
+---
+## 📈 Prawdopodobieństwo znalezienia klucza / Probability of finding the key
+
+**PL:** System oparty na **podziale zakresu na rozłączne chunki** daje unikalną wśród architektur GPU cechę – **prawdopodobieństwo znalezienia klucza rośnie w czasie**.
+
+Im więcej kluczy przeszukanych, tym mniejszy pozostaje nieprzeszukany obszar, a szansa na trafienie w kolejnej sekundzie jest coraz większa.
+
+### 📐 Wzór matematyczny
+
+Prawdopodobieństwo, że klucz znajduje się w już przeszukanym obszarze:
+P(t) = (N_przeszukane(t) / N_całkowity) * 100%
+
+gdzie:
+- `P(t)` – prawdopodobieństwo znalezienia klucza do chwili `t`,
+- `N_przeszukane(t)` – liczba kluczy przeszukanych do chwili `t`,
+- `N_całkowity` – całkowita liczba kluczy w zadanym zakresie.
+
+**Każda sekunda zwiększa całkowite prawdopodobieństwo** aż do osiągnięcia 100%.
+
+### 📊 Przykład (zakres 71-bit)
+
+Zakres 71-bitowy to `N_całkowity ≈ 2.36 × 10²¹` kluczy.
+
+| Przeszukane klucze | Przeszukany obszar | Prawdopodobieństwo znalezienia |
+|-------------------|-------------------|-------------------------------|
+| `2.36 × 10²⁰` | 10% | 10% |
+| `1.18 × 10²¹` | 50% | 50% |
+| `2.12 × 10²¹` | 90% | 90% |
+| `2.36 × 10²¹` | 100% | **100%**|
+
+### 🏆 Co to oznacza w praktyce?
+
+- **100% gwarancja** – jeśli klucz istnieje w zadanym zakresie, zostanie znaleziony.
+- **Zero nakładek** – żaden klucz nie jest sprawdzany dwukrotnie.
+- **Mierzalny postęp** – w każdej chwili wiadomo, ile zostało do przeszukania.
+- **Rosnące szanse** – prawdopodobieństwo rośnie z każdą minutą, aż do 100%.
+
+**To jedyna architektura GPU, która daje matematyczną gwarancję znalezienia klucza.**
+
+---
+
+**EN:** A system based on **dividing the range into disjoint chunks** offers a unique feature among GPU architectures – **the probability of finding the key increases over time**.
+
+The more keys searched, the smaller the remaining unsearched area, and the higher the chance of a hit in the next second.
+
+### 📐 Mathematical formula
+
+The probability that the key is in the already searched area:
+P(t) = (N_searched(t) / N_total) * 100%
+
+Where:
+- `P(t)` – probability of finding the key by time `t`,
+- `N_searched(t)` – number of keys searched up to time `t`,
+- `N_total` – total number of keys in the given range.
+
+**Every second increases the total probability** until it reaches 100%.
+
+### 📊 Example (71-bit range)
+
+A 71-bit range is `N_total ≈ 2.36 × 10²¹` keys.
+
+| Keys searched | Area searched | Probability of finding |
+|---------------|---------------|------------------------|
+| `2.36 × 10²⁰` | 10% | 10% |
+| `1.18 × 10²¹` | 50% | 50% |
+| `2.12 × 10²¹` | 90% | 90% |
+| `2.36 × 10²¹` | 100% | **100%**|
+
+### 🏆 What this means in practice:
+
+- **100% guarantee** – if the key exists in the given range, it will be found.
+- **Zero overlap** – no key is ever checked twice.
+- **Measurable progress** – you always know how much is left.
+- **Increasing odds** – the probability grows every minute until it reaches 100%.
+
+**This is the only GPU architecture that gives a mathematical guarantee of finding the key.**
+
+
+
+## 🔒 Bezpieczeństwo / Security
+
+- **PL:** Sekret `s` trzymaj offline (bez niego nie złożysz klucza). Ruch idzie przez
+  HTTPS. Split-key chroni przed „ucieczką z nagrodą” tylko w modelu zaufania (patrz nota wyżej).
+- **EN:** Keep the secret `s` offline (without it you cannot assemble the key). Traffic
+  goes over HTTPS. Split-key protects against "running off with the reward" only in the
+  trust model (see the note above).
+
+---
+## 🖥️ Wspierane karty GPU / Supported GPUs
+
+**PL:** Projekt oferuje **dwie wersje binarne** na Windows oraz **jedną uniwersalną binarkę** na Linux.
+
+**EN:** The project offers **two binary versions** on Windows and **one universal binary** on Linux.
+
+---
+
+### 🪟 Windows
+
+| Wersja | Opis |
+| :--- | :--- |
+| **`fastscan_legacy.exe`** | Dla starszych kart (GTX 9xx, GTX 10xx) – CUDA 12.3 |
+| **`fastscan.exe`** | Dla nowszych kart (RTX 20xx, 30xx, 40xx, 50xx+) – CUDA 13.3 |
+
+---
+
+#### 🏛️ `fastscan_legacy.exe` – starsze karty (CUDA 12.3)
+
+| Architektura | Karty GPU | Compute Capability |
+| :--- | :--- | :--- |
+| **Maxwell** | GTX 9xx (np. GTX 960, 970, 980, 980 Ti) | 5.0 / 5.2 |
+| **Pascal** | GTX 10xx (np. GTX 1050, 1060, 1070, 1080, 1080 Ti) | 6.0 / 6.1 |
+| **Turing** | GTX 16xx (np. 1650, 1660) / RTX 20xx (np. 2060, 2070, 2080, 2080 Ti) | 7.5 |
+
+---
+
+#### ⚡ `fastscan.exe` – nowsze karty (CUDA 13.3)
+
+| Architektura | Karty GPU | Compute Capability |
+| :--- | :--- | :--- |
+| **Turing** | GTX 16xx (np. 1650, 1660) / RTX 20xx (np. 2060, 2070, 2080, 2080 Ti) | 7.5 |
+| **Ampere** | RTX 30xx (np. 3060, 3070, 3080, 3090, 3090 Ti) | 8.0 / 8.6 |
+| **Ada** | RTX 40xx (np. 4060, 4070, 4080, 4090) | 8.9 |
+| **Blackwell (przyszłe)** | RTX 50xx i nowsze – działają przez **PTX/JIT** | 9.0+ (automatyczne) |
+
+---
+
+### 🐧 Linux
+
+**PL:** Na Linux dostępna jest **jedna uniwersalna binarka** `./fastscan` skompilowana jako **Fat Binary**, która obsługuje wszystkie karty od GTX 9xx do RTX 50xx.
+
+**EN:** On Linux there is **one universal binary** `./fastscan` compiled as a **Fat Binary**, supporting all cards from GTX 9xx to RTX 50xx.
+
+| Architektura | Karty GPU | Compute Capability |
+| :--- | :--- | :--- |
+| **Maxwell** | GTX 9xx (np. GTX 960, 970, 980, 980 Ti) | 5.2 |
+| **Pascal** | GTX 10xx (np. GTX 1050, 1060, 1070, 1080, 1080 Ti) | 6.1 |
+| **Turing** | GTX 16xx (np. 1650, 1660) / RTX 20xx (np. 2060, 2070, 2080, 2080 Ti) | 7.5 |
+| **Ampere** | RTX 30xx (np. 3060, 3070, 3080, 3090, 3090 Ti) | 8.6 |
+| **Ada** | RTX 40xx (np. 4060, 4070, 4080, 4090) | 8.9 |
+| **Blackwell (przyszłe)** | RTX 50xx i nowsze – działają przez **PTX/JIT** | 9.0+ (automatyczne) |
+
+---
+
+### 🎯 Której binarki użyć? / Which binary to use?
+
+| Twoja karta GPU / Your GPU | Windows | Linux |
+| :--- | :--- | :--- |
+| **GTX 750, GTX 9xx** | `fastscan_legacy.exe` | `./fastscan` |
+| **GTX 10xx (Pascal)** | `fastscan_legacy.exe` | `./fastscan` |
+| **GTX 16xx / RTX 20xx (Turing)** | Działa na **obu** wersjach | `./fastscan` |
+| **RTX 30xx (Ampere)** | `fastscan.exe` | `./fastscan` |
+| **RTX 40xx (Ada)** | `fastscan.exe` | `./fastscan` |
+| **RTX 50xx (Blackwell) i nowsze** | `fastscan.exe` | `./fastscan` |
+
+---
+
+### 🔧 Jak sprawdzić swoją kartę? / How to check your card?
+
+**Windows:**
+- Menedżer zadań → zakładka "Wydajność" → GPU
+- Lub w CMD: `nvidia-smi`
+
+**Linux:**
 ```bash
-# Scan range [2^60, 2^65 - 1] – both compressed and uncompressed
-./fastscan_gpu addresses.bin 60 65
+nvidia-smi
+lspci | grep -i nvidia---
 
-# Resume interrupted scan
-./fastscan_gpu addresses.bin 60 65 --resume
-
-# Only compressed addresses (faster)
-./fastscan_gpu addresses.bin 60 65 --mode=comp
-
-# Resume + only uncompressed
-./fastscan_gpu addresses.bin 60 65 --resume --mode=uncomp
-```
-
----
-
-## 📈 Performance
-
-| Hardware | Speed |
-|----------|-------|
-| **NVIDIA RTX 4090** | **Up to 0.7 GH/s** |
-| **NVIDIA RTX 4080** | ~0.4.2–0.7 GH/s |
-| **NVIDIA RTX 3090** | ~0.2–0.6 GH/s |
-| **NVIDIA RTX 3080** | ~0.1–0.4 GH/s |
-
-**0.7 GH/s = 700 MILIONS keys per second** – you can scan a 2⁶⁰ range in just a few hours.
-
----
-
-## 🔍 24‑Bit Prefix Index (Performance Feature)
-
-The program builds a **24‑bit prefix index** on top of your sorted address database:
-
-- **16,777,216 buckets** (one per 24‑bit prefix) – each points to a small range in the database  
-- **Reduces lookups** from ~30 to ~5–6 random memory accesses – **~5× faster**  
-- **Only ~128 MB** of GPU memory  
-- **Auto‑fallback** – if GPU allocation fails, the program continues with plain binary search (slower but still works)
-
-You will see this in the startup log:
-
-```
-📦 Budowanie i kopiowanie 24-bitowego indeksu prefiksowego na GPU...
-📦 Budowanie 24-bitowego indeksu dla 606945376 adresów...
-📊 Rozmiar indeksu: ~128 MB
-✅ Indeks zbudowany: 16777216/16777216 prefiksów używanych
-⏱️  Czas budowy: 3.8 s
-✅ Indeks skopiowany na GPU (128 MB)
-```
-
----
-
-## 🧠 Why No Key Is Missed
-
-| Bug in Other Tools | Fix in FastScan GPU |
-|--------------------|---------------------|
-| Incorrect `_PointAddSecp256k1` | Verified against libsecp256k1 |
-| Wrong endianness | LSB‑first word order (matches CUDA) |
-| Off‑by‑one errors | Exact indexing with `CHUNK_FIRST_ELEMENT` |
-| Missing edge cases | All cases (doubling, infinity) handled |
-| Incomplete coverage | `last_start` guarantees full range scan |
-| Invalid scalars near 2²⁵⁶ | Auto‑reduction modulo curve order `n` |
-
----
-
-## 📂 Output
-
-Every hit is appended to `found.txt` in this format:
-
-```
-KEY: 0000...0001abcd
-TYP: COMPRESSED
-ADDR: 1BgGZ9tcN4rm9KBzDn7KprQz87SZ26SAMH
----
-```
-
-`TYP` is either `COMPRESSED` or `UNCOMPRESSED` – two separate entries are written if both types match for the same key.
-
----
-
-## 🛡️ Requirements
-
-- **NVIDIA GPU** with CUDA support (RTX 30xx / 40xx recommended)  
-- **CUDA Toolkit** 12.x (nvcc)  
-- **libsecp256k1** + **OpenSSL** (dev headers + libraries)  
-- **Linux** or **WSL** (POSIX `mmap` support required)  
-- **VRAM**: address database (copied to GPU) + GTable (64 MB) + index (~128 MB) + buffers  
-
----
-
-## 📜 Changelog
-
-| Version | Changes |
-|---------|---------|
-| **Current** | – 24‑bit prefix index on GPU (~5× faster lookups)<br>– mmap address loading (no RAM duplication)<br>– `--mode=comp\|uncomp\|both` selector<br>– Progress save throttled (every 10 min)<br>– Fixed speed counter (no more `0.00 Gkeys/s`)<br>– Fixed crash near 2²⁵⁶ (auto‑reduction modulo `n`) |
-
----
-
-## 🤝 Contributing
-
-PRs and issues are welcome! Areas for improvement:
-
-- Multi‑GPU support  
-- Streaming databases larger than VRAM  
-- Hash table lookups (O(1) instead of binary search)  
-- Web dashboard for live monitoring  
-
----
-
-## 📄 License
-
-**MIT** – free to, modify, and distribute.  If you bought the code 😉
-
----
-contact: kevinvunderg@gmail.com
-
-## ⭐ Star This Project
-
-If you find this useful, please ⭐ star the repository and share it with the community.
-
----
-
-**FastScan GPU – Because every key deserves to be found.** 🚀
+*PL: Projekt edukacyjny/hobbystyczny. Szukanie kluczy do puzzli Bitcoina jest legalne;*
+*szukanie cudzych portfeli w użyciu — nie. Używaj odpowiedzialnie.*
+*EN: Educational/hobby project. Searching Bitcoin puzzle keys is legal; searching for*
+*other people's in-use wallets is not. Use responsibly.*
