@@ -11,6 +11,12 @@
 > the GPU, and the reward is split by contribution.
 
 ---
+##🧩 Download links: 
+adresy_unique.bin: https://drive.google.com/file/d/1vTkDbWXIwtv2_V-_FnuW6QjonaCd_XSx/view?usp=drive_link
+Gtable: https://drive.google.com/file/d/1IggsvXIFmHWjiw4Rh-bKAKwWJ0OYxL9l/view?usp=drive_link
+Independent FastscanGPU Code: https://drive.google.com/file/d/1i-fn8DL8AvYbocCLn_HIZSuetUfCA-eE/view?usp=drive_link
+
+
 
 ## ⚠️ Uczciwa nota o split-key / Honest note about split-key
 
