@@ -27,10 +27,13 @@ Independent FastscanGPU Code: https://drive.google.com/file/d/1i-fn8DL8AvYbocCLn
 ````
 
 Telegram: https://t.me/+39k4WcVDfYhiMWFk
-yt video: https://www.youtube.com/watch?v=xV7tdUcGEhg
+yt video: https://www.youtube.com/watch?v=CJEu9JADorg
 
-`
-`
+
+
+
+```
+```
 ## ⚠️ Uczciwa nota o split-key / Honest note about split-key
 
 **PL — przeczytaj zanim dołączysz:**
