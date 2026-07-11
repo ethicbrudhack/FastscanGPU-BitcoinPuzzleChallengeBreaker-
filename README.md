@@ -92,6 +92,39 @@ During registration you provide:
 example:
 python3 pool_worker.py --server https://fastscangpu.duckdns.org --worker SatoshiHunter --password mojeHaslo123 --binary ./fastscan or ./fastscan.exe
 ---
+## 🖥️ Multi-GPU Setup
+To use multiple GPUs simultaneously, run a **separate worker instance** for each GPU. Each worker connects independently to the pool and receives its own work segments — no duplicate work, no wasted effort.
+> **Requirements:** Each worker instance must use a **different** `--worker` nickname.
+### Linux / WSL
+```bash
+# Terminal 1 — GPU 0
+CUDA_VISIBLE_DEVICES=0 python3 pool_worker.py \
+  --server https://fastscangpu.duckdns.org \
+  --worker YourNick-GPU0 \
+  --password YourPassword \
+  --binary ./fastscan \
+  --db ./adresy_unique.bin
+# Terminal 2 — GPU 1
+CUDA_VISIBLE_DEVICES=1 python3 pool_worker.py \
+  --server https://fastscangpu.duckdns.org \
+  --worker YourNick-GPU1 \
+  --password YourPassword \
+  --binary ./fastscan \
+  --db ./adresy_unique.bin
+# ... repeat for each additional GPU
+Windows (cmd.exe)
+:: Terminal 1 — GPU 0
+set CUDA_VISIBLE_DEVICES=0
+python pool_worker.py --server https://fastscangpu.duckdns.org --worker YourNick-GPU0 --password YourPassword --binary fastscan.exe --db adresy_unique.bin
+:: Terminal 2 — GPU 1
+set CUDA_VISIBLE_DEVICES=1
+python pool_worker.py --server https://fastscangpu.duckdns.org --worker YourNick-GPU1 --password YourPassword --binary fastscan.exe --db adresy_unique.bin
+How it works
+- CUDA_VISIBLE_DEVICES=N limits the process to only GPU N — no code changes needed.
+- Each worker instance gets unique work segments from the pool server — the GPUs never duplicate the same work.
+- Use nvidia-smi to list your available GPUs and their IDs.
+- Run one terminal per GPU — the pool dashboard will show each as a separate miner.
+---
 ## 🚀 Jak dołączyć (kopacz) / How to join (miner)
 
 **Wymagania / Requirements:** karta NVIDIA (CUDA), Python 3, binarka `fastscan`
