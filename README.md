@@ -92,6 +92,8 @@ During registration you provide:
 example:
 python3 pool_worker.py --server https://fastscangpu.duckdns.org --worker SatoshiHunter --password mojeHaslo123 --binary ./fastscan or ./fastscan.exe
 ---
+---
+---
 ## 🖥️ Multi-GPU Setup
 To use multiple GPUs simultaneously, run a **separate worker instance** for each GPU. Each worker connects independently to the pool and receives its own work segments — no duplicate work, no wasted effort.
 > **Requirements:** Each worker instance must use a **different** `--worker` nickname.
@@ -124,6 +126,28 @@ How it works
 - Each worker instance gets unique work segments from the pool server — the GPUs never duplicate the same work.
 - Use nvidia-smi to list your available GPUs and their IDs.
 - Run one terminal per GPU — the pool dashboard will show each as a separate miner.
+---
+---
+---
+🚀 253-256 bit Server — How to join
+python3 pool_worker.py \
+  --server http://91.98.41.38:8082 \
+  --worker YourNick \
+  --password YourPassword \
+  --binary ./fastscan \
+  --db ./adresy_unique.bin
+Windows:
+python pool_worker.py --server http://91.98.41.38:8082 --worker YourNick --password YourPassword --binary fastscan.exe --db adresy_unique.bin
+---
+⚠️ IMPORTANT WARNINGS
+> This server is still in early testing phase. Not fully optimized yet.
+- Speed: Expect 0.1–0.5 Gkeys/s on RTX 4090 (vs 3–5 Gkeys/s on Puzzle #71). The 256-bit range + both mode (compressed + uncompressed) is significantly heavier.
+- Bloom filter build: First launch takes ~20–30 seconds to build the 1 GB bloom filter (OpenMP parallel, single-thread otherwise ~160s).
+- VRAM: Requires ~13 GB VRAM (11 GB address database + 1 GB bloom + 128 MB index + 64 MB GTable). Cards with <12 GB VRAM will not work.
+- Delays: Round transitions may cause brief pauses as the GPU reinitializes.
+> RECOMMENDATION: For now, mine on Puzzle #71 (port 8080 / https://fastscangpu.duckdns.org) — it's fully optimized, stable, and yields 3–5 Gkeys/s.
+---
+---
 ---
 ## 🚀 Jak dołączyć (kopacz) / How to join (miner)
 
