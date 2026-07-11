@@ -139,14 +139,6 @@ python3 pool_worker.py \
 Windows:
 python pool_worker.py --server http://91.98.41.38:8082 --worker YourNick --password YourPassword --binary fastscan.exe --db adresy_unique.bin
 ---
-⚠️ IMPORTANT WARNINGS
-> This server is still in early testing phase. Not fully optimized yet.
-- Speed: Expect 0.1–0.5 Gkeys/s on RTX 4090 (vs 3–5 Gkeys/s on Puzzle #71). The 256-bit range + both mode (compressed + uncompressed) is significantly heavier.
-- Bloom filter build: First launch takes ~20–30 seconds to build the 1 GB bloom filter (OpenMP parallel, single-thread otherwise ~160s).
-- VRAM: Requires ~13 GB VRAM (11 GB address database + 1 GB bloom + 128 MB index + 64 MB GTable). Cards with <12 GB VRAM will not work.
-- Delays: Round transitions may cause brief pauses as the GPU reinitializes.
-> RECOMMENDATION: For now, mine on Puzzle #71 (port 8080 / https://fastscangpu.duckdns.org) — it's fully optimized, stable, and yields 3–5 Gkeys/s.
----
 ---
 ---
 ## 🚀 Jak dołączyć (kopacz) / How to join (miner)
