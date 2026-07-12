@@ -27,6 +27,7 @@
   </tr>
 </table>
 > > 
+````
 >READ BEFORE RUNNING!!: ⚠⚠⚠If anyone has the following problem!: the scanner scans much faster than it should! then you probably didn't include all the files in the folder you're running from!! VERY IMPORTANT, THEN IT WILL NOT SCAN ANY KEY!⚠⚠⚠
 > >
 > > 
