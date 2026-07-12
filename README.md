@@ -35,22 +35,102 @@ website: https://fastscangpu.duckdns.org/
 Telegram: https://t.me/+39k4WcVDfYhiMWFk
 
 
-yt video: https://www.youtube.com/watch?v=CJEu9JADorg
 
 
 ````
 
 ```
-```
-## ⚠️ Uczciwa nota o split-key / Honest note about split-key
+╔══════════════════════════════════════════════════════════════════╗
+║                    POOL RULES & TERMS OF SERVICE               ║
+╚══════════════════════════════════════════════════════════════════╝
 
-**PL — przeczytaj zanim dołączysz:**
-- Ten pool używa **split-key**. Worker znajduje tylko **połowę klucza** (`share d`).
-  Pełny klucz składa **operator poola**, który zna sekret `s`.
-- **To NIE jest kryptograficzna gwarancja podziału nagrody.** W chwili trafienia
-- W praktyce oznacza to, że **podział nagrody opiera się na ZAUFANIU do operatora**
-  (tak samo jak w innych poolach typu „kto znajdzie, ma klucz”).
-- Dołączając, akceptujesz ten model świadomie.
+1. GENERAL
+   • This pool is a community-driven project for GPU-based Bitcoin
+     puzzle solving and wallet hunting.
+   • Participation is voluntary and open to anyone with a compatible
+     NVIDIA GPU and basic technical knowledge.
+   • By joining and running a worker, you automatically agree to
+     these terms.
+
+2. REWARD SPLIT (UPDATED)
+   The reward for each found key is distributed as follows:
+
+   ┌─────────────┬────────────────────────────────────────────────┐
+   │   40%       │ Finder – bonus for finding the key            │
+   ├─────────────┼────────────────────────────────────────────────┤
+   │   55%       │ All active miners (including the finder) –    │
+   │             │ proportionally to their contribution (Share)  │
+   │             │ in the current round                         │
+   ├─────────────┼────────────────────────────────────────────────┤
+   │   5%        │ Operator – for server maintenance and         │
+   │             │ development                                   │
+   └─────────────┴────────────────────────────────────────────────┘
+
+   IMPORTANT: The 55% pool is NOT exclusive to "other" miners.
+   The finder is fully included and receives their fair share
+   based on their contribution. This ensures that no one is
+   penalized for finding the key.
+
+3. FAIRNESS & TRUST
+   • The pool uses a split-key mechanism (share d). The full
+     private key is assembled by the operator.
+   • This system relies on trust in the operator. By joining,
+     you accept this model knowingly.
+   • The operator does not have access to your private keys or
+     wallet funds.
+
+4. WORKER RULES
+   • Each worker must be registered on the official website:
+     https://fastscangpu.duckdns.org
+   • Workers must use their registered nickname and password.
+   • Each GPU should run as a separate worker instance with a
+     unique name (e.g., YourNick-GPU0).
+   • Workers that do not send /done for more than 30 minutes
+     will have their segments marked as PENDING and reassigned.
+
+5. FAIR PLAY
+   • Any attempt to cheat, spam, or exploit the system will
+     result in a permanent ban.
+   • Sharing someone else's worker credentials is forbidden.
+   • The operator reserves the right to ban any participant who
+     violates these rules.
+
+6. PAYOUTS
+   • Rewards are paid in Bitcoin (BTC) to the address provided
+     during registration.
+   • Payouts are processed manually after each key is found and
+     confirmed.
+   • The operator is not responsible for losses due to incorrect
+     wallet addresses or network fees.
+
+7. NETWORK & DOWNTIME
+   • The pool operates on a best-effort basis. Occasional
+     downtime may occur due to maintenance or updates.
+   • Workers are designed to retry failed requests automatically.
+     No work is lost.
+
+8. PRIVACY
+   • Your nickname and Bitcoin address are visible on the
+     leaderboard.
+   • Your password is stored securely as a hashed value and is
+     never shared or exposed.
+
+9. CHANGES TO RULES
+   • The operator reserves the right to update these rules at any
+     time.
+   • Major changes will be announced on this Telegram group.
+
+10. CONTACT
+    • For support, questions, or bug reports, please use this
+      Telegram group or contact the operator directly.
+
+════════════════════════════════════════════════════════════════════
+
+By running a worker, you acknowledge that you have read,
+understood, and agree to these terms.
+
+## ⚠️ Honest note about split-key
+
 
 **EN — read before joining:**
 - This pool uses **split-key**. A worker only finds **half of the key** (`share d`).
@@ -62,343 +142,459 @@ yt video: https://www.youtube.com/watch?v=CJEu9JADorg
 
 ---
 
-## 💰 Podział nagrody / Reward split
+╔══════════════════════════════════════════════════════════════════╗
+║                    REWARD SPLIT (UPDATED)                      ║
+╚══════════════════════════════════════════════════════════════════╝
 
-| Procent | Kto dostaje (PL) | Who gets it (EN) |
-|---------|------------------|------------------|
-| **40%** | **Znalazca** – bonus za znalezienie klucza | **Finder** – bonus for finding the key |
-| **55%** | **Wszyscy aktywni górnicy** (włącznie ze znalazcą) – proporcjonalnie do ich wkładu (Share) | **All active miners** (including the finder) – proportionally to their contribution (Share) |
-| **5%** | **Operator** – utrzymanie serwera | **Operator** – server maintenance |
-EN:
-The reward system works as follows:
+┌─────────────┬────────────────────────────────────────────────────┐
+│   40%       │ Finder – bonus for finding the key                │
+├─────────────┼────────────────────────────────────────────────────┤
+│   55%       │ All active miners (including the finder) –        │
+│             │ proportionally to their contribution (Share)      │
+├─────────────┼────────────────────────────────────────────────────┤
+│   5%        │ Operator – server maintenance and development     │
+└─────────────┴────────────────────────────────────────────────────┘
 
-40% – goes to the person who physically found the key. This is a bonus for the find itself – regardless of how much work they contributed to the pool.
+════════════════════════════════════════════════════════════════════
 
-55% – goes to all active miners who participated in mining during this round.
+EXPLANATION:
 
-This includes the finder as well – if the finder has, for example, 90% of the total pool share, they will also receive 90% of this 55%.
+• 40% – goes to the person who physically found the key.
+  This is a bonus for the find itself – regardless of how much
+  work they contributed to the pool.
 
-This makes the system fair – no one loses their reward for finding the key, and contribution is always rewarded.
+• 55% – goes to ALL ACTIVE MINERS who participated in mining
+  during this round.
 
-5% – goes to the operator (the person maintaining the server, paying for hosting, developing the code, etc.).
+  THIS INCLUDES THE FINDER AS WELL.
+  If the finder has, for example, 90% of the total pool share,
+  they will also receive 90% of this 55%.
+
+  This makes the system FAIR – no one loses their reward for
+  finding the key, and contribution is always rewarded.
+
+• 5% – goes to the operator (the person maintaining the server,
+  paying for hosting, developing the code, etc.).
+
+════════════════════════════════════════════════════════════════════
 
 
----
-### 🔐 Rejestracja / Registration
+╔══════════════════════════════════════════════════════════════════╗
+║                    REGISTRATION & SETUP                        ║
+╚══════════════════════════════════════════════════════════════════╝
 
-**PL:** Zanim uruchomisz workera, musisz **zarejestrować się na stronie**:
-👉 **https://fastscangpu.duckdns.org/**
+🔐 REGISTRATION
 
-Podczas rejestracji podajesz:
-- **Nick** – wyświetlany w rankingu,
-- **Adres Bitcoin** – na który trafi nagroda (NIE MOŻNA GO PÓŹNIEJ ZMIENIĆ!),
-- **Hasło** – używane do logowania na stronie i do uruchomienia workera.
-
-**EN:** Before you run the worker, you must **register on the website**:
-👉 **https://fastscangpu.duckdns.org/**
+Before you run the worker, you MUST register on the website:
+👉 https://fastscangpu.duckdns.org/
 
 During registration you provide:
-- **Nick** – displayed in the leaderboard,
-- **Bitcoin address** – where the reward will be sent (CANNOT BE CHANGED LATER!),
-- **Password** – used to log in to the website and to run the worker.
----
-example:
-python3 pool_worker.py --server https://fastscangpu.duckdns.org --worker SatoshiHunter --password mojeHaslo123 --binary ./fastscan or ./fastscan.exe
----
----
----
-## 🖥️ Multi-GPU Setup
-To use multiple GPUs simultaneously, run a **separate worker instance** for each GPU. Each worker connects independently to the pool and receives its own work segments — no duplicate work, no wasted effort.
-> **Requirements:** Each worker instance must use a **different** `--worker` nickname.
-### Linux / WSL
-```bash
-# Terminal 1 — GPU 0
+  • Nick – displayed in the leaderboard
+  • Bitcoin address – where the reward will be sent
+    (CANNOT BE CHANGED LATER!)
+  • Password – used to log in to the website and to run the worker
+
+────────────────────────────────────────────────────────────────────
+
+📌 EXAMPLE COMMAND
+
+python3 pool_worker.py \
+  --server https://fastscangpu.duckdns.org \
+  --worker SatoshiHunter \
+  --password YourPassword \
+  --binary ./fastscan
+
+(Use ./fastscan on Linux or fastscan.exe on Windows)
+
+────────────────────────────────────────────────────────────────────
+
+🖥️ MULTI-GPU SETUP
+
+To use multiple GPUs simultaneously, run a SEPARATE worker instance
+for each GPU. Each worker connects independently and receives its
+own unique work segments — no duplicate work, no wasted effort.
+
+REQUIREMENTS:
+  • Each worker instance must use a DIFFERENT --worker nickname
+  • Example: YourNick-GPU0, YourNick-GPU1, YourNick-GPU2, etc.
+
+────────────────────────────────────────────────────────────────────
+
+🐧 LINUX / WSL
+
+# Terminal 1 – GPU 0
 CUDA_VISIBLE_DEVICES=0 python3 pool_worker.py \
   --server https://fastscangpu.duckdns.org \
   --worker YourNick-GPU0 \
   --password YourPassword \
   --binary ./fastscan \
   --db ./adresy_unique.bin
-# Terminal 2 — GPU 1
+
+# Terminal 2 – GPU 1
 CUDA_VISIBLE_DEVICES=1 python3 pool_worker.py \
   --server https://fastscangpu.duckdns.org \
   --worker YourNick-GPU1 \
   --password YourPassword \
   --binary ./fastscan \
   --db ./adresy_unique.bin
+
 # ... repeat for each additional GPU
-Windows (cmd.exe)
-:: Terminal 1 — GPU 0
+
+────────────────────────────────────────────────────────────────────
+
+🪟 WINDOWS (cmd.exe)
+
+:: Terminal 1 – GPU 0
 set CUDA_VISIBLE_DEVICES=0
 python pool_worker.py --server https://fastscangpu.duckdns.org --worker YourNick-GPU0 --password YourPassword --binary fastscan.exe --db adresy_unique.bin
-:: Terminal 2 — GPU 1
+
+:: Terminal 2 – GPU 1
 set CUDA_VISIBLE_DEVICES=1
 python pool_worker.py --server https://fastscangpu.duckdns.org --worker YourNick-GPU1 --password YourPassword --binary fastscan.exe --db adresy_unique.bin
-How it works
-- CUDA_VISIBLE_DEVICES=N limits the process to only GPU N — no code changes needed.
-- Each worker instance gets unique work segments from the pool server — the GPUs never duplicate the same work.
-- Use nvidia-smi to list your available GPUs and their IDs.
-- Run one terminal per GPU — the pool dashboard will show each as a separate miner.
----
----
----
-🚀 253-256 bit Server — How to join
+
+────────────────────────────────────────────────────────────────────
+
+⚙️ HOW IT WORKS
+
+  • CUDA_VISIBLE_DEVICES=N limits the process to only GPU N
+    — no code changes needed.
+  • Each worker instance gets unique work segments from the pool
+    server — the GPUs never duplicate the same work.
+  • Use nvidia-smi to list your available GPUs and their IDs.
+  • Run one terminal per GPU — the pool dashboard will show each
+    as a separate miner.
+
+────────────────────────────────────────────────────────────────────
+
+🚀 253-256 BIT SERVER – HOW TO JOIN
+
+LINUX:
 python3 pool_worker.py \
   --server http://91.98.41.38:8082 \
   --worker YourNick \
   --password YourPassword \
   --binary ./fastscan \
   --db ./adresy_unique.bin
-Windows:
-python pool_worker.py --server http://91.98.41.38:8082 --worker YourNick --password YourPassword --binary fastscan.exe --db adresy_unique.bin
----
----
----
-## 🚀 Jak dołączyć (kopacz) / How to join (miner)
 
-**Wymagania / Requirements:** karta NVIDIA (CUDA), Python 3, binarka `fastscan`
-i pliki `gtableX.bin`, `gtableY.bin` w tym samym katalogu.
+WINDOWS:
+python pool_worker.py \
+  --server http://91.98.41.38:8082 \
+  --worker YourNick \
+  --password YourPassword \
+  --binary fastscan.exe \
+  --db ./adresy_unique.bin
 
-```bash
-# PL: Linux / EN: Linux
+════════════════════════════════════════════════════════════════════
+---
+---
+╔══════════════════════════════════════════════════════════════════╗
+║                    HOW TO JOIN (MINER)                         ║
+╚══════════════════════════════════════════════════════════════════╝
+
+REQUIREMENTS:
+  • NVIDIA GPU with CUDA support
+  • Python 3
+  • fastscan binary
+  • gtableX.bin and gtableY.bin in the same directory
+
+────────────────────────────────────────────────────────────────────
+
+🐧 LINUX
+
 python3 pool_worker.py \
   --server https://fastscangpu.duckdns.org \
-  --worker TWOJ_NICK \
+  --worker YOUR_NICK \
+  --password YOUR_PASSWORD \
   --binary ./fastscan
-  --password TWOJE_HASLO
-# PL: Windows (cmd/PowerShell) / EN: Windows (cmd/PowerShell)
+
+────────────────────────────────────────────────────────────────────
+
+🪟 WINDOWS (cmd / PowerShell)
+
 python pool_worker.py \
   --server https://fastscangpu.duckdns.org \
-  --worker TWOJ_NICK \
-  --password YOUR_PASSWORD
+  --worker YOUR_NICK \
+  --password YOUR_PASSWORD \
   --binary fastscan.exe
-```
-example : python3 pool_worker.py --server https://fastscangpu.duckdns.org --worker SatoshiHunter --password mojeHaslo123 --binary ./fastscan or ./fastscan.exe
 
-- Serwer sam mówi workerowi **co** i **w jakim zakresie** skanować (tryb wybiera operator).
-- W trybie **wallets** dodaj lokalną bazę adresów: `--db adresy_unique.bin`.
-- Worker **sam** wysyła znaleziony `share` na serwer. Znaleziska są zapisywane
-  lokalnie (trwale) i ponawiane, więc **nie przepadną przy awarii sieci**.
+────────────────────────────────────────────────────────────────────
 
-- The server tells the worker **what** to scan and **within what range** (the mode is selected by the operator).
-- In **wallets** mode, add the local address database: `--db adresy_unique.bin`.
-- The worker **automatically** sends any found `share` to the server. Findings are saved
-  locally (persistently) and retried, so **they will not be lost in the event of a network failure**.
+📌 EXAMPLE
 
-## 🖥️ Uruchomienie serwera (operator) / Run the server (operator)
+python3 pool_worker.py \
+  --server https://fastscangpu.duckdns.org \
+  --worker SatoshiHunter \
+  --password YourPassword123 \
+  --binary ./fastscan
 
-```bash
-# PL: tryb puzzle (jeden adres) / EN: puzzle mode (single address)
+(Use ./fastscan on Linux or fastscan.exe on Windows)
+
+────────────────────────────────────────────────────────────────────
+
+⚙️ HOW IT WORKS
+
+  • The server tells the worker WHAT to scan and within WHAT RANGE
+    (the mode is selected by the operator).
+  • In WALLETS mode, add the local address database:
+    --db adresy_unique.bin
+  • The worker AUTOMATICALLY sends any found share to the server.
+  • Findings are saved locally (persistently) and retried,
+    so they WILL NOT BE LOST in the event of a network failure.
+
+────────────────────────────────────────────────────────────────────
+
+🖥️ RUN THE SERVER (OPERATOR ONLY)
+
+🔹 PUZZLE MODE (single address):
+
 python3 pool_server.py init --mode puzzle \
-  --address 1PWo3JeB9jrGwfHDNpdGK54CRas7fsVzXU --start-bit 70 --end-bit 71
-# !!! ZAPISZ wypisany SECRET s / SAVE the printed SECRET s !!!
+  --address 1PWo3JeB9jrGwfHDNpdGK54CRas7fsVzXU \
+  --start-bit 70 --end-bit 71
 
-# PL: tryb wallets (baza .bin, domyslnie comp+uncomp) / EN: wallets mode (.bin DB, default comp+uncomp)
+⚠️ SAVE the printed SECRET s !!!
+
+🔹 WALLETS MODE (.bin database, default comp+uncomp):
+
 python3 pool_server.py init --mode wallets \
-  --db adresy_unique.bin --start-bit 253 --end-bit 256
+  --db adresy_unique.bin \
+  --start-bit 253 --end-bit 256
 
-
-
----
-
-## 🧩 Jak to działa / How it works
-
-1. **PL:** Operator losuje sekret `s` 
-   **EN:** The operator draws a secret `s` 
-2. **PL:** Worker skanuje przydzielony zakres hash160 z celem. **EN:** The worker scans its assigned range
-   and comparing hash160 against the target.
-3. **PL:** Trafienie → worker zna tylko `d` (pół-klucz), wysyła go na serwer.
-   **EN:** On a hit → the worker knows only `d` (half-key) and sends it to the server.
-4. **PL:** Serwer składa pełny klucz i weryfikuje adres.
-   **EN:** The server assembles the full key and verifies the address.
+════════════════════════════════════════════════════════════════════
 
 ---
 
-## 📂 Pliki / Files
+╔══════════════════════════════════════════════════════════════════╗
+║                    HOW IT WORKS & FILES                        ║
+╚══════════════════════════════════════════════════════════════════╝
 
-| Plik / File | Opis (PL) | Description (EN) |
-| :--- | :--- | :--- |
-| `fastscan` (Linux) | Uniwersalna binarka GPU na Linux (wszystkie karty) | Universal GPU binary for Linux (all cards) |
-| `fastscan.exe` (Windows) | Binarka GPU dla nowszych kart (RTX 20xx, 30xx, 40xx, 50xx+) | GPU binary for newer cards (RTX 20xx, 30xx, 40xx, 50xx+) |
-| `fastscan_legacy.exe` (Windows) | Binarka GPU dla starszych kart (GTX 9xx, GTX 10xx) | GPU binary for older cards (GTX 9xx, GTX 10xx) |
-| `libcrypto-3-x64.dll` (Windows) | Biblioteka OpenSSL (kryptografia) | OpenSSL library (cryptography) |
-| `libssl-3-x64.dll` (Windows) | Biblioteka OpenSSL (TLS/SSL) | OpenSSL library (TLS/SSL) |
-| `libsecp256k1.dll` (Windows) | Biblioteka krzywej eliptycznej Bitcoin | Bitcoin elliptic curve library |
-| `mman.dll` (Windows) | Implementacja mmap dla Windows | mmap implementation for Windows |
-| `gtableX.bin` | Tablice matematyczne (punkt G) – wymagane | Mathematical tables (point G) – required |
-| `gtableY.bin` | Tablice matematyczne (punkt G) – wymagane | Mathematical tables (point G) – required |
-| `gtable_compX.bin` | Tablice dla skompresowanych adresów | Tables for compressed addresses |
-| `gtable_compY.bin` | Tablice dla skompresowanych adresów | Tables for compressed addresses |
-| `pool_worker.py` | Python koordynator (łączy z serwerem) | Python coordinator (connects to server) |
+🔧 HOW IT WORKS
+
+  1. The operator draws a secret s
+
+  2. The worker scans its assigned hash160 range and compares
+     it against the target.
+
+  3. On a hit → the worker knows only d (half-key) and sends it
+     to the server.
+
+  4. The server assembles the full key and verifies the address.
+
+────────────────────────────────────────────────────────────────────
+
+📂 REQUIRED FILES
+
+┌─────────────────────────┬──────────────────────────────────────┐
+│ File                    │ Description                         │
+├─────────────────────────┼──────────────────────────────────────┤
+│ fastscan (Linux)        │ Universal GPU binary for Linux      │
+│                         │ (all cards)                         │
+├─────────────────────────┼──────────────────────────────────────┤
+│ fastscan.exe (Windows)  │ GPU binary for newer cards          │
+│                         │ (RTX 20xx, 30xx, 40xx, 50xx+)      │
+├─────────────────────────┼──────────────────────────────────────┤
+│ fastscan_legacy.exe     │ GPU binary for older cards          │
+│ (Windows)               │ (GTX 9xx, GTX 10xx)                 │
+├─────────────────────────┼──────────────────────────────────────┤
+│ libcrypto-3-x64.dll     │ OpenSSL library (cryptography)      │
+│ (Windows)               │                                      │
+├─────────────────────────┼──────────────────────────────────────┤
+│ libssl-3-x64.dll        │ OpenSSL library (TLS/SSL)           │
+│ (Windows)               │                                      │
+├─────────────────────────┼──────────────────────────────────────┤
+│ libsecp256k1.dll        │ Bitcoin elliptic curve library      │
+│ (Windows)               │                                      │
+├─────────────────────────┼──────────────────────────────────────┤
+│ mman.dll (Windows)      │ mmap implementation for Windows     │
+├─────────────────────────┼──────────────────────────────────────┤
+│ gtableX.bin             │ Mathematical tables (point G)       │
+│                         │ – REQUIRED                          │
+├─────────────────────────┼──────────────────────────────────────┤
+│ gtableY.bin             │ Mathematical tables (point G)       │
+│                         │ – REQUIRED                          │
+├─────────────────────────┼──────────────────────────────────────┤
+│ gtable_compX.bin        │ Tables for compressed addresses     │
+├─────────────────────────┼──────────────────────────────────────┤
+│ gtable_compY.bin        │ Tables for compressed addresses     │
+├─────────────────────────┼──────────────────────────────────────┤
+│ pool_worker.py          │ Python coordinator                  │
+│                         │ (connects to the server)            │
+└─────────────────────────┴──────────────────────────────────────┘
+
+════════════════════════════════════════════════════════════════════
 
 ---
-## 📈 Prawdopodobieństwo znalezienia klucza / Probability of finding the key
+╔══════════════════════════════════════════════════════════════════╗
+║           PROBABILITY OF FINDING THE KEY                       ║
+╚══════════════════════════════════════════════════════════════════╝
 
-**PL:** System oparty na **podziale zakresu na rozłączne chunki** daje unikalną wśród architektur GPU cechę – **prawdopodobieństwo znalezienia klucza rośnie w czasie**.
+A system based on DIVIDING THE RANGE INTO DISJOINT CHUNKS offers
+a unique feature among GPU architectures – the probability of
+finding the key INCREASES OVER TIME.
 
-Im więcej kluczy przeszukanych, tym mniejszy pozostaje nieprzeszukany obszar, a szansa na trafienie w kolejnej sekundzie jest coraz większa.
+The more keys searched, the smaller the remaining unsearched area,
+and the higher the chance of a hit in the next second.
 
-### 📐 Wzór matematyczny
+────────────────────────────────────────────────────────────────────
 
-Prawdopodobieństwo, że klucz znajduje się w już przeszukanym obszarze:
-P(t) = (N_przeszukane(t) / N_całkowity) * 100%
+📐 MATHEMATICAL FORMULA
 
-gdzie:
-- `P(t)` – prawdopodobieństwo znalezienia klucza do chwili `t`,
-- `N_przeszukane(t)` – liczba kluczy przeszukanych do chwili `t`,
-- `N_całkowity` – całkowita liczba kluczy w zadanym zakresie.
-
-**Każda sekunda zwiększa całkowite prawdopodobieństwo** aż do osiągnięcia 100%.
-
-### 📊 Przykład (zakres 71-bit)
-
-Zakres 71-bitowy to `N_całkowity ≈ 2.36 × 10²¹` kluczy.
-
-| Przeszukane klucze | Przeszukany obszar | Prawdopodobieństwo znalezienia |
-|-------------------|-------------------|-------------------------------|
-| `2.36 × 10²⁰` | 10% | 10% |
-| `1.18 × 10²¹` | 50% | 50% |
-| `2.12 × 10²¹` | 90% | 90% |
-| `2.36 × 10²¹` | 100% | **100%**|
-
-### 🏆 Co to oznacza w praktyce?
-
-- **100% gwarancja** – jeśli klucz istnieje w zadanym zakresie, zostanie znaleziony.
-- **Zero nakładek** – żaden klucz nie jest sprawdzany dwukrotnie.
-- **Mierzalny postęp** – w każdej chwili wiadomo, ile zostało do przeszukania.
-- **Rosnące szanse** – prawdopodobieństwo rośnie z każdą minutą, aż do 100%.
-
-**To jedyna architektura GPU, która daje matematyczną gwarancję znalezienia klucza.**
-
----
-
-**EN:** A system based on **dividing the range into disjoint chunks** offers a unique feature among GPU architectures – **the probability of finding the key increases over time**.
-
-The more keys searched, the smaller the remaining unsearched area, and the higher the chance of a hit in the next second.
-
-### 📐 Mathematical formula
-
-The probability that the key is in the already searched area:
 P(t) = (N_searched(t) / N_total) * 100%
 
 Where:
-- `P(t)` – probability of finding the key by time `t`,
-- `N_searched(t)` – number of keys searched up to time `t`,
-- `N_total` – total number of keys in the given range.
+  • P(t)         – probability of finding the key by time t
+  • N_searched(t) – number of keys searched up to time t
+  • N_total      – total number of keys in the given range
 
-**Every second increases the total probability** until it reaches 100%.
+EVERY SECOND increases the total probability until it reaches 100%.
 
-### 📊 Example (71-bit range)
+────────────────────────────────────────────────────────────────────
 
-A 71-bit range is `N_total ≈ 2.36 × 10²¹` keys.
+📊 EXAMPLE (71-bit range)
 
-| Keys searched | Area searched | Probability of finding |
-|---------------|---------------|------------------------|
-| `2.36 × 10²⁰` | 10% | 10% |
-| `1.18 × 10²¹` | 50% | 50% |
-| `2.12 × 10²¹` | 90% | 90% |
-| `2.36 × 10²¹` | 100% | **100%**|
+A 71-bit range is N_total ≈ 2.36 × 10²¹ keys.
 
-### 🏆 What this means in practice:
+┌─────────────────────┬─────────────────┬─────────────────────────┐
+│ Keys searched       │ Area searched   │ Probability of finding │
+├─────────────────────┼─────────────────┼─────────────────────────┤
+│ 2.36 × 10²⁰         │ 10%             │ 10%                     │
+│ 1.18 × 10²¹         │ 50%             │ 50%                     │
+│ 2.12 × 10²¹         │ 90%             │ 90%                     │
+│ 2.36 × 10²¹         │ 100%            │ 100%                    │
+└─────────────────────┴─────────────────┴─────────────────────────┘
 
-- **100% guarantee** – if the key exists in the given range, it will be found.
-- **Zero overlap** – no key is ever checked twice.
-- **Measurable progress** – you always know how much is left.
-- **Increasing odds** – the probability grows every minute until it reaches 100%.
+────────────────────────────────────────────────────────────────────
 
-**This is the only GPU architecture that gives a mathematical guarantee of finding the key.**
+🏆 WHAT THIS MEANS IN PRACTICE
+
+  ✓ 100% GUARANTEE – if the key exists in the given range,
+    it WILL be found.
+
+  ✓ ZERO OVERLAP – no key is ever checked twice.
+
+  ✓ MEASURABLE PROGRESS – you always know how much is left.
+
+  ✓ INCREASING ODDS – the probability grows every minute
+    until it reaches 100%.
+
+────────────────────────────────────────────────────────────────────
+
+🔥 This is the ONLY GPU architecture that gives a MATHEMATICAL
+    GUARANTEE of finding the key.
+
+════════════════════════════════════════════════════════════════════
 
 
 
-## 🔒 Bezpieczeństwo / Security
+╔══════════════════════════════════════════════════════════════════╗
+║              SECURITY & SUPPORTED GPUs                         ║
+╚══════════════════════════════════════════════════════════════════╝
 
-- **PL:** Sekret `s` trzymaj offline (bez niego nie złożysz klucza). Ruch idzie przez
-  HTTPS. Split-key chroni przed „ucieczką z nagrodą” tylko w modelu zaufania (patrz nota wyżej).
-- **EN:** Keep the secret `s` offline (without it you cannot assemble the key). Traffic
-  goes over HTTPS. Split-key protects against "running off with the reward" only in the
-  trust model (see the note above).
+🔒 SECURITY
 
----
-## 🖥️ Wspierane karty GPU / Supported GPUs
+  • Keep the secret s OFFLINE – without it you cannot assemble
+    the full key.
+  • Traffic goes over HTTPS.
+  • Split-key protects against "running off with the reward" only
+    in the trust model (see the note above).
 
-**PL:** Projekt oferuje **dwie wersje binarne** na Windows oraz **jedną uniwersalną binarkę** na Linux.
+────────────────────────────────────────────────────────────────────
 
-**EN:** The project offers **two binary versions** on Windows and **one universal binary** on Linux.
+🖥️ SUPPORTED GPUs
 
----
+The project offers TWO BINARY VERSIONS on Windows and ONE UNIVERSAL
+BINARY on Linux.
 
-### 🪟 Windows
+────────────────────────────────────────────────────────────────────
 
-| Wersja | Opis |
-| :--- | :--- |
-| **`fastscan_legacy.exe`** | Dla starszych kart (GTX 9xx, GTX 10xx) – CUDA 12.3 |
-| **`fastscan.exe`** | Dla nowszych kart (RTX 20xx, 30xx, 40xx, 50xx+) – CUDA 13.3 |
+🪟 WINDOWS
 
----
+┌─────────────────────────┬──────────────────────────────────────┐
+│ Version                 │ Description                         │
+├─────────────────────────┼──────────────────────────────────────┤
+│ fastscan_legacy.exe     │ For older cards (GTX 9xx, GTX 10xx) │
+│                         │ – CUDA 12.3                        │
+├─────────────────────────┼──────────────────────────────────────┤
+│ fastscan.exe            │ For newer cards (RTX 20xx, 30xx,   │
+│                         │ 40xx, 50xx+) – CUDA 13.3           │
+└─────────────────────────┴──────────────────────────────────────┘
 
-#### 🏛️ `fastscan_legacy.exe` – starsze karty (CUDA 12.3)
+────────────────────────────────────────────────────────────────────
 
-| Architektura | Karty GPU | Compute Capability |
-| :--- | :--- | :--- |
-| **Maxwell** | GTX 9xx (np. GTX 960, 970, 980, 980 Ti) | 5.0 / 5.2 |
-| **Pascal** | GTX 10xx (np. GTX 1050, 1060, 1070, 1080, 1080 Ti) | 6.0 / 6.1 |
-| **Turing** | GTX 16xx (np. 1650, 1660) / RTX 20xx (np. 2060, 2070, 2080, 2080 Ti) | 7.5 |
+🏛️ fastscan_legacy.exe – OLDER CARDS (CUDA 12.3)
 
----
+┌───────────────┬───────────────────────────────┬─────────────────┐
+│ Architecture  │ GPU Cards                     │ Compute Cap.    │
+├───────────────┼───────────────────────────────┼─────────────────┤
+│ Maxwell       │ GTX 9xx (960, 970, 980, Ti)   │ 5.0 / 5.2       │
+│ Pascal        │ GTX 10xx (1050–1080 Ti)       │ 6.0 / 6.1       │
+│ Turing        │ GTX 16xx / RTX 20xx           │ 7.5             │
+└───────────────┴───────────────────────────────┴─────────────────┘
 
-#### ⚡ `fastscan.exe` – nowsze karty (CUDA 13.3)
+────────────────────────────────────────────────────────────────────
 
-| Architektura | Karty GPU | Compute Capability |
-| :--- | :--- | :--- |
-| **Turing** | GTX 16xx (np. 1650, 1660) / RTX 20xx (np. 2060, 2070, 2080, 2080 Ti) | 7.5 |
-| **Ampere** | RTX 30xx (np. 3060, 3070, 3080, 3090, 3090 Ti) | 8.0 / 8.6 |
-| **Ada** | RTX 40xx (np. 4060, 4070, 4080, 4090) | 8.9 |
-| **Blackwell (przyszłe)** | RTX 50xx i nowsze – działają przez **PTX/JIT** | 9.0+ (automatyczne) |
+⚡ fastscan.exe – NEWER CARDS (CUDA 13.3)
 
----
+┌───────────────┬───────────────────────────────┬─────────────────┐
+│ Architecture  │ GPU Cards                     │ Compute Cap.    │
+├───────────────┼───────────────────────────────┼─────────────────┤
+│ Turing        │ GTX 16xx / RTX 20xx           │ 7.5             │
+│ Ampere        │ RTX 30xx (3060–3090 Ti)       │ 8.0 / 8.6       │
+│ Ada           │ RTX 40xx (4060–4090)          │ 8.9             │
+│ Blackwell     │ RTX 50xx and newer (PTX/JIT)  │ 9.0+ (auto)     │
+└───────────────┴───────────────────────────────┴─────────────────┘
 
-### 🐧 Linux
+────────────────────────────────────────────────────────────────────
 
-**PL:** Na Linux dostępna jest **jedna uniwersalna binarka** `./fastscan` skompilowana jako **Fat Binary**, która obsługuje wszystkie karty od GTX 9xx do RTX 50xx.
+🐧 LINUX – ONE UNIVERSAL BINARY (Fat Binary)
 
-**EN:** On Linux there is **one universal binary** `./fastscan` compiled as a **Fat Binary**, supporting all cards from GTX 9xx to RTX 50xx.
+Supports all cards from GTX 9xx to RTX 50xx and beyond via PTX/JIT.
 
-| Architektura | Karty GPU | Compute Capability |
-| :--- | :--- | :--- |
-| **Maxwell** | GTX 9xx (np. GTX 960, 970, 980, 980 Ti) | 5.2 |
-| **Pascal** | GTX 10xx (np. GTX 1050, 1060, 1070, 1080, 1080 Ti) | 6.1 |
-| **Turing** | GTX 16xx (np. 1650, 1660) / RTX 20xx (np. 2060, 2070, 2080, 2080 Ti) | 7.5 |
-| **Ampere** | RTX 30xx (np. 3060, 3070, 3080, 3090, 3090 Ti) | 8.6 |
-| **Ada** | RTX 40xx (np. 4060, 4070, 4080, 4090) | 8.9 |
-| **Blackwell (przyszłe)** | RTX 50xx i nowsze – działają przez **PTX/JIT** | 9.0+ (automatyczne) |
+┌───────────────┬───────────────────────────────┬─────────────────┐
+│ Architecture  │ GPU Cards                     │ Compute Cap.    │
+├───────────────┼───────────────────────────────┼─────────────────┤
+│ Maxwell       │ GTX 9xx (960, 970, 980, Ti)   │ 5.2             │
+│ Pascal        │ GTX 10xx (1050–1080 Ti)       │ 6.1             │
+│ Turing        │ GTX 16xx / RTX 20xx           │ 7.5             │
+│ Ampere        │ RTX 30xx (3060–3090 Ti)       │ 8.6             │
+│ Ada           │ RTX 40xx (4060–4090)          │ 8.9             │
+│ Blackwell     │ RTX 50xx and newer (PTX/JIT)  │ 9.0+ (auto)     │
+└───────────────┴───────────────────────────────┴─────────────────┘
 
----
+────────────────────────────────────────────────────────────────────
 
-### 🎯 Której binarki użyć? / Which binary to use?
+🎯 WHICH BINARY TO USE?
 
-| Twoja karta GPU / Your GPU | Windows | Linux |
-| :--- | :--- | :--- |
-| **GTX 750, GTX 9xx** | `fastscan_legacy.exe` | `./fastscan` |
-| **GTX 10xx (Pascal)** | `fastscan_legacy.exe` | `./fastscan` |
-| **GTX 16xx / RTX 20xx (Turing)** | Działa na **obu** wersjach | `./fastscan` |
-| **RTX 30xx (Ampere)** | `fastscan.exe` | `./fastscan` |
-| **RTX 40xx (Ada)** | `fastscan.exe` | `./fastscan` |
-| **RTX 50xx (Blackwell) i nowsze** | `fastscan.exe` | `./fastscan` |
+┌───────────────────────────────┬───────────────┬───────────────┐
+│ Your GPU                     │ Windows       │ Linux         │
+├───────────────────────────────┼───────────────┼───────────────┤
+│ GTX 750, GTX 9xx             │ legacy        │ ./fastscan    │
+│ GTX 10xx (Pascal)            │ legacy        │ ./fastscan    │
+│ GTX 16xx / RTX 20xx (Turing) │ BOTH work     │ ./fastscan    │
+│ RTX 30xx (Ampere)            │ fastscan.exe  │ ./fastscan    │
+│ RTX 40xx (Ada)               │ fastscan.exe  │ ./fastscan    │
+│ RTX 50xx (Blackwell) + newer │ fastscan.exe  │ ./fastscan    │
+└───────────────────────────────┴───────────────┴───────────────┘
 
----
+────────────────────────────────────────────────────────────────────
 
-### 🔧 Jak sprawdzić swoją kartę? / How to check your card?
+🔧 HOW TO CHECK YOUR GPU
 
-**Windows:**
-- Menedżer zadań → zakładka "Wydajność" → GPU
-- Lub w CMD: `nvidia-smi`
+WINDOWS:
+  • Task Manager → Performance tab → GPU
+  • Or in CMD: nvidia-smi
 
-**Linux:**
-```bash
-nvidia-smi
-lspci | grep -i nvidia---
+LINUX:
+  nvidia-smi
+  lspci | grep -i nvidia
 
-*PL: Projekt edukacyjny/hobbystyczny. Szukanie kluczy do puzzli Bitcoina jest legalne;*
-*szukanie cudzych portfeli w użyciu — nie. Używaj odpowiedzialnie.*
-*EN: Educational/hobby project. Searching Bitcoin puzzle keys is legal; searching for*
+────────────────────────────────────────────────────────────────────
+
+⚠️ DISCLAIMER
+
+Educational / hobby project.
+Searching Bitcoin puzzle keys is legal.
+Searching for other people's in-use wallets is NOT.
+Use responsibly.
+
+════════════════════════════════════════════════════════════════════
 *other people's in-use wallets is not. Use responsibly.*
