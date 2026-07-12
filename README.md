@@ -6,23 +6,26 @@
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
 ![CUDA](https://img.shields.io/badge/CUDA-12.3%2B-green)
 
-## 📊 Live Pool Stats
-
-### 🟠 Puzzle 71 (70–71 bits)
-
-| Status | Wartość |
-|--------|---------|
-| Progress | ![Progress](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25) |
-| Keys Found | ![Keys](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.hits&label=&color=success) |
-| Pool Speed | ![Speed](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.keys_per_sec&label=&color=blue) |
-
-### 🔵 253-256 Bit Wallets
-
-| Status | Wartość |
-|--------|---------|
-| Progress | ![Progress](https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25) |
-| Keys Found | ![Keys](https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.hits&label=&color=success) |
-| Pool Speed | ![Speed](https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.keys_per_sec&label=&color=blue) |
+<table>
+  <tr>
+    <td align="center">
+      <h3>🟠 Puzzle 71 (70–71 bits)</h3>
+      <table>
+        <tr><td><strong>Progress</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
+        <tr><td><strong>Keys Found</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.hits&label=&color=success"></td></tr>
+        <tr><td><strong>Pool Speed</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.keys_per_sec&label=&color=blue"></td></tr>
+      </table>
+    </td>
+    <td align="center">
+      <h3>🔵 253-256 Bit Wallets</h3>
+      <table>
+        <tr><td><strong>Progress</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
+        <tr><td><strong>Keys Found</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.hits&label=&color=success"></td></tr>
+        <tr><td><strong>Pool Speed</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.keys_per_sec&label=&color=blue"></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
 > > 
 >READ BEFORE RUNNING!!: ⚠⚠⚠If anyone has the following problem!: the scanner scans much faster than it should! then you probably didn't include all the files in the folder you're running from!! VERY IMPORTANT, THEN IT WILL NOT SCAN ANY KEY!⚠⚠⚠
 > >
