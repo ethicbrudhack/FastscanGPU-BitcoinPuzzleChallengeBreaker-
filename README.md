@@ -64,11 +64,24 @@ yt video: https://www.youtube.com/watch?v=CJEu9JADorg
 
 ## 💰 Podział nagrody / Reward split
 
-| | PL | EN |
-|---|---|---|
-| **40%** | znalazca | finder |
-| **55%** | reszta kopaczy wg wkładu | rest of miners by contribution |
-| **5%** | operator | operator |
+| Procent | Kto dostaje (PL) | Who gets it (EN) |
+|---------|------------------|------------------|
+| **40%** | **Znalazca** – bonus za znalezienie klucza | **Finder** – bonus for finding the key |
+| **55%** | **Wszyscy aktywni górnicy** (włącznie ze znalazcą) – proporcjonalnie do ich wkładu (Share) | **All active miners** (including the finder) – proportionally to their contribution (Share) |
+| **5%** | **Operator** – utrzymanie serwera | **Operator** – server maintenance |
+EN:
+The reward system works as follows:
+
+40% – goes to the person who physically found the key. This is a bonus for the find itself – regardless of how much work they contributed to the pool.
+
+55% – goes to all active miners who participated in mining during this round.
+
+This includes the finder as well – if the finder has, for example, 90% of the total pool share, they will also receive 90% of this 55%.
+
+This makes the system fair – no one loses their reward for finding the key, and contribution is always rewarded.
+
+5% – goes to the operator (the person maintaining the server, paying for hosting, developing the code, etc.).
+
 
 ---
 ### 🔐 Rejestracja / Registration
