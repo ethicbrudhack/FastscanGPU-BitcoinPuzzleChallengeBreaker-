@@ -14,7 +14,7 @@
 |--------|---------|
 | Progress | ![Progress](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25) |
 | Keys Found | ![Keys](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.hits&label=&color=success) |
-| Pool Speed | ![Speed](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.keys_per_sec&label=&color=blue&suffix=%20Gkeys/s) |
+| Pool Speed ![Pool Speed](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.keys_per_sec&label=Speed&color=blue&suffix=%20Mkeys/s)
 
 ### 🔵 253-256 Bit Wallets
 
