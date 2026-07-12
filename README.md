@@ -33,6 +33,7 @@
 If anyone has the following problem: the scanner scans much faster than it should! then you probably didn't include all the files in the folder you're running from!! **VERY IMPORTANT, THEN IT WILL NOT SCAN ANY KEY!** ⚠️
 
 **EN:** Distributed GPU pool for finding Bitcoin keys: **Puzzle #71** (single address, small range) and **forgotten wallets** (a database of thousands of addresses, large range). The server hands out disjoint work segments (no overlap), workers compute on the GPU, and the reward is split by contribution.
+>
 > 
 <img width="1600" height="1000" alt="chunk_evolution" src="https://github.com/user-attachments/assets/4f8b3985-1106-47b9-8339-2833d2dded62" />
 
