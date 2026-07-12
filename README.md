@@ -1,9 +1,5 @@
 # Bitcoin Puzzle / Wallet Pool (split-key) — GPU
-Please report any bugs or issues, preferably via the Telegram server; the 253–256-bit server will be launched next month.
-> **PL:** Rozproszony pool GPU do szukania kluczy Bitcoin: **Puzzle #71** (jeden adres,
-> mały zakres) oraz **zapomniane portfele** (baza tysięcy adresów, duży zakres).
-> Serwer rozdaje rozłączne segmenty pracy (zero dubli), workerzy liczą na GPU,
-> a nagroda dzielona jest wg wkładu.
+
 > > 
 >READ BEFORE RUNNING!!: ⚠⚠⚠If anyone has the following problem!: the scanner scans much faster than it should! then you probably didn't include all the files in the folder you're running from!! VERY IMPORTANT, THEN IT WILL NOT SCAN ANY KEY!⚠⚠⚠
 > >
