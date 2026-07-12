@@ -7,6 +7,11 @@
 > > 
 >READ BEFORE RUNNING!!: ⚠⚠⚠If anyone has the following problem!: the scanner scans much faster than it should! then you probably didn't include all the files in the folder you're running from!! VERY IMPORTANT, THEN IT WILL NOT SCAN ANY KEY!⚠⚠⚠
 > >
+> > ## 📊 Live Stats
+
+![Puzzle 71 Progress](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.round_progress_pct&label=Progress&color=orange&suffix=%25)
+![Keys Found](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.hits&label=Keys%20Found&color=success)
+![Pool Speed](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.keys_per_sec&label=Speed&color=blue&suffix=%20Gkeys/s)
 > > 
 > **EN:** Distributed GPU pool for finding Bitcoin keys: **Puzzle #71** (single address,
 > small range) and **forgotten wallets** (a database of thousands of addresses, large
