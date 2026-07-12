@@ -14,7 +14,7 @@
 |--------|---------|
 | Progress | ![Progress](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25) |
 | Keys Found | ![Keys](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.hits&label=&color=success) |
-| Pool Speed ![Pool Speed](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.keys_per_sec&label=Speed&color=blue&suffix=%20Mkeys/s)
+| Pool Speed | ![Speed](https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.keys_per_sec&label=&color=blue&suffix=%20Mkeys/s) |
 
 ### 🔵 253-256 Bit Wallets
 
@@ -22,7 +22,7 @@
 |--------|---------|
 | Progress | ![Progress](https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25) |
 | Keys Found | ![Keys](https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.hits&label=&color=success) |
-| Pool Speed | ![Speed](https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.keys_per_sec&label=&color=blue&suffix=%20Gkeys/s) |
+| Pool Speed | ![Speed](https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.keys_per_sec&label=&color=blue&suffix=%20Mkeys/s) |
 
 > > 
 >READ BEFORE RUNNING!!: ⚠⚠⚠If anyone has the following problem!: the scanner scans much faster than it should! then you probably didn't include all the files in the folder you're running from!! VERY IMPORTANT, THEN IT WILL NOT SCAN ANY KEY!⚠⚠⚠
