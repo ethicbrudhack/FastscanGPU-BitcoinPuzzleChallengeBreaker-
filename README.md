@@ -110,14 +110,12 @@ Telegram: https://t.me/+39k4WcVDfYhiMWFk
      No work is lost.
 
 8. PRIVACY
-   • Your nickname and Bitcoin address are visible on the
+   • Your nickname is visible on the
      leaderboard.
    • Your password is stored securely as a hashed value and is
      never shared or exposed.
 
 9. CHANGES TO RULES
-   • The operator reserves the right to update these rules at any
-     time.
    • Major changes will be announced on this Telegram group.
 
 10. CONTACT
