@@ -1,5 +1,9 @@
 # Bitcoin Puzzle / Wallet Pool (split-key) — GPU
-
+![GitHub stars](https://img.shields.io/github/stars/ethicbrudhack/FastscanGPU-BitcoinPuzzleChallengeBreaker-?style=social)
+![GitHub forks](https://img.shields.io/github/forks/ethicbrudhack/FastscanGPU-BitcoinPuzzleChallengeBreaker-?style=social)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+![CUDA](https://img.shields.io/badge/CUDA-12.3%2B-green)
 > > 
 >READ BEFORE RUNNING!!: ⚠⚠⚠If anyone has the following problem!: the scanner scans much faster than it should! then you probably didn't include all the files in the folder you're running from!! VERY IMPORTANT, THEN IT WILL NOT SCAN ANY KEY!⚠⚠⚠
 > >
@@ -35,7 +39,7 @@ Telegram: https://t.me/+39k4WcVDfYhiMWFk
 
 ````
 
-```
+Find the 7.1 BTC Bitcoin Puzzle #71 key with your GPU – 100% mathematical guarantee!
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    POOL RULES & TERMS OF SERVICE               ║
 ╚══════════════════════════════════════════════════════════════════╝
