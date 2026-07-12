@@ -11,7 +11,7 @@
     <td align="center">
       <h3>🟠 Puzzle 71 (70–71 bits)</h3>
       <table>
-        <tr><td><strong>Progress</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
+        <tr><td><strong>Progress(per round)</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
         <tr><td><strong>Keys Found</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.hits&label=&color=success"></td></tr>
         <tr><td><strong>Pool Speed</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.keys_per_sec&label=&color=blue"></td></tr>
       </table>
@@ -19,7 +19,7 @@
     <td align="center">
       <h3>🔵 253-256 Bit Wallets</h3>
       <table>
-        <tr><td><strong>Progress</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
+        <tr><td><strong>Progress(per round)</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
         <tr><td><strong>Keys Found</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.hits&label=&color=success"></td></tr>
         <tr><td><strong>Pool Speed</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.keys_per_sec&label=&color=blue"></td></tr>
       </table>
