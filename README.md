@@ -26,7 +26,7 @@
     </td>
   </tr>
 </table>
-```markdown
+```
 ---
 
 **⚠️ READ BEFORE RUNNING!!**  
