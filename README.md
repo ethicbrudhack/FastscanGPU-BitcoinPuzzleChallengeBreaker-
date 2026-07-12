@@ -17,7 +17,7 @@
       </table>
     </td>
     <td align="center">
-      <h3>🔵 253-256 Bit Wallets</h3>
+      <h3>🔵 253-256 Old forgotten Mining Wallets</h3>
       <table>
         <tr><td><strong>Progress(per round)</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
         <tr><td><strong>Keys Found</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.hits&label=&color=success"></td></tr>
