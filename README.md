@@ -30,10 +30,15 @@
 ---
 
 **⚠️ READ BEFORE RUNNING!!**  
+
 • If your scanner runs too fast – you're missing files. Make sure ALL files are in the folder.
+
 • Use ONLY the original .bin database from Google Drive (adresy_unique.bin). Custom .bin = ignored hits.
+
 • Workers must send /done before /found – fake hits are blocked.
+
 • Puzzle 71 = ONE specific address. 253-256 = only addresses from the original .bin.
+
 • Use only these 2 commands:
 
 PUZZLE #71:
