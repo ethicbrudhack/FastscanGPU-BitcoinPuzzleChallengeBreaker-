@@ -31,7 +31,52 @@
 
 **⚠️ READ BEFORE RUNNING!!**  
 If anyone has the following problem: the scanner scans much faster than it should! then you probably didn't include all the files in the folder you're running from!! **VERY IMPORTANT, THEN IT WILL NOT SCAN ANY KEY!** ⚠️
+📢 IMPORTANT – ABOUT THE .bin DATABASE
 
+If you're mining on the 253-256 bit server, please make sure you're using the exact same .bin database that is on the server.
+Why?
+The server only recognizes addresses that are in the original .bin file from my Google Drive.
+If you use your own custom .bin – even if it contains similar addresses – the order and content will be different.
+In that case, even if your scanner finds a valid address, the server won't recognize it – because it's not in the same database.
+Your hits will simply be ignored.
+What you need to do:
+Download the original .bin from my Google Drive (link in README).
+Make sure the file size is 12,138,907,520 bytes – that's the original.
+If you're mining on Puzzle #71 – you don't need the .bin at all.
+Do NOT use your own .bin files.
+The server is configured to work with the original database only – and any other version will just waste your time and electricity.
+
+🔐 NEW SECURITY MEASURE: Workers must send /done before /found
+
+What does this protect against?
+
+This rule prevents a specific problem:
+
+-If someone runs the binary manually (e.g., ./fastscan adresy_unique.bin 0 40) and connects to the server, they could send hits to the server without actually receiving a work segment from the pool.
+-The Puzzle 71 pool can only recognize the private key for a single specific address that is set on the server, and the 253–256 pool only accepts addresses strictly within that bit range.!!!!
+-If you want to independently scan addresses using my database or your own, you can download the standalone FastscanGPU binary from my Google Drive – it works with your own sorted .bin files and any bit range you choose; however, the binaries are intended ONLY for pool mining, so please use only the two official commands I provided to connect to the pool.!!!
+
+Without this rule:
+
+Someone could scan any range they want, find an address, and send /found to the server.
+The server would accept it – even though the worker never received that segment from the pool.
+These hits would appear on the website and Telegram – but they are not real pool hits, because the worker didn't participate in the pool's work system.
+This makes the pool look messy and confuses other miners.
+
+With this rule:
+
+Before a worker can send /found, they must first have a valid /done – meaning they actually completed a segment assigned by the server.
+This ensures that every hit on the website and Telegram comes from real pool work.
+
+With the ready-made binaries, you may only use these two commands:
+
+Puzzle #71:
+python3 pool_worker --server https://fastscangpu.duckdns.org --worker NICK --password PASS --binary ./fastscan
+(you can also use ./fastscan.exe, ./fastscan_legacy.exe, ./fastscan_legacyMULTIGPU.exe, ./fastscanMULTIGPU.exe, or ./fastscanMULTIGPU)
+
+Wallets 253-256:
+python3 pool_worker --server http://91.98.41.38:8082 --worker NICK --password PASS --binary ./fastscan --db ./adresy_unique.bin
+(you can also use ./fastscan.exe, ./fastscan_legacy.exe, ./fastscan_legacyMULTIGPU.exe, ./fastscanMULTIGPU.exe, or ./fastscanMULTIGPU)
 **EN:** Distributed GPU pool for finding Bitcoin keys: **Puzzle #71** (single address, small range) and **forgotten wallets** (a database of thousands of addresses, large range). The server hands out disjoint work segments (no overlap), workers compute on the GPU, and the reward is split by contribution.
 >
 > 
