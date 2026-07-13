@@ -31,6 +31,8 @@
 
 **⚠️ READ BEFORE RUNNING!!**  
 If anyone has the following problem: the scanner scans much faster than it should! then you probably didn't include all the files in the folder you're running from!! **VERY IMPORTANT, THEN IT WILL NOT SCAN ANY KEY!** ⚠️
+`
+`
 ╔══════════════════════════════════════════════════════════════════╗
 ║          IMPORTANT – ABOUT THE .bin DATABASE                   ║
 ╚══════════════════════════════════════════════════════════════════╝
@@ -45,8 +47,7 @@ if it contains similar addresses – the order and content will be
 different. Your hits will simply be ignored.
 
 WHAT YOU NEED TO DO:
-  • Download the original .bin from my Google Drive (link in README)
-  • File size must be: 12,138,907,520 bytes
+  • Download the original .bin from my Google Drive (link in README)(adresy_unique.bin)
   • If you're mining on Puzzle #71 – you don't need the .bin at all
   • Do NOT use your own .bin files – they will waste your time
 
