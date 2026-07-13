@@ -30,75 +30,22 @@
 ---
 
 **⚠️ READ BEFORE RUNNING!!**  
-If anyone has the following problem: the scanner scans much faster than it should! then you probably didn't include all the files in the folder you're running from!! **VERY IMPORTANT, THEN IT WILL NOT SCAN ANY KEY!** ⚠️
-`
-`
-╔══════════════════════════════════════════════════════════════════╗
-║          IMPORTANT – ABOUT THE .bin DATABASE                   ║
-╚══════════════════════════════════════════════════════════════════╝
-
-If you're mining on the 253-256 bit server, please make sure you're
-using the EXACT SAME .bin database that is on the server.
-
-WHY?
-The server only recognizes addresses that are in the original .bin
-file from my Google Drive. If you use your own custom .bin – even
-if it contains similar addresses – the order and content will be
-different. Your hits will simply be ignored.
-
-WHAT YOU NEED TO DO:
-  • Download the original .bin from my Google Drive (link in README)(adresy_unique.bin)
-  • If you're mining on Puzzle #71 – you don't need the .bin at all
-  • Do NOT use your own .bin files – they will waste your time
-
-────────────────────────────────────────────────────────────────────
-
-🔐 NEW SECURITY MEASURE: Workers must send /done before /found
-
-This prevents a specific problem:
-
-If someone runs the binary manually (e.g., ./fastscan adresy_unique.bin 0 40)
-and connects to the server, they could send hits without actually
-receiving a work segment from the pool.
-
-  • Puzzle 71 pool only recognizes the private key for ONE specific
-    address that is set on the server.
-  • 253–256 pool only accepts addresses strictly within that bit range.
-
-If you want to independently scan addresses using my database or
-your own – you can download the standalone FastscanGPU binary from
-my Google Drive. It works with your own sorted .bin files and any
-bit range you choose. However, the binaries are intended ONLY for
-pool mining – please use only the two official commands below.
-
-WITHOUT THIS RULE:
-  • Anyone could scan any range, find an address, and send /found
-  • The server would accept it – even without a valid segment
-  • Fake hits would appear on the website and Telegram
-  • This makes the pool look messy and confuses other miners
-
-WITH THIS RULE:
-  • Worker must have a valid /done before sending /found
-  • Every hit on the website and Telegram comes from REAL pool work
-
-────────────────────────────────────────────────────────────────────
-
-📌 OFFICIAL COMMANDS – USE ONLY THESE
+• If your scanner runs too fast – you're missing files. Make sure ALL files are in the folder.
+• Use ONLY the original .bin database from Google Drive (adresy_unique.bin). Custom .bin = ignored hits.
+• Workers must send /done before /found – fake hits are blocked.
+• Puzzle 71 = ONE specific address. 253-256 = only addresses from the original .bin.
+• Use only these 2 commands:
 
 PUZZLE #71:
 python3 pool_worker --server https://fastscangpu.duckdns.org --worker NICK --password PASS --binary ./fastscan
 
-(you can also use: ./fastscan.exe, ./fastscan_legacy.exe,
- ./fastscan_legacyMULTIGPU.exe, ./fastscanMULTIGPU.exe, or ./fastscanMULTIGPU)
-
 WALLETS 253-256:
 python3 pool_worker --server http://91.98.41.38:8082 --worker NICK --password PASS --binary ./fastscan --db ./adresy_unique.bin
 
-(you can also use: ./fastscan.exe, ./fastscan_legacy.exe,
- ./fastscan_legacyMULTIGPU.exe, ./fastscanMULTIGPU.exe, or ./fastscanMULTIGPU)
+• Want to scan independently? Download the standalone binary from Google Drive – works with your own .bin and any bit range.
+• The binaries are for pool mining ONLY. Use the commands above to connect.
 
-════════════════════════════════════════════════════════════════════
-**EN:** Distributed GPU pool for finding Bitcoin keys: **Puzzle #71** (single address, small range) and **forgotten wallets** (a database of thousands of addresses, large range). The server hands out disjoint work segments (no overlap), workers compute on the GPU, and the reward is split by contribution.
+🔹 Distributed GPU pool for Puzzle #71 + forgotten wallets. No overlap, fair reward split.
 >
 > 
 <img width="1600" height="1000" alt="chunk_evolution" src="https://github.com/user-attachments/assets/4f8b3985-1106-47b9-8339-2833d2dded62" />
