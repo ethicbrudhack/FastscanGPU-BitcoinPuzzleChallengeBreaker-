@@ -627,7 +627,10 @@ LINUX:
   lspci | grep -i nvidia
 
 ────────────────────────────────────────────────────────────────────
+DONATE: bc1qps62cyk9f9unmdkc9k3ccj9e2h8ywfhg2j53ec
 
+Built with ❤️ for the crypto research community.
+────────────────────────────────────────────────────────────────────
 ⚠️ DISCLAIMER
 
 Educational / hobby project.
