@@ -231,15 +231,51 @@ During registration you provide:
 
 ────────────────────────────────────────────────────────────────────
 
-📌 EXAMPLE COMMAND
+📌 EXAMPLE COMMANDS
 
+🐧 LINUX – Puzzle #71 (RTX 40xx, faster):
 python3 pool_worker.py \
   --server https://fastscangpu.duckdns.org \
-  --worker SatoshiHunter \
+  --worker YourNick \
   --password YourPassword \
-  --binary ./fastscan
+  --binary ./fastscan_puzzle71RTX40xx
 
-(Use ./fastscan on Linux or fastscan.exe on Windows)
+🐧 LINUX – Puzzle #71 (all cards):
+python3 pool_worker.py \
+  --server https://fastscangpu.duckdns.org \
+  --worker YourNick \
+  --password YourPassword \
+  --binary ./fastscan_puzzle71ALLCARDS
+
+🪟 WINDOWS – Puzzle #71 (newer cards):
+python pool_worker.py \
+  --server https://fastscangpu.duckdns.org \
+  --worker YourNick \
+  --password YourPassword \
+  --binary fastscan_puzzle71.exe
+
+🪟 WINDOWS – Puzzle #71 (older cards):
+python pool_worker.py \
+  --server https://fastscangpu.duckdns.org \
+  --worker YourNick \
+  --password YourPassword \
+  --binary fastscan_71LEGACY.exe
+
+🐧 LINUX – Wallets 253-256:
+python3 pool_worker.py \
+  --server http://91.98.41.38:8082 \
+  --worker YourNick \
+  --password YourPassword \
+  --binary ./fastscan_puzzle71ALLCARDS \
+  --db ./adresy_unique.bin
+
+🪟 WINDOWS – Wallets 253-256:
+python pool_worker.py \
+  --server http://91.98.41.38:8082 \
+  --worker YourNick \
+  --password YourPassword \
+  --binary fastscan_puzzle71.exe \
+  --db ./adresy_unique.bin
 
 ────────────────────────────────────────────────────────────────────
 
@@ -314,54 +350,6 @@ REQUIREMENTS:
   • Python 3
   • fastscan binary
   • gtableX.bin and gtableY.bin in the same directory
-
-────────────────────────────────────────────────────────────────────
-
-📌 EXAMPLE COMMANDS
-
-🐧 LINUX – Puzzle #71 (RTX 40xx, faster):
-python3 pool_worker.py \
-  --server https://fastscangpu.duckdns.org \
-  --worker YourNick \
-  --password YourPassword \
-  --binary ./fastscan_puzzle71RTX40xx
-
-🐧 LINUX – Puzzle #71 (all cards):
-python3 pool_worker.py \
-  --server https://fastscangpu.duckdns.org \
-  --worker YourNick \
-  --password YourPassword \
-  --binary ./fastscan_puzzle71ALLCARDS
-
-🪟 WINDOWS – Puzzle #71 (newer cards):
-python pool_worker.py \
-  --server https://fastscangpu.duckdns.org \
-  --worker YourNick \
-  --password YourPassword \
-  --binary fastscan_puzzle71.exe
-
-🪟 WINDOWS – Puzzle #71 (older cards):
-python pool_worker.py \
-  --server https://fastscangpu.duckdns.org \
-  --worker YourNick \
-  --password YourPassword \
-  --binary fastscan_71LEGACY.exe
-
-🐧 LINUX – Wallets 253-256:
-python3 pool_worker.py \
-  --server http://91.98.41.38:8082 \
-  --worker YourNick \
-  --password YourPassword \
-  --binary ./fastscan_puzzle71ALLCARDS \
-  --db ./adresy_unique.bin
-
-🪟 WINDOWS – Wallets 253-256:
-python pool_worker.py \
-  --server http://91.98.41.38:8082 \
-  --worker YourNick \
-  --password YourPassword \
-  --binary fastscan_puzzle71.exe \
-  --db ./adresy_unique.bin
 
 ────────────────────────────────────────────────────────────────────
 
