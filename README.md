@@ -31,11 +31,14 @@
 
 **⚠️ READ BEFORE RUNNING!!**  
 
+• ✅ IMPORTANT: fastscan_71LEGACY.exe also works on RTX 4050 (and other new laptops) – use it if puzzle71.exe fails!
+
 • Use ONLY the original .bin database from Google Drive (adresy_unique.bin). Custom .bin = ignored hits.
 
 • Puzzle 71 = ONE specific address. 253-256 = only addresses from the original .bin.
 
 • Use only these 2 commands:
+
 
 PUZZLE #71:
 python3 pool_worker.py --server https://fastscangpu.duckdns.org --worker NICK --password PASS --binary ./fastscan
