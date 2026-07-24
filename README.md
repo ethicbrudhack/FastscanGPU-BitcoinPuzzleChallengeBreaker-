@@ -249,16 +249,6 @@ python3 pool_worker.py \
 
 🖥️ MULTI-GPU SETUP
 
-To use multiple GPUs simultaneously, run a SEPARATE worker instance
-for each GPU. Each worker connects independently and receives its
-own unique work segments — no duplicate work, no wasted effort.
-
-REQUIREMENTS:
-  • Each worker instance must use a DIFFERENT --worker nickname
-  • Example: YourNick-GPU0, YourNick-GPU1, YourNick-GPU2, etc.
-
-────────────────────────────────────────────────────────────────────
-
 🐧 LINUX / WSL
 
 # Terminal 1 – GPU 0
@@ -266,31 +256,24 @@ CUDA_VISIBLE_DEVICES=0 python3 pool_worker.py \
   --server https://fastscangpu.duckdns.org \
   --worker YourNick-GPU0 \
   --password YourPassword \
-  --binary ./fastscan \
-  --db ./adresy_unique.bin
+  --binary ./fastscan_puzzle71ALLCARDS
 
 # Terminal 2 – GPU 1
 CUDA_VISIBLE_DEVICES=1 python3 pool_worker.py \
   --server https://fastscangpu.duckdns.org \
   --worker YourNick-GPU1 \
   --password YourPassword \
-  --binary ./fastscan \
-  --db ./adresy_unique.bin
-
-# ... repeat for each additional GPU
-
-────────────────────────────────────────────────────────────────────
+  --binary ./fastscan_puzzle71ALLCARDS
 
 🪟 WINDOWS (cmd.exe)
 
 :: Terminal 1 – GPU 0
 set CUDA_VISIBLE_DEVICES=0
-python pool_worker.py --server https://fastscangpu.duckdns.org --worker YourNick-GPU0 --password YourPassword --binary fastscan.exe --db adresy_unique.bin
+python pool_worker.py --server https://fastscangpu.duckdns.org --worker YourNick-GPU0 --password YourPassword --binary fastscan_puzzle71.exe
 
 :: Terminal 2 – GPU 1
 set CUDA_VISIBLE_DEVICES=1
-python pool_worker.py --server https://fastscangpu.duckdns.org --worker YourNick-GPU1 --password YourPassword --binary fastscan.exe --db adresy_unique.bin
-
+python pool_worker.py --server https://fastscangpu.duckdns.org --worker YourNick-GPU1 --password YourPassword --binary fastscan_puzzle71.exe
 ────────────────────────────────────────────────────────────────────
 
 ⚙️ HOW IT WORKS
@@ -338,35 +321,51 @@ REQUIREMENTS:
 
 ────────────────────────────────────────────────────────────────────
 
-🐧 LINUX
+📌 EXAMPLE COMMANDS
 
+🐧 LINUX – Puzzle #71 (RTX 40xx, faster):
 python3 pool_worker.py \
   --server https://fastscangpu.duckdns.org \
-  --worker YOUR_NICK \
-  --password YOUR_PASSWORD \
-  --binary ./fastscan
+  --worker YourNick \
+  --password YourPassword \
+  --binary ./fastscan_puzzle71RTX40xx
 
-────────────────────────────────────────────────────────────────────
+🐧 LINUX – Puzzle #71 (all cards):
+python3 pool_worker.py \
+  --server https://fastscangpu.duckdns.org \
+  --worker YourNick \
+  --password YourPassword \
+  --binary ./fastscan_puzzle71ALLCARDS
 
-🪟 WINDOWS (cmd / PowerShell)
-
+🪟 WINDOWS – Puzzle #71 (newer cards):
 python pool_worker.py \
   --server https://fastscangpu.duckdns.org \
-  --worker YOUR_NICK \
-  --password YOUR_PASSWORD \
-  --binary fastscan.exe
+  --worker YourNick \
+  --password YourPassword \
+  --binary fastscan_puzzle71.exe
 
-────────────────────────────────────────────────────────────────────
-
-📌 EXAMPLE
-
-python3 pool_worker.py \
+🪟 WINDOWS – Puzzle #71 (older cards):
+python pool_worker.py \
   --server https://fastscangpu.duckdns.org \
-  --worker SatoshiHunter \
-  --password YourPassword123 \
-  --binary ./fastscan
+  --worker YourNick \
+  --password YourPassword \
+  --binary fastscan_71LEGACY.exe
 
-(Use ./fastscan on Linux or fastscan.exe on Windows)
+🐧 LINUX – Wallets 253-256:
+python3 pool_worker.py \
+  --server http://91.98.41.38:8082 \
+  --worker YourNick \
+  --password YourPassword \
+  --binary ./fastscan_puzzle71ALLCARDS \
+  --db ./adresy_unique.bin
+
+🪟 WINDOWS – Wallets 253-256:
+python pool_worker.py \
+  --server http://91.98.41.38:8082 \
+  --worker YourNick \
+  --password YourPassword \
+  --binary fastscan_puzzle71.exe \
+  --db ./adresy_unique.bin
 
 ────────────────────────────────────────────────────────────────────
 
@@ -422,42 +421,36 @@ python3 pool_server.py init --mode wallets \
 
 📂 REQUIRED FILES
 
-┌─────────────────────────┬──────────────────────────────────────┐
-│ File                    │ Description                         │
-├─────────────────────────┼──────────────────────────────────────┤
-│ fastscan (Linux)        │ Universal GPU binary for Linux      │
-│                         │ (all cards)                         │
-├─────────────────────────┼──────────────────────────────────────┤
-│ fastscan.exe (Windows)  │ GPU binary for newer cards          │
-│                         │ (RTX 20xx, 30xx, 40xx, 50xx+)      │
-├─────────────────────────┼──────────────────────────────────────┤
-│ fastscan_legacy.exe     │ GPU binary for older cards          │
-│ (Windows)               │ (GTX 9xx, GTX 10xx)                 │
-├─────────────────────────┼──────────────────────────────────────┤
-│ libcrypto-3-x64.dll     │ OpenSSL library (cryptography)      │
-│ (Windows)               │                                      │
-├─────────────────────────┼──────────────────────────────────────┤
-│ libssl-3-x64.dll        │ OpenSSL library (TLS/SSL)           │
-│ (Windows)               │                                      │
-├─────────────────────────┼──────────────────────────────────────┤
-│ libsecp256k1.dll        │ Bitcoin elliptic curve library      │
-│ (Windows)               │                                      │
-├─────────────────────────┼──────────────────────────────────────┤
-│ mman.dll (Windows)      │ mmap implementation for Windows     │
-├─────────────────────────┼──────────────────────────────────────┤
-│ gtableX.bin             │ Mathematical tables (point G)       │
-│                         │ – REQUIRED                          │
-├─────────────────────────┼──────────────────────────────────────┤
-│ gtableY.bin             │ Mathematical tables (point G)       │
-│                         │ – REQUIRED                          │
-├─────────────────────────┼──────────────────────────────────────┤
-│ gtable_compX.bin        │ Tables for compressed addresses     │
-├─────────────────────────┼──────────────────────────────────────┤
-│ gtable_compY.bin        │ Tables for compressed addresses     │
-├─────────────────────────┼──────────────────────────────────────┤
-│ pool_worker.py          │ Python coordinator                  │
-│                         │ (connects to the server)            │
-└─────────────────────────┴──────────────────────────────────────┘
+┌────────────────────────────────────┬──────────────────────────────────────┐
+│ File                               │ Description                         │
+├────────────────────────────────────┼──────────────────────────────────────┤
+│ fastscan_puzzle71ALLCARDS (Linux)  │ Linux universal binary              │
+│                                    │ (all cards from GTX 10xx to 50xx)  │
+├────────────────────────────────────┼──────────────────────────────────────┤
+│ fastscan_puzzle71RTX40xx (Linux)   │ Linux binary for RTX 40xx+ only     │
+│                                    │ (faster, sm_89/sm_90)              │
+├────────────────────────────────────┼──────────────────────────────────────┤
+│ fastscan_71LEGACY.exe (Windows)    │ Windows binary for older cards      │
+│                                    │ (GTX 9xx, GTX 10xx, RTX 20xx)      │
+├────────────────────────────────────┼──────────────────────────────────────┤
+│ fastscan_puzzle71.exe (Windows)    │ Windows binary for newer cards      │
+│                                    │ (RTX 20xx, 30xx, 40xx, 50xx+)      │
+├────────────────────────────────────┼──────────────────────────────────────┤
+│ libcrypto-3-x64.dll                │ OpenSSL library (cryptography)      │
+│ (Windows)                          │                                      │
+├────────────────────────────────────┼──────────────────────────────────────┤
+│ libssl-3-x64.dll                   │ OpenSSL library (TLS/SSL)           │
+│ (Windows)                          │                                      │
+├────────────────────────────────────┼──────────────────────────────────────┤
+│ gtableX.bin                        │ Mathematical tables (point G)       │
+│                                    │ – REQUIRED                          │
+├────────────────────────────────────┼──────────────────────────────────────┤
+│ gtableY.bin                        │ Mathematical tables (point G)       │
+│                                    │ – REQUIRED                          │
+├────────────────────────────────────┼──────────────────────────────────────┤
+│ pool_worker.py                     │ Python coordinator                  │
+│                                    │ (connects to the server)            │
+└────────────────────────────────────┴──────────────────────────────────────┘
 
 ════════════════════════════════════════════════════════════════════
 
@@ -540,79 +533,53 @@ A 71-bit range is N_total ≈ 2.36 × 10²¹ keys.
 
 🖥️ SUPPORTED GPUs
 
-The project offers TWO BINARY VERSIONS on Windows and ONE UNIVERSAL
-BINARY on Linux.
+🐧 LINUX – two versions
 
-────────────────────────────────────────────────────────────────────
+┌────────────────────────────────────┬──────────────────────────────────┐
+│ File                              │ Supported GPUs                  │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ fastscan_puzzle71ALLCARDS          │ UNIVERSAL – all cards from     │
+│                                    │ GTX 10xx to RTX 50xx           │
+│                                    │ (sm_60–sm_90)                  │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ fastscan_puzzle71RTX40xx           │ RTX 40xx (Ada), RTX 50xx+      │
+│                                    │ (faster, sm_89/sm_90 only)     │
+└────────────────────────────────────┴──────────────────────────────────┘
 
-🪟 WINDOWS
+🪟 WINDOWS – two versions
 
-┌─────────────────────────┬──────────────────────────────────────┐
-│ Version                 │ Description                         │
-├─────────────────────────┼──────────────────────────────────────┤
-│ fastscan_legacy.exe     │ For older cards (GTX 9xx, GTX 10xx) │
-│                         │ – CUDA 12.3                        │
-├─────────────────────────┼──────────────────────────────────────┤
-│ fastscan.exe            │ For newer cards (RTX 20xx, 30xx,   │
-│                         │ 40xx, 50xx+) – CUDA 13.3           │
-└─────────────────────────┴──────────────────────────────────────┘
-
-────────────────────────────────────────────────────────────────────
-
-🏛️ fastscan_legacy.exe – OLDER CARDS (CUDA 12.3)
-
-┌───────────────┬───────────────────────────────┬─────────────────┐
-│ Architecture  │ GPU Cards                     │ Compute Cap.    │
-├───────────────┼───────────────────────────────┼─────────────────┤
-│ Maxwell       │ GTX 9xx (960, 970, 980, Ti)   │ 5.0 / 5.2       │
-│ Pascal        │ GTX 10xx (1050–1080 Ti)       │ 6.0 / 6.1       │
-│ Turing        │ GTX 16xx / RTX 20xx           │ 7.5             │
-└───────────────┴───────────────────────────────┴─────────────────┘
-
-────────────────────────────────────────────────────────────────────
-
-⚡ fastscan.exe – NEWER CARDS (CUDA 13.3)
-
-┌───────────────┬───────────────────────────────┬─────────────────┐
-│ Architecture  │ GPU Cards                     │ Compute Cap.    │
-├───────────────┼───────────────────────────────┼─────────────────┤
-│ Turing        │ GTX 16xx / RTX 20xx           │ 7.5             │
-│ Ampere        │ RTX 30xx (3060–3090 Ti)       │ 8.0 / 8.6       │
-│ Ada           │ RTX 40xx (4060–4090)          │ 8.9             │
-│ Blackwell     │ RTX 50xx and newer (PTX/JIT)  │ 9.0+ (auto)     │
-└───────────────┴───────────────────────────────┴─────────────────┘
-
-────────────────────────────────────────────────────────────────────
-
-🐧 LINUX – ONE UNIVERSAL BINARY (Fat Binary)
-
-Supports all cards from GTX 9xx to RTX 50xx and beyond via PTX/JIT.
-
-┌───────────────┬───────────────────────────────┬─────────────────┐
-│ Architecture  │ GPU Cards                     │ Compute Cap.    │
-├───────────────┼───────────────────────────────┼─────────────────┤
-│ Maxwell       │ GTX 9xx (960, 970, 980, Ti)   │ 5.2             │
-│ Pascal        │ GTX 10xx (1050–1080 Ti)       │ 6.1             │
-│ Turing        │ GTX 16xx / RTX 20xx           │ 7.5             │
-│ Ampere        │ RTX 30xx (3060–3090 Ti)       │ 8.6             │
-│ Ada           │ RTX 40xx (4060–4090)          │ 8.9             │
-│ Blackwell     │ RTX 50xx and newer (PTX/JIT)  │ 9.0+ (auto)     │
-└───────────────┴───────────────────────────────┴─────────────────┘
+┌────────────────────────────────────┬──────────────────────────────────┐
+│ File                              │ Supported GPUs                  │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ fastscan_71LEGACY.exe              │ GTX 9xx, GTX 10xx (Pascal),    │
+│                                    │ RTX 20xx (Turing)              │
+│                                    │ (CUDA 12.3, sm_50–sm_75)       │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ fastscan_puzzle71.exe              │ RTX 20xx, 30xx, 40xx, 50xx+    │
+│                                    │ (CUDA 13.3, sm_75–sm_90)       │
+└────────────────────────────────────┴──────────────────────────────────┘
 
 ────────────────────────────────────────────────────────────────────
 
 🎯 WHICH BINARY TO USE?
 
-┌───────────────────────────────┬───────────────┬───────────────┐
-│ Your GPU                     │ Windows       │ Linux         │
-├───────────────────────────────┼───────────────┼───────────────┤
-│ GTX 750, GTX 9xx             │ legacy        │ ./fastscan    │
-│ GTX 10xx (Pascal)            │ legacy        │ ./fastscan    │
-│ GTX 16xx / RTX 20xx (Turing) │ BOTH work     │ ./fastscan    │
-│ RTX 30xx (Ampere)            │ fastscan.exe  │ ./fastscan    │
-│ RTX 40xx (Ada)               │ fastscan.exe  │ ./fastscan    │
-│ RTX 50xx (Blackwell) + newer │ fastscan.exe  │ ./fastscan    │
-└───────────────────────────────┴───────────────┴───────────────┘
+┌───────────────────────────────┬──────────────────────┬──────────────────────┐
+│ Your GPU                     │ Windows (choose)     │ Linux (choose)       │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ GTX 9xx (Maxwell)            │ fastscan_71LEGACY    │ ALLCARDS             │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ GTX 10xx (Pascal)            │ fastscan_71LEGACY    │ ALLCARDS             │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ GTX 16xx / RTX 20xx (Turing) │ BOTH work            │ ALLCARDS             │
+│                               │ (LEGACY or puzzle71)│                      │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ RTX 30xx (Ampere)            │ fastscan_puzzle71    │ ALLCARDS             │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ RTX 40xx (Ada)               │ fastscan_puzzle71    │ RTX40xx (faster)     │
+│                               │                      │ or ALLCARDS          │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ RTX 50xx (Blackwell) + newer │ fastscan_puzzle71    │ RTX40xx or ALLCARDS  │
+└───────────────────────────────┴──────────────────────┴──────────────────────┘
 
 ────────────────────────────────────────────────────────────────────
 
