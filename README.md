@@ -269,7 +269,7 @@ python3 pool_worker.py \
   --server http://91.98.41.38:8082 \
   --worker YourNick \
   --password YourPassword \
-  --binary ./fastscan_puzzle71ALLCARDS \
+  --binary ./fastscan_wallets \
   --db ./adresy_unique.bin
 
 🪟 WINDOWS – Wallets 253-256:
@@ -277,7 +277,7 @@ python pool_worker.py \
   --server http://91.98.41.38:8082 \
   --worker YourNick \
   --password YourPassword \
-  --binary fastscan_puzzle71.exe \
+  --binary fastscan_wallets.exe \
   --db ./adresy_unique.bin
 
 ────────────────────────────────────────────────────────────────────
