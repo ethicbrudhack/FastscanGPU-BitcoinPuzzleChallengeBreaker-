@@ -321,25 +321,6 @@ python pool_worker.py --server https://fastscangpu.duckdns.org --worker YourNick
   • Run one terminal per GPU — the pool dashboard will show each
     as a separate miner.
 
-────────────────────────────────────────────────────────────────────
-
-🚀 253-256 BIT SERVER – HOW TO JOIN
-
-LINUX:
-python3 pool_worker.py \
-  --server http://91.98.41.38:8082 \
-  --worker YourNick \
-  --password YourPassword \
-  --binary ./fastscan \
-  --db ./adresy_unique.bin
-
-WINDOWS:
-python pool_worker.py \
-  --server http://91.98.41.38:8082 \
-  --worker YourNick \
-  --password YourPassword \
-  --binary fastscan.exe \
-  --db ./adresy_unique.bin
 
 ════════════════════════════════════════════════════════════════════
 ---
