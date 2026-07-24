@@ -31,21 +31,17 @@
 
 **⚠️ READ BEFORE RUNNING!!**  
 
-• If your scanner runs too fast – you're missing files. Make sure ALL files are in the folder.
-
 • Use ONLY the original .bin database from Google Drive (adresy_unique.bin). Custom .bin = ignored hits.
-
-• Workers must send /done before /found – fake hits are blocked.
 
 • Puzzle 71 = ONE specific address. 253-256 = only addresses from the original .bin.
 
 • Use only these 2 commands:
 
 PUZZLE #71:
-python3 pool_worker --server https://fastscangpu.duckdns.org --worker NICK --password PASS --binary ./fastscan
+python3 pool_worker.py --server https://fastscangpu.duckdns.org --worker NICK --password PASS --binary ./fastscan
 
 WALLETS 253-256:
-python3 pool_worker --server http://91.98.41.38:8082 --worker NICK --password PASS --binary ./fastscan --db ./adresy_unique.bin
+python3 pool_worker.py --server http://91.98.41.38:8082 --worker NICK --password PASS --binary ./fastscan --db ./adresy_unique.bin
 
 • Want to scan independently? Download the standalone binary from Google Drive – works with your own .bin and any bit range.
 • The binaries are for pool mining ONLY. Use the commands above to connect.
