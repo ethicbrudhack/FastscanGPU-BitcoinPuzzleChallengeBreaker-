@@ -37,7 +37,7 @@
 
 **⚠️ READ BEFORE RUNNING!!**  
 
-**⚡ Performance:** New binaries (this repo) deliver **5.2 GH/s** on RTX 4090  All tests under real pool workload.
+**⚡ Performance:** New binaries (this repo) deliver **5.2 GH/s** / **46.5 GH/s** on RTX 4090  All tests under real pool workload.
 
 • IMPORTANT: fastscan_71LEGACY.exe also works on RTX 4050 (and other new laptops) – use it if puzzle71.exe fails!
 
