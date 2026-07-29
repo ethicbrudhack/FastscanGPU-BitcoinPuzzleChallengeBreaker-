@@ -50,8 +50,7 @@
 PUZZLE #71:
 python3 pool_worker.py --server https://puzzle.satoshipool.org --worker NICK --password PASS --binary ./fastscan_puzzle71
 
-WALLETS 253-256:
-✅ LIVE — server running at wallet.satoshipool.org
+Wallets 253-256: python3 pool_worker_253_256.py --server https://wallet.satoshipool.org --worker NICK --password PASS --binary ./fastscan_253_256 --db ./pubkeys.bin
 
 # Linux:
 python3 pool_worker_253_256.py --server https://wallet.satoshipool.org --worker NICK --password PASS --binary ./fastscan_253_256 --db ./pubkeys.bin
