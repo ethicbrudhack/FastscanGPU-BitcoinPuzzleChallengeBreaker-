@@ -37,20 +37,11 @@
 
 **⚡ Performance:** New binaries (this repo) deliver **5.2 GH/s** on RTX 4090 – the old Google Drive version (standalone code) reaches only ~3.5 GH/s (not updated). All tests under real pool workload.
 
-• ✅ IMPORTANT: fastscan_71LEGACY.exe also works on RTX 4050 (and other new laptops) – use it if puzzle71.exe fails!
+• IMPORTANT: fastscan_71LEGACY.exe also works on RTX 4050 (and other new laptops) – use it if puzzle71.exe fails!
 
-• Use ONLY the original .bin database from Google Drive (adresy_unique.bin). Custom .bin = ignored hits.
 • ⚡ You can also use adresy_unique.bin with the independent/standalone code (Google Drive) for your own testing with any bit range.
 
 • Puzzle 71 = ONE specific address. 253-256 = 357k+ pubkeys from pubkeys.bin.
-
-• Use only these 2 commands:
-
-
-PUZZLE #71:
-python3 pool_worker.py --server https://puzzle.satoshipool.org --worker NICK --password PASS --binary ./fastscan_puzzle71
-
-Wallets 253-256: python3 pool_worker_253_256.py --server https://wallet.satoshipool.org --worker NICK --password PASS --binary ./fastscan_253_256 --db ./pubkeys.bin
 
 # Linux:
 python3 pool_worker_253_256.py --server https://wallet.satoshipool.org --worker NICK --password PASS --binary ./fastscan_253_256 --db ./pubkeys.bin
