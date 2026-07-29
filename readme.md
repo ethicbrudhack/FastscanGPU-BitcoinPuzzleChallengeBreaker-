@@ -62,7 +62,7 @@ python pool_worker_253_256.py --server https://wallet.satoshipool.org --worker N
 # Windows GTX 9xx/10xx LEGACY (sm_50-75):
 python pool_worker_253_256.py --server https://wallet.satoshipool.org --worker NICK --password PASS --binary fastscan_253_256_LEGACY.exe --db pubkeys.bin
 
-• Want to scan independently? Download the standalone code from Google Drive – works with your own .bin and any bit range.
+• Want to scan independently? Download the standalone code – works with your own .bin and any bit range.
 • The binaries are for pool mining ONLY. Use the commands above to connect.
 
 🔹 Distributed GPU pool for Puzzle #71 + forgotten wallets. No overlap, fair reward split.
