@@ -103,7 +103,7 @@ This repository contains **two independent GPU tools** – their performance num
 ### 🟢 2. 253-256 Wallet Scanner (✅ LIVE — pool + standalone)
 - **Target:** **Any public key database** (uncompressed pubkeys, `memcmp` only)
 - **Range:** 253–256 bits (custom ranges supported)
-- **Blazing Speed on RTX 4090:** **52.3 GH/s (8.7 Gadd/s)**
+- **Blazing Speed on RTX 4090:** **46.5 GH/s (7.7 Gadd/s)**
   - *Why is it 10–40× faster than typical GPU scanners?*
     - ✅ **No SHA256/RIPEMD160** – raw pubkey comparison (`memcmp`)
     - ✅ **Batch modular inversion (x512)** – drastically reduces EC operations
@@ -120,11 +120,11 @@ This repository contains **two independent GPU tools** – their performance num
 | **Target** | Single Address | Pubkey Database (e.g., mining wallets) |
 | **Hashing** | Full SHA/RIPEMD | **None** (raw memcmp) |
 | **Network** | Required (pool) | Optional (standalone or pool) |
-| **Speed (RTX 4090)** | **5.2 GH/s** | **52.3 GH/s** |
+| **Speed (RTX 4090)** | **5.2 GH/s** | **46.5 GH/s** |
 | **Current Status** | ✅ **LIVE** | ✅ **LIVE** |
 
 **If you see someone claiming "52 GH/s on Puzzle 71" – that is FALSE.**  
-The 52.3 GH/s speed is **EXCLUSIVELY** for the 253-256 raw pubkey scanner.
+The 46.5 GH/s speed is **EXCLUSIVELY** for the 253-256 raw pubkey scanner.
 
 ---
 
@@ -137,7 +137,7 @@ To stay updated:
 - 👁️ **Watch** for releases (set to "All Activity")
 - 💬 Join our Telegram: https://t.me/+39k4WcVDfYhiMWFk
 
-This is the **fastest raw-pubkey scanner** ever built for NVIDIA GPUs — 52.3 GH/s on RTX 4090.
+This is the **fastest raw-pubkey scanner** ever built for NVIDIA GPUs — 46.5 GH/s on RTX 4090.
 
 ---
 *Disclaimer: This tool is intended for educational and research purposes only. Searching for other people's in-use wallets is prohibited.*
