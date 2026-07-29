@@ -35,7 +35,7 @@
 <img width="1081" height="570" alt="image" src="https://github.com/user-attachments/assets/fada0031-4bec-42f5-a639-8d72ea387df9" />
 **⚠️ READ BEFORE RUNNING!!**  
 
-**⚡ Performance:** New binaries (this repo) deliver **5.2 GH/s** on RTX 4090 – the old Google Drive version (standalone code) reaches only ~3.5 GH/s (not updated). All tests under real pool workload.
+**⚡ Performance:** New binaries (this repo) deliver **5.2 GH/s** on RTX 4090  All tests under real pool workload.
 
 • IMPORTANT: fastscan_71LEGACY.exe also works on RTX 4050 (and other new laptops) – use it if puzzle71.exe fails!
 
