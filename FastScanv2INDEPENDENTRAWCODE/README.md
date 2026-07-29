@@ -300,8 +300,8 @@ issues have been fixed and features added:
 | Mode | Speed |
 |------|-------|
 | `--mode=comp` (compressed only) | **5.2 GH/s** |
-| `--mode=both` (compressed + uncompressed) | ~4.8 GH/s |
-| `--mode=uncomp` (uncompressed only) | ~2.5 GH/s |
+| `--mode=both` (compressed + uncompressed) | ~2.5 GH/s |
+| `--mode=uncomp` (uncompressed only) | ~3.5 GH/s |
 
 > **Important:** These are **real, standalone speeds** measured on a single
 > RTX 4090 with a full database and with SHA256+RIPEMD hashing active on every
