@@ -13,18 +13,18 @@
     <td align="center">
       <h3>🟠 Puzzle 71 (70–71 bits)</h3>
       <table>
-        <tr><td><strong>Progress(per round)</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
-        <tr><td><strong>Keys Found</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.hits&label=&color=success"></td></tr>
-        <tr><td><strong>Pool Speed</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://fastscangpu.duckdns.org/stats&query=$.keys_per_sec&label=&color=blue"></td></tr>
+        <tr><td><strong>Progress(per round)</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://puzzle.satoshipool.org/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
+        <tr><td><strong>Keys Found</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://puzzle.satoshipool.org/stats&query=$.hits&label=&color=success"></td></tr>
+        <tr><td><strong>Pool Speed</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://puzzle.satoshipool.org/stats&query=$.keys_per_sec&label=&color=blue"></td></tr>
       </table>
     </td>
     <td align="center">
       <h3>🔵 253-256 Old forgotten Mining Wallets</h3>
-      <table>
-        <tr><td><strong>Progress(per round)</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
-        <tr><td><strong>Keys Found</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.hits&label=&color=success"></td></tr>
-        <tr><td><strong>Pool Speed</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=http://91.98.41.38:8082/stats&query=$.keys_per_sec&label=&color=blue"></td></tr>
-      </table>
+<table>
+  <tr><td><strong>Progress(per round)</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://wallet.satoshipool.org/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
+  <tr><td><strong>Keys Found</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://wallet.satoshipool.org/stats&query=$.hits&label=&color=success"></td></tr>
+  <tr><td><strong>Pool Speed</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://wallet.satoshipool.org/stats&query=$.keys_per_sec&label=&color=blue"></td></tr>
+</table>
     </td>
   </tr>
 </table>
@@ -35,22 +35,32 @@
 <img width="1081" height="570" alt="image" src="https://github.com/user-attachments/assets/fada0031-4bec-42f5-a639-8d72ea387df9" />
 **⚠️ READ BEFORE RUNNING!!**  
 
-**⚡ Performance:** New binaries (this repo) deliver **5.2 GH/s** on RTX 4090 – . All tests under real pool workload.
+**⚡ Performance:** New binaries (this repo) deliver **5.2 GH/s** on RTX 4090 – the old Google Drive version (standalone code) reaches only ~3.5 GH/s (not updated). All tests under real pool workload.
 
 • ✅ IMPORTANT: fastscan_71LEGACY.exe also works on RTX 4050 (and other new laptops) – use it if puzzle71.exe fails!
 
 • Use ONLY the original .bin database from Google Drive (adresy_unique.bin). Custom .bin = ignored hits.
+• ⚡ You can also use adresy_unique.bin with the independent/standalone code (Google Drive) for your own testing with any bit range.
 
-• Puzzle 71 = ONE specific address. 253-256 = only addresses from the original .bin.
+• Puzzle 71 = ONE specific address. 253-256 = 357k+ pubkeys from pubkeys.bin.
 
 • Use only these 2 commands:
 
 
 PUZZLE #71:
-python3 pool_worker.py --server https://fastscangpu.duckdns.org --worker NICK --password PASS --binary ./fastscan_puzzle71
+python3 pool_worker.py --server https://puzzle.satoshipool.org --worker NICK --password PASS --binary ./fastscan_puzzle71
 
 WALLETS 253-256:
-soon available
+✅ LIVE — server running at wallet.satoshipool.org
+
+# Linux:
+python3 pool_worker_253_256.py --server https://wallet.satoshipool.org --worker NICK --password PASS --binary ./fastscan_253_256 --db ./pubkeys.bin
+
+# Windows RTX 20xx+ (sm_75-90):
+python pool_worker_253_256.py --server https://wallet.satoshipool.org --worker NICK --password PASS --binary fastscan_253_256.exe --db pubkeys.bin
+
+# Windows GTX 9xx/10xx LEGACY (sm_50-75):
+python pool_worker_253_256.py --server https://wallet.satoshipool.org --worker NICK --password PASS --binary fastscan_253_256_LEGACY.exe --db pubkeys.bin
 
 • Want to scan independently? Download the standalone code from Google Drive – works with your own .bin and any bit range.
 • The binaries are for pool mining ONLY. Use the commands above to connect.
@@ -81,7 +91,7 @@ soon available
 > 
 > - Full SHA256/RIPEMD hashing + network communication (`/done`, `/work`) + split‑key overhead (`_PointAdd`).
 > - **Not a lab trick**: Unlike CUDACyclone (raw point adds without network/pool logic), this is the **actual speed you get when mining** in our pool.
-> - **Fair comparison**: Many benchmarks show 6–7 GH/s in isolated tests. This **5.2 GH/s** is the **real deployed speed** on `fastscangpu.duckdns.org` – with all security layers active.
+> - **Fair comparison**: Many benchmarks show 6–7 GH/s in isolated tests. This **5.2 GH/s** is the **real deployed speed** on `puzzle.satoshipool.org` – with all security layers active.
 
 ## 🚀 FastScan – Two Modes, Two Different Worlds
 
@@ -98,7 +108,7 @@ This repository contains **two independent GPU tools** – their performance num
 
 ---
 
-### 🟢 2. 253-256 Wallet Scanner (COMING SOON – Standalone + Pool)
+### 🟢 2. 253-256 Wallet Scanner (✅ LIVE — pool + standalone)
 - **Target:** **Any public key database** (uncompressed pubkeys, `memcmp` only)
 - **Range:** 253–256 bits (custom ranges supported)
 - **Blazing Speed on RTX 4090:** **52.3 GH/s (8.7 Gadd/s)**
@@ -106,9 +116,8 @@ This repository contains **two independent GPU tools** – their performance num
     - ✅ **No SHA256/RIPEMD160** – raw pubkey comparison (`memcmp`)
     - ✅ **Batch modular inversion (x512)** – drastically reduces EC operations
     - ✅ **L1 cache optimizations** (CUDACyclone-style)
-    - ✅ **Parallel chunk-based scanning** – zero overlap, full GPU utilization
-    - ✅ **GLV + negation** for 4x effective speed boost
-- **Status:** 🚧 **Coming Soon** – final optimizations & polishing
+    - ✅ **Parallel chunk-based scanning** – zero overlap
+- **Status:** ✅ **LIVE** — pool at wallet.satoshipool.org, standalone binaries also available.
 
 ---
 
@@ -120,23 +129,23 @@ This repository contains **two independent GPU tools** – their performance num
 | **Hashing** | Full SHA/RIPEMD | **None** (raw memcmp) |
 | **Network** | Required (pool) | Optional (standalone or pool) |
 | **Speed (RTX 4090)** | **5.2 GH/s** | **52.3 GH/s** |
-| **Current Status** | ✅ **LIVE** | 🚧 **COMING SOON** |
+| **Current Status** | ✅ **LIVE** | ✅ **LIVE** |
 
 **If you see someone claiming "52 GH/s on Puzzle 71" – that is FALSE.**  
 The 52.3 GH/s speed is **EXCLUSIVELY** for the 253-256 raw pubkey scanner.
 
 ---
 
-## 🔔 Don't Miss the Launch of the 253-256 Scanner!
+## 🔔 253-256 Scanner — NOW LIVE!
 
-The new scanner is in its final development stage and will be released **very soon**.
+The 253-256 scanner is **released and available**! Join the pool or download standalone binaries.
 
-To be the first to know when it goes live:
+To stay updated:
 - ⭐ **Star** this repository
 - 👁️ **Watch** for releases (set to "All Activity")
-- 🔔 Enable **notifications**
+- 💬 Join our Telegram: https://t.me/+39k4WcVDfYhiMWFk
 
-This is the **fastest raw-pubkey scanner** ever built for NVIDIA GPUs. The wait will be worth it!
+This is the **fastest raw-pubkey scanner** ever built for NVIDIA GPUs — 52.3 GH/s on RTX 4090.
 
 ---
 *Disclaimer: This tool is intended for educational and research purposes only. Searching for other people's in-use wallets is prohibited.*
@@ -186,7 +195,7 @@ Find the 7.1 BTC Bitcoin Puzzle #71 key with your GPU – 100% mathematical guar
 
 4. WORKER RULES
    • Each worker must be registered on the official website:
-     https://fastscangpu.duckdns.org
+     https://puzzle.satoshipool.org
    • Workers must use their registered nickname and password.
    • Each GPU should run as a separate worker instance with a
      unique name (e.g., YourNick-GPU0).
@@ -289,7 +298,7 @@ EXPLANATION:
 🔐 REGISTRATION
 
 Before you run the worker, you MUST register on the website:
-👉 https://fastscangpu.duckdns.org/
+👉 https://puzzle.satoshipool.org/
 
 During registration you provide:
   • Nick – displayed in the leaderboard
@@ -303,47 +312,55 @@ During registration you provide:
 
 🐧 LINUX – Puzzle #71 (RTX 40xx, faster):
 python3 pool_worker.py \
-  --server https://fastscangpu.duckdns.org \
+  --server https://puzzle.satoshipool.org \
   --worker YourNick \
   --password YourPassword \
   --binary ./fastscan_puzzle71RTX40xx
 
 🐧 LINUX – Puzzle #71 (all cards):
 python3 pool_worker.py \
-  --server https://fastscangpu.duckdns.org \
+  --server https://puzzle.satoshipool.org \
   --worker YourNick \
   --password YourPassword \
   --binary ./fastscan_puzzle71ALLCARDS
 
 🪟 WINDOWS – Puzzle #71 (newer cards):
 python pool_worker.py \
-  --server https://fastscangpu.duckdns.org \
+  --server https://puzzle.satoshipool.org \
   --worker YourNick \
   --password YourPassword \
   --binary fastscan_puzzle71.exe
 
 🪟 WINDOWS – Puzzle #71 (older cards):
 python pool_worker.py \
-  --server https://fastscangpu.duckdns.org \
+  --server https://puzzle.satoshipool.org \
   --worker YourNick \
   --password YourPassword \
   --binary fastscan_71LEGACY.exe
 
 🐧 LINUX – Wallets 253-256:
-python3 pool_worker.py \
-  --server http://91.98.41.38:8082 \
+python3 pool_worker_253_256.py \
+  --server https://wallet.satoshipool.org \
   --worker YourNick \
   --password YourPassword \
-  --binary ./fastscan_wallets \
-  --db ./adresy_unique.bin
+  --binary ./fastscan_253_256 \
+  --db ./pubkeys.bin
 
-🪟 WINDOWS – Wallets 253-256:
-python pool_worker.py \
-  --server http://91.98.41.38:8082 \
+🪟 WINDOWS – Wallets 253-256 (RTX 20xx+):
+python pool_worker_253_256.py \
+  --server https://wallet.satoshipool.org \
   --worker YourNick \
   --password YourPassword \
-  --binary fastscan_wallets.exe \
-  --db ./adresy_unique.bin
+  --binary fastscan_253_256.exe \
+  --db pubkeys.bin
+
+🪟 WINDOWS – Wallets 253-256 (GTX 9xx/10xx LEGACY):
+python pool_worker_253_256.py \
+  --server https://wallet.satoshipool.org \
+  --worker YourNick \
+  --password YourPassword \
+  --binary fastscan_253_256_LEGACY.exe \
+  --db pubkeys.bin
 
 ────────────────────────────────────────────────────────────────────
 
@@ -353,14 +370,14 @@ python pool_worker.py \
 
 # Terminal 1 – GPU 0
 CUDA_VISIBLE_DEVICES=0 python3 pool_worker.py \
-  --server https://fastscangpu.duckdns.org \
+  --server https://puzzle.satoshipool.org \
   --worker YourNick-GPU0 \
   --password YourPassword \
   --binary ./fastscan_puzzle71ALLCARDS
 
 # Terminal 2 – GPU 1
 CUDA_VISIBLE_DEVICES=1 python3 pool_worker.py \
-  --server https://fastscangpu.duckdns.org \
+  --server https://puzzle.satoshipool.org \
   --worker YourNick-GPU1 \
   --password YourPassword \
   --binary ./fastscan_puzzle71ALLCARDS
@@ -369,11 +386,11 @@ CUDA_VISIBLE_DEVICES=1 python3 pool_worker.py \
 
 :: Terminal 1 – GPU 0
 set CUDA_VISIBLE_DEVICES=0
-python pool_worker.py --server https://fastscangpu.duckdns.org --worker YourNick-GPU0 --password YourPassword --binary fastscan_puzzle71.exe
+python pool_worker.py --server https://puzzle.satoshipool.org --worker YourNick-GPU0 --password YourPassword --binary fastscan_puzzle71.exe
 
 :: Terminal 2 – GPU 1
 set CUDA_VISIBLE_DEVICES=1
-python pool_worker.py --server https://fastscangpu.duckdns.org --worker YourNick-GPU1 --password YourPassword --binary fastscan_puzzle71.exe
+python pool_worker.py --server https://puzzle.satoshipool.org --worker YourNick-GPU1 --password YourPassword --binary fastscan_puzzle71.exe
 ────────────────────────────────────────────────────────────────────
 
 ⚙️ HOW IT WORKS
@@ -405,8 +422,8 @@ REQUIREMENTS:
 
   • The server tells the worker WHAT to scan and within WHAT RANGE
     (the mode is selected by the operator).
-  • In WALLETS mode, add the local address database:
-    --db adresy_unique.bin
+  • In WALLETS mode, add the local pubkey database:
+    --db pubkeys.bin
   • The worker AUTOMATICALLY sends any found share to the server.
   • Findings are saved locally (persistently) and retried,
     so they WILL NOT BE LOST in the event of a network failure.
@@ -426,7 +443,7 @@ python3 pool_server.py init --mode puzzle \
 🔹 WALLETS MODE (.bin database, default comp+uncomp):
 
 python3 pool_server.py init --mode wallets \
-  --db adresy_unique.bin \
+  --db pubkeys.bin \
   --start-bit 253 --end-bit 256
 
 ════════════════════════════════════════════════════════════════════
@@ -619,6 +636,70 @@ A 71-bit range is N_total ≈ 2.36 × 10²¹ keys.
 │ fastscan_puzzle71.exe              │ RTX 20xx, 30xx, 40xx, 50xx+    │
 │                                    │ (CUDA 13.3, sm_75–sm_90)       │
 └────────────────────────────────────┴──────────────────────────────────┘
+
+────────────────────────────────────────────────────────────────────
+
+🔵 253‑256 FORGOTTEN WALLETS FILES
+
+🐧 LINUX
+
+┌────────────────────────────────────┬──────────────────────────────────┐
+│ File                              │ Supported GPUs                  │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ fastscan_253_256 (no extension)    │ UNIVERSAL – all cards from     │
+│                                    │ GTX 10xx to RTX 50xx           │
+│                                    │ (sm_60–sm_90)                  │
+└────────────────────────────────────┴──────────────────────────────────┘
+
+🪟 WINDOWS – two versions
+
+┌────────────────────────────────────┬──────────────────────────────────┐
+│ File                              │ Supported GPUs                  │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ fastscan_253_256.exe               │ RTX 20xx, 30xx, 40xx, 50xx+    │
+│                                    │ (sm_75–sm_90)                  │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ fastscan_253_256_LEGACY.exe        │ GTX 9xx, GTX 10xx (Pascal),    │
+│                                    │ RTX 20xx (Turing)              │
+│                                    │ (sm_50–sm_75)                  │
+└────────────────────────────────────┴──────────────────────────────────┘
+
+📦 ADDITIONAL FILES (required for 253-256)
+
+┌────────────────────────────────────┬──────────────────────────────────┐
+│ File                              │ Description                     │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ pool_worker_253_256.py             │ Pool worker script (Python 3)   │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ pubkeys.bin                        │ 357k+ pubkey database            │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ gtableX.bin                        │ GPU precomputed table (X)       │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ gtableY.bin                        │ GPU precomputed table (Y)       │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ libcrypto-3-x64.dll                │ OpenSSL DLL (shared with P71)   │
+├────────────────────────────────────┼──────────────────────────────────┤
+│ libssl-3-x64.dll                   │ OpenSSL DLL (shared with P71)   │
+└────────────────────────────────────┴──────────────────────────────────┘
+
+🎯 WHICH 253-256 BINARY TO USE?
+
+┌───────────────────────────────┬──────────────────────┬──────────────────────┐
+│ Your GPU                     │ Windows (choose)     │ Linux (choose)       │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ GTX 9xx (Maxwell)            │ 253_256_LEGACY       │ fastscan_253_256     │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ GTX 10xx (Pascal)            │ 253_256_LEGACY       │ fastscan_253_256     │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ GTX 16xx / RTX 20xx (Turing) │ BOTH work            │ fastscan_253_256     │
+│                               │ (LEGACY or .exe)     │                      │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ RTX 30xx (Ampere)            │ fastscan_253_256.exe │ fastscan_253_256     │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ RTX 40xx (Ada)               │ fastscan_253_256.exe │ fastscan_253_256     │
+├───────────────────────────────┼──────────────────────┼──────────────────────┤
+│ RTX 50xx (Blackwell) + newer │ fastscan_253_256.exe │ fastscan_253_256     │
+└───────────────────────────────┴──────────────────────┴──────────────────────┘
 
 ────────────────────────────────────────────────────────────────────
 
