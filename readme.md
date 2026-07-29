@@ -30,7 +30,9 @@
 </table>
 ```
 ---
+<img width="1002" height="504" alt="image" src="https://github.com/user-attachments/assets/9f27f08f-b3d4-485d-acfb-3f46c506060b" />
 
+<img width="1081" height="570" alt="image" src="https://github.com/user-attachments/assets/fada0031-4bec-42f5-a639-8d72ea387df9" />
 **⚠️ READ BEFORE RUNNING!!**  
 
 **⚡ Performance:** New binaries (this repo) deliver **5.2 GH/s** on RTX 4090 – . All tests under real pool workload.
@@ -71,9 +73,7 @@ soon available
 💬 Telegram https://t.me/+39k4WcVDfYhiMWFk
 
 
-<img width="1002" height="504" alt="image" src="https://github.com/user-attachments/assets/9f27f08f-b3d4-485d-acfb-3f46c506060b" />
 
-<img width="1081" height="570" alt="image" src="https://github.com/user-attachments/assets/fada0031-4bec-42f5-a639-8d72ea387df9" />
 ````
 ## 🚀 Real‑World Performance on RTX 4090
 
