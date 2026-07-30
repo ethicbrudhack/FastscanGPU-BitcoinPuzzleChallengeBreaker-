@@ -68,7 +68,7 @@ python pool_worker_253_256.py --server https://wallet.satoshipool.org --worker N
 ##📥 Download: 
 ```
 📥adresy_unique.bin: https://drive.google.com/file/d/1vTkDbWXIwtv2_V-_FnuW6QjonaCd_XSx/view?usp=drive_link
-
+---for independent standalone code !!!!
 
 🌐 Website: https://satoshipool.org/
 
