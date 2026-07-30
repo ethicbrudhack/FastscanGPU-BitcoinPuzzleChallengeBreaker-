@@ -100,50 +100,65 @@ This repository contains **two independent GPU tools** – their performance num
 
 ---
 
-### 🟢 2. 253-256 Wallet Scanner (✅ LIVE — pool + standalone)
-- **Target:** **Any public key database** (uncompressed pubkeys, `memcmp` only)
-- **Range:** 253–256 bits (custom ranges supported)
-- **Blazing Speed on RTX 4090:** **46.5 GH/s (7.7 Gadd/s)**
-  - *Why is it 10–40× faster than typical GPU scanners?*
-    - ✅ **No SHA256/RIPEMD160** – raw pubkey comparison (`memcmp`)
-    - ✅ **Batch modular inversion (x512)** – drastically reduces EC operations
-    - ✅ **L1 cache optimizations** (CUDACyclone-style)
-    - ✅ **Parallel chunk-based scanning** – zero overlap
-- **Status:** ✅ **LIVE** — pool at wallet.satoshipool.org, standalone binaries also available.
-
+### 🟢 2. 253-256 Wallet Scanner – LIVE (Pool + Standalone)
+-Target: Any uncompressed public key database (raw memcmp comparison, zero hashing)
+-Range: 253–256 bits (custom ranges supported)
+-Blazing Speed on RTX 4090: 46.5 GH/s (7.7 Gadd/s)
+-Why is it 10–40× faster than typical GPU scanners?
+✅ No SHA256/RIPEMD160 – raw pubkey comparison (memcmp)
+✅ Batch modular inversion (x512) – drastically reduces EC operations
+✅ L1 cache optimizations (CUDACyclone-style)
+✅ Parallel chunk-based scanning – zero overlap
+Status: ✅ LIVE — pool at wallet.satoshipool.org, standalone binaries also available.
 ---
 
-### ⚠️ IMPORTANT – Do NOT confuse them!
+⚠️ IMPORTANT – Do NOT confuse them!
 
-| Feature | Puzzle #71 (Pool) | 253-256 Scanner |
-|---------|-------------------|-----------------|
-| **Target** | Single Address | Pubkey Database (e.g., mining wallets) |
-| **Hashing** | Full SHA/RIPEMD | **None** (raw memcmp) |
-| **Network** | Required (pool) | Optional (standalone or pool) |
-| **Speed (RTX 4090)** | **5.2 GH/s** | **46.5 GH/s** |
-| **Current Status** | ✅ **LIVE** | ✅ **LIVE** |
++-----------------------------+----------------------------------+-----------------------------------+
+| Feature                     | Puzzle #71 (Pool)                | 253-256 Scanner                   |
++-----------------------------+----------------------------------+-----------------------------------+
+| Target                      | Single Address                   | Pubkey Database (e.g., mining     |
+|                             |                                  | wallets)                          |
+| Hashing                     | Full SHA/RIPEMD                  | None (raw memcmp)                 |
+| Network                     | Required (pool)                  | Optional (standalone or pool)     |
+| Speed (RTX 4090)            | 5.2 GH/s                         | 46.5 GH/s                         |
+| Status                      | ✅ LIVE                          | ✅ LIVE                           |
++-----------------------------+----------------------------------+-----------------------------------+
 
-**If you see someone claiming "52 GH/s on Puzzle 71" – that is FALSE.**  
-The 46.5 GH/s speed is **EXCLUSIVELY** for the 253-256 raw pubkey scanner.
+If someone claims "52 GH/s on Puzzle 71" – that is FALSE.
+The 46.5 GH/s speed is EXCLUSIVELY for the 253-256 raw pubkey scanner.
 
----
 
-## 🔔 253-256 Scanner — NOW LIVE!
+🧩 How to use the binaries for puzzles #140, #145, #150, #155, and #160
 
-The 253-256 scanner is **released and available**! Join the pool or download standalone binaries.
+Yes – the 253-256 binaries are PERFECT for these puzzles!
 
-To stay updated:
-- ⭐ **Star** this repository
-- 👁️ **Watch** for releases (set to "All Activity")
-- 💬 Join our Telegram: https://t.me/+39k4WcVDfYhiMWFk
+For puzzles #140 and above, the public key has already been revealed in the
+blockchain (when the funds were spent). Here's exactly how to use FastscanGPU
+for them:
+
+1. Get the public key for the target puzzle (e.g., from blockchain explorers
+   or known sources).
+   - It is usually given in compressed format (33 bytes, starting with 02 or 03).
+
+2. Convert it to uncompressed format (65 bytes, starting with 04).
+   - You can do this easily with a secp256k1 library or a small Python script.
+   - Important: The private key remains exactly the same – this is just a
+     different representation of the same point on the elliptic curve.
+
+3. Run the binary with the 140-char hex uncompressed pubkey or .bin:
+
+   ./fastscan_253_256 pubkey.bin 140 160
+
+   Or for a specific single puzzle (e.g., #140):
+
+   ./fastscan_253_256 04<X><Y> 139 140
+
 
 This is the **fastest raw-pubkey scanner** ever built for NVIDIA GPUs — 46.5 GH/s on RTX 4090.
 
 ---
-*Disclaimer: This tool is intended for educational and research purposes only. Searching for other people's in-use wallets is prohibited.*
 
----
-*Disclaimer: This tool is intended for educational and research purposes only.*
 
 Find the 7.1 BTC Bitcoin Puzzle #71 key with your GPU – 100% mathematical guarantee!
 ╔══════════════════════════════════════════════════════════════════╗
