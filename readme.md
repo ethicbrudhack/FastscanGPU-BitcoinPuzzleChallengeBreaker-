@@ -45,7 +45,8 @@
 
 • ⚡ You can also use adresy_unique.bin with the independent/standalone code (Google Drive) for your own testing with any bit range.
 
-• Puzzle 71 = ONE specific address. 253-256 = 357k+ pubkeys from pubkeys.bin.
+• Puzzle 71 = ONE specific address. 
+• 253-256 = 357k+ pubkeys from pubkeys.bin.
 
 ```bash
 # Linux:
