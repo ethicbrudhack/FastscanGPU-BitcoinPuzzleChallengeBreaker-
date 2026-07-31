@@ -50,9 +50,9 @@ For newer NVIDIA GPUs:
 - Use a CUDA version compatible with the GPU generation.
 - Enable the correct compute capability (sm_xx) during compilation.
 
- ================================================================
+=
 REQUIREMENTS - WINDOWS
-================================================================
+=
 
 Required:
 - Windows 10 / Windows 11 (64-bit)
@@ -79,9 +79,9 @@ Notes:
 - Different GPU generations may require different CUDA Toolkit versions.
 - Compilation depends on the user's system configuration.
 
- ================================================================
+=
 IMPORTANT
-================================================================
+=
 
 This project does not include preconfigured build paths.
 Users must adjust all CUDA, compiler, include and library paths
