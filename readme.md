@@ -144,7 +144,11 @@ For puzzles #140 and above, the public key has already been revealed in the bloc
    - You can do this easily with a secp256k1 library or a small Python script.
    - Important: The private key remains exactly the same – this is just a different representation of the same point on the elliptic curve.
 
-3. Run the binary with the 140-char hex uncompressed pubkey or .bin:
+3. Build your own `.bin` database using the included `build_pubkey_db.py` script:
+```bash
+python3 build_pubkey_db.py my_pubkeys.txt -o puzzle_140.bin
+
+4. Run the binary with the 140-char hex uncompressed pubkey or .bin:
    ```bash
    ./fastscan_253_256 pubkey.bin 140 160
    ```
@@ -152,6 +156,9 @@ For puzzles #140 and above, the public key has already been revealed in the bloc
    ```bash
    ./fastscan_253_256 04<X><Y> 139 140
    ```
+Important difference:
+-The pre-built pubkeys.bin = mining wallets only (2009-2013, uncompressed pubkeys)
+-Your custom .bin = whatever you put in it (including puzzle #140, #145, #150, #155, #160, etc.)
 
 This is the **fastest raw-pubkey scanner** ever built for NVIDIA GPUs — 46.5 GH/s on RTX 4090.
 
