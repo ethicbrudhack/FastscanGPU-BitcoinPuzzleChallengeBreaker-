@@ -6,8 +6,10 @@ Achieves **~49 Gkeys/s** on RTX 4090 (raw pubkey memcmp, zero hashing).
 This is the **standalone version** of the same GPU engine used in the [satoshipool.org](https://satoshipool.org) 253-256 pool.  
 It scans uncompressed public keys directly from a `.bin` database (or a single pubkey) using pure `memcmp` comparison — **no SHA256, no RIPEMD160** in the hot path.
 
-<img width="1093" height="510" alt="image" src="https://github.com/user-attachments/assets/dc9462c6-0906-425b-8f55-1d2fd64293fd" />
-<img width="1109" height="555" alt="image" src="https://github.com/user-attachments/assets/1438685c-60c7-47ec-a045-4236d60acea6" />
+<img width="1090" height="553" alt="image" src="https://github.com/user-attachments/assets/b8ebe765-dc3e-43ae-91cc-c84531925797" />
+
+<img width="1087" height="513" alt="image" src="https://github.com/user-attachments/assets/0137d38e-a790-43b4-8b9f-7584bc0617c0" />
+
 
 ---
 
