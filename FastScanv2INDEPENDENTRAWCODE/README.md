@@ -326,4 +326,4 @@ test — this optimized build from source is ~50% faster.
   RAM anymore (see section 6) — it is memory-mapped, so host RAM
   requirements are modest (roughly a few hundred MB beyond the OS page
   cache).
-
+## donate: bc1qps62cyk9f9unmdkc9k3ccj9e2h8ywfhg2j53ec
