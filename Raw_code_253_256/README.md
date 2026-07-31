@@ -13,7 +13,81 @@ It scans uncompressed public keys directly from a `.bin` database (or a single p
 
 
 ---
+================================================================
+REQUIREMENTS - UBUNTU / LINUX
+================================================================
 
+Required:
+- Ubuntu 20.04 / 22.04 / 24.04 (64-bit recommended)
+- NVIDIA GPU with CUDA support
+- Latest NVIDIA proprietary driver
+- CUDA Toolkit (matching the GPU and driver version)
+- GCC / G++ compiler
+- Make or CMake (depending on build setup)
+- OpenSSL development libraries
+- libsecp256k1 development libraries
+- Required memory mapping libraries (mman or equivalent)
+
+Recommended packages:
+
+sudo apt update
+
+sudo apt install build-essential gcc g++ make cmake git \
+libssl-dev libsecp256k1-dev
+
+Notes:
+- CUDA Toolkit must be installed separately from NVIDIA's official repository.
+- The CUDA path may need to be adjusted depending on the installation.
+- Users must modify include/library paths in the compile command to match their own system.
+- CUDA architecture flags (-gencode) should match the user's GPU.
+- Compilation depends on the user's system configuration.
+
+- For older NVIDIA GPUs:
+- Older CUDA versions may be required.
+- Some legacy architectures may need additional compiler flags.
+
+For newer NVIDIA GPUs:
+- Use a CUDA version compatible with the GPU generation.
+- Enable the correct compute capability (sm_xx) during compilation.
+
+ ================================================================
+REQUIREMENTS - WINDOWS
+================================================================
+
+Required:
+- Windows 10 / Windows 11 (64-bit)
+- NVIDIA GPU with CUDA support
+- Latest NVIDIA GPU driver
+- CUDA Toolkit (compatible with the GPU architecture)
+- Visual Studio 2022
+- MSVC C++ compiler toolchain
+- "Desktop development with C++" workload installed in Visual Studio
+- Windows SDK
+- vcpkg package manager
+- OpenSSL libraries
+- libsecp256k1 library
+- mman library
+
+Recommended:
+- Git (for downloading dependencies)
+- CMake (if building dependencies manually)
+
+Notes:
+- Run compilation commands from cmd.exe or Developer Command Prompt.
+- Users must change all paths in the compile command to match their own installation directories.
+- CUDA architecture flags (-gencode) must match the user's GPU model.
+- Different GPU generations may require different CUDA Toolkit versions.
+- Compilation depends on the user's system configuration.
+
+ ================================================================
+IMPORTANT
+================================================================
+
+This project does not include preconfigured build paths.
+Users must adjust all CUDA, compiler, include and library paths
+according to their own system installation.
+
+The provided commands are examples only.
 ## 🔥 Why is it 10× faster than typical GPU scanners?
 
 | Feature | Traditional scanners | This scanner |
