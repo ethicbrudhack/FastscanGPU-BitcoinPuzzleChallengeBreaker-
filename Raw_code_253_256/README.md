@@ -96,7 +96,7 @@ nvcc -O3 -arch=sm_61 -D_FORTIFY_SOURCE=0 -DGRP_SIZE=1024 -DGROUP_BATCH=16 -o fas
 ## 🚀 Running the Program
 
 ```bash
-./fastscan_253_256standalone <pubkeys.bin | PUBKEY_HEX> <start_bit> <end_bit> [--gpu=N|all] [--resume]
+./fastscan_253_256standalone <pubkeys.bin | PUBKEY_HEX> <start_bit> <end_bit> [--gpu=N|all] [--resume] [--split-gpu]
 ```
 
 | Argument | Description |
@@ -108,6 +108,7 @@ nvcc -O3 -arch=sm_61 -D_FORTIFY_SOURCE=0 -DGRP_SIZE=1024 -DGROUP_BATCH=16 -o fas
 | `--gpu=N` | Use specific GPU (e.g., `--gpu=0`). |
 | `--gpu=all` | **Use ALL available GPUs.** |
 | `--resume` | Resume from `progress.txt` (or `progress_gpuN.txt` in multi‑GPU mode) |
+| `--split-gpu` | When used together with --gpu=all, divides the search range equally across all GPUs.|
 
 > **⚠️ IMPORTANT:** By default, the program uses **only GPU 0**. To use all GPUs, you **must** pass `--gpu=all`.
 
@@ -396,7 +397,8 @@ The `start_bit` and `end_bit` from the command line are **ignored** — the save
 | Speed | **~49 Gkeys/s** | **~49 Gkeys/s** |
 | Range | **Any** (e.g., 44‑45, 253‑256) | Fixed by operator |
 | Runs forever | ✅ Yes (infinite rounds) | ✅ 24/7 with `--pool-persistent` |
-| Work distribution | ❌ Each GPU scans the FULL range independently (no splitting) | ✅ Server splits work among all miners |
+| Work distribution | ✅ --split-gpu divides range locally
+Default: full-range per GPU | ✅ Server splits work among all miners |
 | Found keys | Local `found.txt` | Auto‑reported to server |
 | Reward | Solo | **40% finder + 55% proportional + 5% operator** |
 
