@@ -9,6 +9,7 @@ It scans uncompressed public keys directly from a `.bin` database (or a single p
 <img width="1090" height="553" alt="image" src="https://github.com/user-attachments/assets/b8ebe765-dc3e-43ae-91cc-c84531925797" />
 
 <img width="1087" height="513" alt="image" src="https://github.com/user-attachments/assets/0137d38e-a790-43b4-8b9f-7584bc0617c0" />
+<img width="1587" height="814" alt="image" src="https://github.com/user-attachments/assets/91391664-6cd3-4d79-9a4e-aaf4b7b46f6c" />
 
 
 ---
