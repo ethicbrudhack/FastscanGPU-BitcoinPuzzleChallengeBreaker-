@@ -20,24 +20,26 @@
     </td>
     <td align="center">
       <h3>🔵 253-256 Old forgotten Mining Wallets</h3>
-<table>
-  <tr><td><strong>Progress(per round)</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://wallet.satoshipool.org/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
-  <tr><td><strong>Keys Found</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://wallet.satoshipool.org/stats&query=$.hits&label=&color=success"></td></tr>
-  <tr><td><strong>Pool Speed</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://wallet.satoshipool.org/stats&query=$.keys_per_sec&label=&color=blue"></td></tr>
-</table>
+      <table>
+        <tr><td><strong>Progress(per round)</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://wallet.satoshipool.org/stats&query=$.round_progress_pct&label=&color=orange&suffix=%25"></td></tr>
+        <tr><td><strong>Keys Found</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://wallet.satoshipool.org/stats&query=$.hits&label=&color=success"></td></tr>
+        <tr><td><strong>Pool Speed</strong></td><td><img src="https://img.shields.io/badge/dynamic/json?url=https://wallet.satoshipool.org/stats&query=$.keys_per_sec&label=&color=blue"></td></tr>
+      </table>
     </td>
   </tr>
 </table>
-```
+
 ---
+
 <img width="1002" height="504" alt="image" src="https://github.com/user-attachments/assets/9f27f08f-b3d4-485d-acfb-3f46c506060b" />
 
 <img width="1093" height="559" alt="image" src="https://github.com/user-attachments/assets/aa0a00de-48ec-4db7-8564-96ea624ddff2" />
+
 <img width="1097" height="564" alt="image" src="https://github.com/user-attachments/assets/df38e722-9bc4-4cc1-ba7f-3299363ebe5c" />
 
 **⚠️ READ BEFORE RUNNING!!**  
 
-**⚡ Performance:** New binaries (this repo) deliver **5.2 GH/s** / **46.5 GH/s** on RTX 4090  All tests under real pool workload.
+**⚡ Performance:** New binaries (this repo) deliver **5.2 GH/s** / **46.5 GH/s** on RTX 4090. All tests under real pool workload.
 
 • IMPORTANT: fastscan_71LEGACY.exe also works on RTX 4050 (and other new laptops) – use it if puzzle71.exe fails!
 
@@ -45,6 +47,7 @@
 
 • Puzzle 71 = ONE specific address. 253-256 = 357k+ pubkeys from pubkeys.bin.
 
+```bash
 # Linux:
 python3 pool_worker_253_256.py --server https://wallet.satoshipool.org --worker NICK --password PASS --binary ./fastscan_253_256 --db ./pubkeys.bin
 
@@ -53,30 +56,28 @@ python pool_worker_253_256.py --server https://wallet.satoshipool.org --worker N
 
 # Windows GTX 9xx/10xx LEGACY (sm_50-75):
 python pool_worker_253_256.py --server https://wallet.satoshipool.org --worker NICK --password PASS --binary fastscan_253_256_LEGACY.exe --db pubkeys.bin
+```
 
-• Want to scan independently? Download the standalone code – works with your own .bin and any bit range.
+• Want to scan independently? Download the standalone code – works with your own .bin and any bit range.  
 • The binaries are for pool mining ONLY. Use the commands above to connect.
 
 🔹 Distributed GPU pool for Puzzle #71 + forgotten wallets. No overlap, fair reward split.
-
 
 <img width="1600" height="1000" alt="chunk_evolution" src="https://github.com/user-attachments/assets/4f8b3985-1106-47b9-8339-2833d2dded62" />
 
 ---
 
-```
-##📥 Download: 
-```
-📥adresy_unique.bin: https://drive.google.com/file/d/1vTkDbWXIwtv2_V-_FnuW6QjonaCd_XSx/view?usp=drive_link
----for independent standalone code !!!!
+## 📥 Download
+
+📥 adresy_unique.bin: https://drive.google.com/file/d/1vTkDbWXIwtv2_V-_FnuW6QjonaCd_XSx/view?usp=drive_link  
+— for independent standalone code !!!!
 
 🌐 Website: https://satoshipool.org/
 
-💬 Telegram https://t.me/+39k4WcVDfYhiMWFk
+💬 Telegram: https://t.me/+39k4WcVDfYhiMWFk
 
+---
 
-
-````
 ## 🚀 Real‑World Performance on RTX 4090
 
 > **⚠️ IMPORTANT: This speed is measured on a LIVE PRODUCTION POOL with SPLIT-KEY enabled.**
@@ -84,6 +85,8 @@ python pool_worker_253_256.py --server https://wallet.satoshipool.org --worker N
 > - Full SHA256/RIPEMD hashing + network communication (`/done`, `/work`) + split‑key overhead (`_PointAdd`).
 > - **Not a lab trick**: Unlike CUDACyclone (raw point adds without network/pool logic), this is the **actual speed you get when mining** in our pool.
 > - **Fair comparison**: Many benchmarks show 6–7 GH/s in isolated tests. This **5.2 GH/s** is the **real deployed speed** on `puzzle.satoshipool.org` – with all security layers active.
+
+---
 
 ## 🚀 FastScan – Two Modes, Two Different Worlds
 
@@ -101,66 +104,62 @@ This repository contains **two independent GPU tools** – their performance num
 ---
 
 ### 🟢 2. 253-256 Wallet Scanner – LIVE (Pool + Standalone)
--Target: Any uncompressed public key database (raw memcmp comparison, zero hashing)
--Range: 253–256 bits (custom ranges supported)
--Blazing Speed on RTX 4090: 46.5 GH/s (7.7 Gadd/s)
--Why is it 10–40× faster than typical GPU scanners?
-✅ No SHA256/RIPEMD160 – raw pubkey comparison (memcmp)
-✅ Batch modular inversion (x512) – drastically reduces EC operations
-✅ L1 cache optimizations (CUDACyclone-style)
-✅ Parallel chunk-based scanning – zero overlap
-Status: ✅ LIVE — pool at wallet.satoshipool.org, standalone binaries also available.
+- **Target:** Any uncompressed public key database (raw memcmp comparison, zero hashing)
+- **Range:** 253–256 bits (custom ranges supported)
+- **Blazing Speed on RTX 4090:** **46.5 GH/s** (7.7 Gadd/s)
+- **Why is it 10–40× faster than typical GPU scanners?**
+  - ✅ No SHA256/RIPEMD160 – raw pubkey comparison (memcmp)
+  - ✅ Batch modular inversion (x512) – drastically reduces EC operations
+  - ✅ L1 cache optimizations (CUDACyclone-style)
+  - ✅ Parallel chunk-based scanning – zero overlap
+- **Status:** ✅ LIVE — pool at `wallet.satoshipool.org`, standalone binaries also available.
+
 ---
 
 ⚠️ IMPORTANT – Do NOT confuse them!
 
-+-----------------------------+----------------------------------+-----------------------------------+
-| Feature                     | Puzzle #71 (Pool)                | 253-256 Scanner                   |
-+-----------------------------+----------------------------------+-----------------------------------+
-| Target                      | Single Address                   | Pubkey Database (e.g., mining     |
-|                             |                                  | wallets)                          |
-| Hashing                     | Full SHA/RIPEMD                  | None (raw memcmp)                 |
-| Network                     | Required (pool)                  | Optional (standalone or pool)     |
-| Speed (RTX 4090)            | 5.2 GH/s                         | 46.5 GH/s                         |
-| Status                      | ✅ LIVE                          | ✅ LIVE                           |
-+-----------------------------+----------------------------------+-----------------------------------+
+| Feature | Puzzle #71 (Pool) | 253-256 Scanner |
+|---------|-------------------|-----------------|
+| Target | Single Address | Pubkey Database (e.g., mining wallets) |
+| Hashing | Full SHA/RIPEMD | None (raw memcmp) |
+| Network | Required (pool) | Optional (standalone or pool) |
+| Speed (RTX 4090) | 5.2 GH/s | 46.5 GH/s |
+| Status | ✅ LIVE | ✅ LIVE |
 
-If someone claims "52 GH/s on Puzzle 71" – that is FALSE.
+If someone claims "52 GH/s on Puzzle 71" – that is FALSE.  
 The 46.5 GH/s speed is EXCLUSIVELY for the 253-256 raw pubkey scanner.
 
+---
 
-🧩 How to use the binaries for puzzles #140, #145, #150, #155, and #160
+## 🧩 How to use the binaries for puzzles #140, #145, #150, #155, and #160
 
 Yes – the 253-256 binaries are PERFECT for these puzzles!
 
-For puzzles #140 and above, the public key has already been revealed in the
-blockchain (when the funds were spent). Here's exactly how to use FastscanGPU
-for them:
+For puzzles #140 and above, the public key has already been revealed in the blockchain (when the funds were spent). Here's exactly how to use FastscanGPU for them:
 
-1. Get the public key for the target puzzle (e.g., from blockchain explorers
-   or known sources).
+1. Get the public key for the target puzzle (e.g., from blockchain explorers or known sources).
    - It is usually given in compressed format (33 bytes, starting with 02 or 03).
 
 2. Convert it to uncompressed format (65 bytes, starting with 04).
    - You can do this easily with a secp256k1 library or a small Python script.
-   - Important: The private key remains exactly the same – this is just a
-     different representation of the same point on the elliptic curve.
+   - Important: The private key remains exactly the same – this is just a different representation of the same point on the elliptic curve.
 
 3. Run the binary with the 140-char hex uncompressed pubkey or .bin:
-
+   ```bash
    ./fastscan_253_256 pubkey.bin 140 160
-
+   ```
    Or for a specific single puzzle (e.g., #140):
-
+   ```bash
    ./fastscan_253_256 04<X><Y> 139 140
-
+   ```
 
 This is the **fastest raw-pubkey scanner** ever built for NVIDIA GPUs — 46.5 GH/s on RTX 4090.
 
 ---
 
+## Find the 7.1 BTC Bitcoin Puzzle #71 key with your GPU – 100% mathematical guarantee!
 
-Find the 7.1 BTC Bitcoin Puzzle #71 key with your GPU – 100% mathematical guarantee!
+```
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    POOL RULES & TERMS OF SERVICE               ║
 ╚══════════════════════════════════════════════════════════════════╝
@@ -231,8 +230,7 @@ Find the 7.1 BTC Bitcoin Puzzle #71 key with your GPU – 100% mathematical guar
      No work is lost.
 
 8. PRIVACY
-   • Your nickname is visible on the
-     leaderboard.
+   • Your nickname is visible on the leaderboard.
    • Your password is stored securely as a hashed value and is
      never shared or exposed.
 
@@ -247,20 +245,18 @@ Find the 7.1 BTC Bitcoin Puzzle #71 key with your GPU – 100% mathematical guar
 
 By running a worker, you acknowledge that you have read,
 understood, and agree to these terms.
+```
 
 ## ⚠️ Honest note about split-key
 
-
 **EN — read before joining:**
-- This pool uses **split-key**. A worker only finds **half of the key** (`share d`).
-  The full key is assembled by the **pool operator**, who knows the
-  secret `s`.
-- In practice the reward split **relies on TRUST in the operator** (as in other pools:
-  "whoever finds it holds the key").
+- This pool uses **split-key**. A worker only finds **half of the key** (`share d`). The full key is assembled by the **pool operator**, who knows the secret `s`.
+- In practice the reward split **relies on TRUST in the operator** (as in other pools: "whoever finds it holds the key").
 - By joining you accept this model knowingly.
 
 ---
 
+```
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    REWARD SPLIT (UPDATED)                      ║
 ╚══════════════════════════════════════════════════════════════════╝
@@ -296,8 +292,9 @@ EXPLANATION:
   paying for hosting, developing the code, etc.).
 
 ════════════════════════════════════════════════════════════════════
+```
 
-
+```
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    REGISTRATION & SETUP                        ║
 ╚══════════════════════════════════════════════════════════════════╝
@@ -398,7 +395,10 @@ python pool_worker.py --server https://puzzle.satoshipool.org --worker YourNick-
 :: Terminal 2 – GPU 1
 set CUDA_VISIBLE_DEVICES=1
 python pool_worker.py --server https://puzzle.satoshipool.org --worker YourNick-GPU1 --password YourPassword --binary fastscan_puzzle71.exe
-────────────────────────────────────────────────────────────────────
+```
+
+---
+
 ## 🖥️ MULTI‑GPU SETUP (AUTO‑DETECT)
 
 The `fastscan_253_256` binary **automatically detects all available NVIDIA GPUs** and distributes the workload across them—right out of the box.  
@@ -411,6 +411,9 @@ python3 pool_worker_253_256.py \
   --password YourPassword \
   --binary ./fastscan_253_256 \
   --db ./pubkeys.bin
+```
+
+```
 ────────────────────────────────────────────────────────────────────
 ⚙️ HOW IT WORKS
 
@@ -421,10 +424,10 @@ python3 pool_worker_253_256.py \
   • Use nvidia-smi to list your available GPUs and their IDs.
   • Run one terminal per GPU — the pool dashboard will show each
     as a separate miner.
+────────────────────────────────────────────────────────────────────
+```
 
-
-════════════════════════════════════════════════════════════════════
----
+```
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    HOW TO JOIN (MINER)                         ║
 ╚══════════════════════════════════════════════════════════════════╝
@@ -466,9 +469,9 @@ python3 pool_server.py init --mode wallets \
   --start-bit 253 --end-bit 256
 
 ════════════════════════════════════════════════════════════════════
+```
 
----
-
+```
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    HOW IT WORKS & FILES                        ║
 ╚══════════════════════════════════════════════════════════════════╝
@@ -519,18 +522,25 @@ python3 pool_server.py init --mode wallets \
 │ pool_worker.py                     │ Python coordinator                  │
 │                                    │ (connects to the server)            │
 └────────────────────────────────────┴──────────────────────────────────────┘
+```
+
 ### 🔧 Generate Gtables yourself
+
 If you don't want to download my pre-built gtables, you can generate them yourself using `generate_gtable.cpp` included in this repo.
+
 **What gets generated (4 files, ~32 MB each):**
+
 | File | Description |
 |------|-------------|
 | `gtableX.bin` | Uncompressed X coordinates (16 chunks × 65536 points) |
 | `gtableY.bin` | Uncompressed Y coordinates |
 | `gtable_compX.bin` | Compressed X coordinates (33 bytes per point) |
 | `gtable_compY.bin` | Parity bits for compressed points |
+
 **Prerequisites:**
 - `g++` (GCC / MinGW / MSYS2)
 - OpenSSL development headers (`libssl-dev` on Linux, `openssl-devel` on MSYS2)
+
 **Linux (Ubuntu/Debian):**
 ```bash
 # Install dependencies
@@ -538,20 +548,28 @@ sudo apt install -y g++ libssl-dev
 # Compile & run
 g++ -O3 -o generate_gtable generate_gtable.cpp -lcrypto
 ./generate_gtable
-Windows (MSYS2):
+```
+
+**Windows (MSYS2):**
+```bash
 # Install dependencies
 pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-openssl
 # Compile & run
 g++ -O3 -o generate_gtable.exe generate_gtable.cpp -lcrypto
 ./generate_gtable.exe
+```
+
 Expected output (4 files in current directory):
+```
 ✅ gtableX.bin      (32 MB)  — uncompressed X
 ✅ gtableY.bin      (32 MB)  — uncompressed Y
 ✅ gtable_compX.bin (32 MB)  — compressed X
 ✅ gtable_compY.bin (32 MB)  — compressed parity
+```
+
+```
 ════════════════════════════════════════════════════════════════════
 
----
 ╔══════════════════════════════════════════════════════════════════╗
 ║           PROBABILITY OF FINDING THE KEY                       ║
 ╚══════════════════════════════════════════════════════════════════╝
@@ -611,9 +629,9 @@ A 71-bit range is N_total ≈ 2.36 × 10²¹ keys.
     GUARANTEE of finding the key.
 
 ════════════════════════════════════════════════════════════════════
+```
 
-
-
+```
 ╔══════════════════════════════════════════════════════════════════╗
 ║              SECURITY & SUPPORTED GPUs                         ║
 ╚══════════════════════════════════════════════════════════════════╝
@@ -755,16 +773,18 @@ LINUX:
   lspci | grep -i nvidia
 
 ────────────────────────────────────────────────────────────────────
+```
+
+```
 DONATE: bc1qps62cyk9f9unmdkc9k3ccj9e2h8ywfhg2j53ec
 
 Built with ❤️ for the crypto research community.
 ────────────────────────────────────────────────────────────────────
 ⚠️ DISCLAIMER
 
-Educational / hobby project.
 Searching Bitcoin puzzle keys is legal.
 Searching for other people's in-use wallets is NOT.
 Use responsibly.
 
 ════════════════════════════════════════════════════════════════════
-*other people's in-use wallets is not. Use responsibly.*
+```
