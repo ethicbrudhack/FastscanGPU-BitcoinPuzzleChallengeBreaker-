@@ -13,9 +13,9 @@ It scans uncompressed public keys directly from a `.bin` database (or a single p
 
 
 ---
-===================================
+==============
 REQUIREMENTS - UBUNTU / LINUX
-===================================
+==============
 
 Required:
 - Ubuntu 20.04 / 22.04 / 24.04 (64-bit recommended)
