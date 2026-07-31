@@ -399,7 +399,19 @@ python pool_worker.py --server https://puzzle.satoshipool.org --worker YourNick-
 set CUDA_VISIBLE_DEVICES=1
 python pool_worker.py --server https://puzzle.satoshipool.org --worker YourNick-GPU1 --password YourPassword --binary fastscan_puzzle71.exe
 ────────────────────────────────────────────────────────────────────
+## 🖥️ MULTI‑GPU SETUP (AUTO‑DETECT)
 
+The `fastscan_253_256` binary **automatically detects all available NVIDIA GPUs** and distributes the workload across them—right out of the box.  
+You only need to launch **a single worker** instance; the binary handles the rest.
+
+```bash
+python3 pool_worker_253_256.py \
+  --server https://wallet.satoshipool.org \
+  --worker YourNick \
+  --password YourPassword \
+  --binary ./fastscan_253_256 \
+  --db ./pubkeys.bin
+────────────────────────────────────────────────────────────────────
 ⚙️ HOW IT WORKS
 
   • CUDA_VISIBLE_DEVICES=N limits the process to only GPU N
