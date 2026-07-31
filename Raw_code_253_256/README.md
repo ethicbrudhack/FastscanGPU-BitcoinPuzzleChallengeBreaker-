@@ -395,8 +395,8 @@ The `start_bit` and `end_bit` from the command line are **ignored** — the save
 | DEDUP / no overlap | ✅ Yes | ✅ Yes |
 | Speed | **~49 Gkeys/s** | **~49 Gkeys/s** |
 | Range | **Any** (e.g., 44‑45, 253‑256) | Fixed by operator |
-| Runs forever | ❌ Stops after each round* | ✅ 24/7 with `--pool-persistent` |
-| Work distribution | ❌ Each GPU does the same work | ✅ Server splits work among all miners |
+| Runs forever | ✅ Yes (infinite rounds) | ✅ 24/7 with `--pool-persistent` |
+| Work distribution | ❌ Each GPU scans the FULL range independently (no splitting) | ✅ Server splits work among all miners |
 | Found keys | Local `found.txt` | Auto‑reported to server |
 | Reward | Solo | **40% finder + 55% proportional + 5% operator** |
 
