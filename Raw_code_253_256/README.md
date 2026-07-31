@@ -5,6 +5,7 @@ Achieves **~49 Gkeys/s** on RTX 4090 (raw pubkey memcmp, zero hashing).
 
 This is the **standalone version** of the same GPU engine used in the [satoshipool.org](https://satoshipool.org) 253-256 pool.  
 It scans uncompressed public keys directly from a `.bin` database (or a single pubkey) using pure `memcmp` comparison — **no SHA256, no RIPEMD160** in the hot path.
+
 <img width="1093" height="510" alt="image" src="https://github.com/user-attachments/assets/dc9462c6-0906-425b-8f55-1d2fd64293fd" />
 <img width="1109" height="555" alt="image" src="https://github.com/user-attachments/assets/1438685c-60c7-47ec-a045-4236d60acea6" />
 
@@ -18,7 +19,7 @@ It scans uncompressed public keys directly from a `.bin` database (or a single p
 | EC operations | Per-key modular inverse | **Batch Montgomery inversion** (x40 keys per inversion) |
 | Memory access | Random lookups | **24-bit prefix index** + L1/L2 bitmaps |
 | Endomorphism | Usually unused | **GLV ×3** + negated Y ×2 = **6 keys per point addition** |
-| Multi-GPU | Manual setup | **Auto-detect all GPUs** — no flags needed! |
+| Multi-GPU | Manual setup | **Auto-detect all GPUs** with `--gpu=all` |
 
 **Result:** ~8.3 Gadd/s → ~49 Gkeys/s effective on RTX 4090.
 
@@ -55,7 +56,7 @@ All files must be in the same directory.
 | File | Description |
 |------|-------------|
 | `found.txt` | Found keys (appended, never overwritten) |
-| `progress.txt` | Scan state for `--resume` (saved every 10 minutes) |
+| `progress.txt` | Scan state for `--resume` (saved every 10 minutes). In multi‑GPU mode, each GPU saves its own file: `progress_gpu0.txt`, `progress_gpu1.txt`, etc. |
 
 ---
 
@@ -93,7 +94,7 @@ nvcc -O3 -arch=sm_61 -D_FORTIFY_SOURCE=0 -DGRP_SIZE=1024 -DGROUP_BATCH=16 -o fas
 ## 🚀 Running the Program
 
 ```bash
-./fastscan_253_256standalone <pubkeys.bin | PUBKEY_HEX> <start_bit> <end_bit> [--gpu=N] [--resume]
+./fastscan_253_256standalone <pubkeys.bin | PUBKEY_HEX> <start_bit> <end_bit> [--gpu=N|all] [--resume]
 ```
 
 | Argument | Description |
@@ -102,27 +103,55 @@ nvcc -O3 -arch=sm_61 -D_FORTIFY_SOURCE=0 -DGRP_SIZE=1024 -DGROUP_BATCH=16 -o fas
 | `PUBKEY_HEX` | Single uncompressed pubkey (130 hex chars, starts with `04`) |
 | `start_bit` | Starting bit (e.g., `253`) |
 | `end_bit` | Ending bit (e.g., `256`) — range = `[2^start, 2^end - 1]` |
-| `--gpu=N` | **(Optional)** Use specific GPU (e.g., `--gpu=0`). **If omitted, ALL GPUs are used automatically.** |
-| `--resume` | Resume from `progress.txt` |
+| `--gpu=N` | Use specific GPU (e.g., `--gpu=0`). |
+| `--gpu=all` | **Use ALL available GPUs.** |
+| `--resume` | Resume from `progress.txt` (or `progress_gpuN.txt` in multi‑GPU mode) |
 
-> **⚠️ IMPORTANT:** The program **automatically detects and uses ALL available GPUs** by default. You do NOT need any flag for multi-GPU.  
-> Use `--gpu=0` only if you want to restrict to a single specific card.
+> **⚠️ IMPORTANT:** By default, the program uses **only GPU 0**. To use all GPUs, you **must** pass `--gpu=all`.
+
+---
 
 ### Examples
 
 ```bash
-# Scan database with ALL GPUs (default behavior)
-./fastscan_253_256standalone pubkeys.bin 253 256
+# Scan database with ALL GPUs
+./fastscan_253_256standalone pubkeys.bin 253 256 --gpu=all
 
 # Scan with a single specific GPU
 ./fastscan_253_256standalone pubkeys.bin 253 256 --gpu=0
 
 # Test with a single known pubkey (44-45 bits) — uses ALL GPUs
-./fastscan_253_256standalone 046ecabd2d22... 44 45
+./fastscan_253_256standalone 046ecabd2d22... 44 45 --gpu=all
 
-# Resume interrupted scan
-./fastscan_253_256standalone pubkeys.bin 253 256 --resume
+# Resume interrupted scan with ALL GPUs
+./fastscan_253_256standalone pubkeys.bin 253 256 --resume --gpu=all
 ```
+
+---
+
+## 🖥️ Multi‑GPU Usage
+
+**To use all GPUs:**
+```bash
+./fastscan_253_256standalone pubkeys.bin 253 256 --gpu=all
+```
+
+**To use a specific GPU:**
+```bash
+./fastscan_253_256standalone pubkeys.bin 253 256 --gpu=2
+```
+
+**Without `--gpu=all`**, only GPU 0 is used.
+
+> **⚠️ IMPORTANT:** Multi‑GPU in standalone mode **does NOT split work** – each GPU scans the **full range independently**. This is useful for testing, but for efficient work distribution use the **pool version** (see section below).
+
+In multi‑GPU mode, each GPU saves its own progress file:
+- GPU 0 → `progress.txt`
+- GPU 1 → `progress_gpu1.txt`
+- GPU 2 → `progress_gpu2.txt`
+- etc.
+
+This prevents conflicts when resuming.
 
 ---
 
@@ -280,24 +309,6 @@ The database (`pubkeys.bin`) is **never fully loaded into RAM**:
 
 ---
 
-## 🖥️ Multi‑GPU Auto‑Detection (No Flags Needed!)
-
-```bash
-./fastscan_253_256standalone pubkeys.bin 253 256
-```
-
-The binary **automatically**:
-
-1. Calls `cudaGetDeviceCount()` to detect all GPUs
-2. Splits the chunk range equally among cards
-3. Runs each GPU in its own thread
-
-**No manual `CUDA_VISIBLE_DEVICES` needed.**  
-**No `--gpu=all` flag needed.**  
-One command → all GPUs working in parallel.
-
----
-
 ## 📊 Real‑World Benchmark (RTX 4090)
 
 | Test | Speed |
@@ -354,10 +365,20 @@ launch
 total_found
 ```
 
+In multi‑GPU mode, each GPU writes its own file:
+- GPU 0 → `progress.txt`
+- GPU 1 → `progress_gpu1.txt`
+- GPU 2 → `progress_gpu2.txt`
+- etc.
+
 **To resume:**
 
 ```bash
+# Single GPU
 ./fastscan_253_256standalone pubkeys.bin 253 256 --resume
+
+# All GPUs
+./fastscan_253_256standalone pubkeys.bin 253 256 --resume --gpu=all
 ```
 
 The `start_bit` and `end_bit` from the command line are **ignored** — the saved state takes priority.
@@ -368,7 +389,7 @@ The `start_bit` and `end_bit` from the command line are **ignored** — the save
 
 | Feature | Standalone | Pool Version |
 |---------|------------|--------------|
-| Auto‑multi‑GPU | ✅ Yes (no flags!) | ✅ Yes |
+| Auto‑multi‑GPU | ✅ Yes (with `--gpu=all`) | ✅ Yes |
 | DEDUP / no overlap | ✅ Yes | ✅ Yes |
 | Speed | **~49 Gkeys/s** | **~49 Gkeys/s** |
 | Range | **Any** (e.g., 44‑45, 253‑256) | Fixed by operator |
@@ -405,7 +426,7 @@ To verify the program works:
 
 ```bash
 # Use the public key from block 1 (private key = 1)
-./fastscan_253_256standalone 0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8 0 1
+./fastscan_253_256standalone 0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8 0 1 --gpu=all
 
 # Should find KEY: 0000...0001 at ADDR: 1BgGZ9tcN4rm9KBzDn7KprQz87SZ26SAMH
 ```
