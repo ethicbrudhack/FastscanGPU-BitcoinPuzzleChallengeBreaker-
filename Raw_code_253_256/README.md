@@ -117,8 +117,11 @@ nvcc -O3 -arch=sm_61 -D_FORTIFY_SOURCE=0 -DGRP_SIZE=1024 -DGROUP_BATCH=16 -o fas
 ### Examples
 
 ```bash
-# Scan database with ALL GPUs
+# Scan database with ALL GPUs (each GPU scans the full range)
 ./fastscan_253_256standalone pubkeys.bin 253 256 --gpu=all
+
+# Scan database with ALL GPUs and split the range equally
+./fastscan_253_256standalone pubkeys.bin 253 256 --gpu=all --split-gpu
 
 # Scan with a single specific GPU
 ./fastscan_253_256standalone pubkeys.bin 253 256 --gpu=0
@@ -128,33 +131,68 @@ nvcc -O3 -arch=sm_61 -D_FORTIFY_SOURCE=0 -DGRP_SIZE=1024 -DGROUP_BATCH=16 -o fas
 
 # Resume interrupted scan with ALL GPUs
 ./fastscan_253_256standalone pubkeys.bin 253 256 --resume --gpu=all
+
+# Resume interrupted split scan
+./fastscan_253_256standalone pubkeys.bin 253 256 --resume --gpu=all --split-gpu
 ```
 
 ---
 
-## 🖥️ Multi‑GPU Usage
+## 🖥️ Multi-GPU Usage
 
-**To use all GPUs:**
+### Use all GPUs (default behavior)
+
 ```bash
 ./fastscan_253_256standalone pubkeys.bin 253 256 --gpu=all
 ```
 
-**To use a specific GPU:**
+By default, every GPU scans the **full key range independently**.
+
+This mode is useful for:
+
+- benchmarking
+- testing
+- verifying reproducibility
+
+### Split the range across all GPUs
+
+```bash
+./fastscan_253_256standalone pubkeys.bin 253 256 --gpu=all --split-gpu
+```
+
+When `--split-gpu` is enabled, the standalone version automatically divides the key range equally across all detected GPUs.
+
+Example (4 GPUs):
+
+```
+GPU 0 → first 25% of the range
+GPU 1 → second 25%
+GPU 2 → third 25%
+GPU 3 → fourth 25%
+```
+
+Benefits:
+
+- no duplicated work
+- nearly linear scaling
+- no manual range calculation
+
+### Use a specific GPU
+
 ```bash
 ./fastscan_253_256standalone pubkeys.bin 253 256 --gpu=2
 ```
 
-**Without `--gpu=all`**, only GPU 0 is used.
+### Resume
 
-> **⚠️ IMPORTANT:** Multi‑GPU in standalone mode **does NOT split work** – each GPU scans the **full range independently**. This is useful for testing, but for efficient work distribution use the **pool version** (see section below).
+Each GPU stores its own progress file.
 
-In multi‑GPU mode, each GPU saves its own progress file:
 - GPU 0 → `progress.txt`
 - GPU 1 → `progress_gpu1.txt`
 - GPU 2 → `progress_gpu2.txt`
-- etc.
+- ...
 
-This prevents conflicts when resuming.
+This allows split scans to resume correctly without conflicts.
 
 ---
 
@@ -380,8 +418,12 @@ In multi‑GPU mode, each GPU writes its own file:
 # Single GPU
 ./fastscan_253_256standalone pubkeys.bin 253 256 --resume
 
-# All GPUs
+
+# All GPUs (full-range mode)
 ./fastscan_253_256standalone pubkeys.bin 253 256 --resume --gpu=all
+
+# All GPUs (split mode)
+./fastscan_253_256standalone pubkeys.bin 253 256 --resume --gpu=all --split-gpu
 ```
 
 The `start_bit` and `end_bit` from the command line are **ignored** — the saved state takes priority.
@@ -403,7 +445,15 @@ Default: full-range per GPU | ✅ Server splits work among all miners |
 | Reward | Solo | **40% finder + 55% proportional + 5% operator** |
 
 > *The standalone version runs **until it exhausts all rounds** (practically never for large ranges) or until you Ctrl+C. It does not automatically start over — it's designed for tests and single runs.
+### GPUs are scanning the same keys
 
+If all GPUs are processing the same range, start the program with:
+
+```bash
+./fastscan_253_256standalone pubkeys.bin 253 256 --gpu=all --split-gpu
+```
+
+Without `--split-gpu`, every GPU scans the entire range independently.
 ---
 
 ## ⚠️ Troubleshooting
