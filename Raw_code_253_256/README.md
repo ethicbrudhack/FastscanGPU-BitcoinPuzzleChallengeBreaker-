@@ -27,6 +27,7 @@ It scans uncompressed public keys directly from a `.bin` database (or a single p
 All files must be in the same directory.
 
 ### Source Files (to compile)
+
 | File | Description |
 |------|-------------|
 | `main_253_256_standalone.cu` | Main CUDA program (kernel + CPU driver) |
@@ -36,6 +37,7 @@ All files must be in the same directory.
 | `GPUGroup.h` | Precomputed G-point tables (Gx[], Gy[]) |
 
 ### Data Files (REQUIRED)
+
 | File | Size | Description |
 |------|------|-------------|
 | `gtableX.bin` | 32 MB | Precomputed G-point X coordinates (16 chunks × 65536 points × 32 bytes) |
@@ -47,6 +49,7 @@ All files must be in the same directory.
 > If you prefer to generate your own, use `generate_gtable.cpp` (see section below).
 
 ### Auto-Generated Files
+
 | File | Description |
 |------|-------------|
 | `found.txt` | Found keys (appended, never overwritten) |
@@ -60,36 +63,52 @@ Use this command **exactly** — adjust only the architecture flag and batch siz
 
 ```bash
 nvcc -O3 -arch=sm_86 -D_FORTIFY_SOURCE=0 -DGRP_SIZE=1024 -o fastscan_253_256standalone main_253_256_standalone.cu -lssl -lcrypto -lsecp256k1
-Compilation Flags
-Flag	Purpose	Tuning Advice
--arch=sm_XX	GPU architecture	Find yours: nvidia-smi → Compute Capability. Common: sm_86 (RTX 30xx), sm_89 (RTX 40xx), sm_90 (RTX 50xx), sm_75 (RTX 20xx), sm_61 (GTX 10xx).
--D_FORTIFY_SOURCE=0	Disable fortification (required)	Always keep this.
--DGRP_SIZE=1024	G‑table size (fixed)	Always 1024.
--DGROUP_BATCH=N	Batch size for Montgomery inversion	Default is 40 (set in code). Override with -DGROUP_BATCH=16 for older GPUs or -DGROUP_BATCH=64 for newer ones. Experiment for best performance.
-Example Compilation Commands
-RTX 4090 (best speed):
+```
 
-bash
+### Compilation Flags
+
+| Flag | Purpose | Tuning Advice |
+|------|---------|---------------|
+| `-arch=sm_XX` | GPU architecture | Find yours: `nvidia-smi` → Compute Capability. Common: `sm_86` (RTX 30xx), `sm_89` (RTX 40xx), `sm_90` (RTX 50xx), `sm_75` (RTX 20xx), `sm_61` (GTX 10xx). |
+| `-D_FORTIFY_SOURCE=0` | Disable fortification (required) | Always keep this. |
+| `-DGRP_SIZE=1024` | G‑table size (fixed) | Always 1024. |
+| `-DGROUP_BATCH=N` | Batch size for Montgomery inversion | **Default is 40** (set in code). Override with `-DGROUP_BATCH=16` for older GPUs or `-DGROUP_BATCH=64` for newer ones. Experiment for best performance. |
+
+### Example Compilation Commands
+
+**RTX 4090 (best speed):**
+```bash
 nvcc -O3 -arch=sm_89 -D_FORTIFY_SOURCE=0 -DGRP_SIZE=1024 -DGROUP_BATCH=40 -o fastscan_253_256standalone main_253_256_standalone.cu -lssl -lcrypto -lsecp256k1
-GTX 1080 (older card):
+```
 
-bash
+**GTX 1080 (older card):**
+```bash
 nvcc -O3 -arch=sm_61 -D_FORTIFY_SOURCE=0 -DGRP_SIZE=1024 -DGROUP_BATCH=16 -o fastscan_253_256standalone main_253_256_standalone.cu -lssl -lcrypto -lsecp256k1
-🚀 Running the Program
-bash
-./fastscan_253_256standalone <pubkeys.bin | PUBKEY_HEX> <start_bit> <end_bit> [--gpu=N] [--resume]
-Argument	Description
-pubkeys.bin	Path to your 65-byte pubkey database (sorted by X)
-PUBKEY_HEX	Single uncompressed pubkey (130 hex chars, starts with 04)
-start_bit	Starting bit (e.g., 253)
-end_bit	Ending bit (e.g., 256) — range = [2^start, 2^end - 1]
---gpu=N	(Optional) Use specific GPU (e.g., --gpu=0). If omitted, ALL GPUs are used automatically.
---resume	Resume from progress.txt
-⚠️ IMPORTANT: The program automatically detects and uses ALL available GPUs by default. You do NOT need any flag for multi-GPU.
-Use --gpu=0 only if you want to restrict to a single specific card.
+```
 
-Examples
-bash
+---
+
+## 🚀 Running the Program
+
+```bash
+./fastscan_253_256standalone <pubkeys.bin | PUBKEY_HEX> <start_bit> <end_bit> [--gpu=N] [--resume]
+```
+
+| Argument | Description |
+|----------|-------------|
+| `pubkeys.bin` | Path to your 65-byte pubkey database (sorted by X) |
+| `PUBKEY_HEX` | Single uncompressed pubkey (130 hex chars, starts with `04`) |
+| `start_bit` | Starting bit (e.g., `253`) |
+| `end_bit` | Ending bit (e.g., `256`) — range = `[2^start, 2^end - 1]` |
+| `--gpu=N` | **(Optional)** Use specific GPU (e.g., `--gpu=0`). **If omitted, ALL GPUs are used automatically.** |
+| `--resume` | Resume from `progress.txt` |
+
+> **⚠️ IMPORTANT:** The program **automatically detects and uses ALL available GPUs** by default. You do NOT need any flag for multi-GPU.  
+> Use `--gpu=0` only if you want to restrict to a single specific card.
+
+### Examples
+
+```bash
 # Scan database with ALL GPUs (default behavior)
 ./fastscan_253_256standalone pubkeys.bin 253 256
 
@@ -101,18 +120,23 @@ bash
 
 # Resume interrupted scan
 ./fastscan_253_256standalone pubkeys.bin 253 256 --resume
-📦 Building Your Own Pubkey Database
-Use the provided build_pubkey_db.py script to create your own .bin file from text files containing hex uncompressed pubkeys.
+```
 
-Input format
-One pubkey per line
+---
 
-Each line must be 130 hex characters (65 bytes)
+## 📦 Building Your Own Pubkey Database
 
-Must start with 04 (uncompressed format)
+Use the provided **`build_pubkey_db.py`** script to create your own `.bin` file from text files containing hex uncompressed pubkeys.
 
-Usage
-bash
+### Input format
+
+- One pubkey per line
+- Each line must be **130 hex characters** (65 bytes)
+- Must start with `04` (uncompressed format)
+
+### Usage
+
+```bash
 # Single file
 python3 build_pubkey_db.py pubkeys.txt -o mydb.bin
 
@@ -121,18 +145,18 @@ python3 build_pubkey_db.py part1.txt part2.txt part3.txt -o pubkeys.bin
 
 # Default output is pubkeys.bin
 python3 build_pubkey_db.py my_pubkeys.txt
+```
+
 The script will:
 
-Read all lines from all input files
+- Read all lines from all input files
+- Remove duplicates (using a `set()`)
+- **Sort by X coordinate** (bytes 1–33) — **REQUIRED** for the GPU binary search
+- Write 65-byte binary records to the output file
 
-Remove duplicates (using a set())
+### Example output
 
-Sort by X coordinate (bytes 1–33) — REQUIRED for the GPU binary search
-
-Write 65-byte binary records to the output file
-
-Example output
-text
+```
 [PL] part1.txt: loaded 1284 pubkeys.
 [PL] part2.txt: loaded 35621 pubkeys.
 [PL] Removed 12 duplicates (36905 -> 36893).
@@ -142,122 +166,147 @@ text
 ============================================================
 Use with fastscan_253_256:
    ./fastscan_253_256 pubkeys.bin 253 256
-💡 You can download a pre-built pubkeys.bin with 357k+ records from the 253_256_files folder in this repository.
+```
 
-🔧 Generating G‑Tables Yourself
-If you don't want to download pre‑built tables from the 253_256_files folder, you can generate them using the included generate_gtable.cpp:
+> **💡 You can download a pre-built `pubkeys.bin` with 357k+ records from the `253_256_files` folder in this repository.**
 
-Linux (Ubuntu/Debian)
-bash
+---
+
+## 🔧 Generating G‑Tables Yourself
+
+If you don't want to download pre‑built tables from the `253_256_files` folder, you can generate them using the included **`generate_gtable.cpp`**:
+
+### Linux (Ubuntu/Debian)
+
+```bash
 sudo apt install -y g++ libssl-dev
 g++ -O3 -o generate_gtable generate_gtable.cpp -lcrypto
 ./generate_gtable
-Windows (MSYS2)
-bash
+```
+
+### Windows (MSYS2)
+
+```bash
 pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-openssl
 g++ -O3 -o generate_gtable.exe generate_gtable.cpp -lcrypto
 ./generate_gtable.exe
-Output (4 files, 32 MB each in current directory)
-gtableX.bin — uncompressed X coordinates
+```
 
-gtableY.bin — uncompressed Y coordinates
+### Output (4 files, 32 MB each in current directory)
 
-gtable_compX.bin — compressed X (for other tools, not used here)
+- `gtableX.bin` — uncompressed X coordinates
+- `gtableY.bin` — uncompressed Y coordinates
+- `gtable_compX.bin` — compressed X (for other tools, not used here)
+- `gtable_compY.bin` — compressed parity (not used here)
 
-gtable_compY.bin — compressed parity (not used here)
+---
 
-🧠 How Scanning Works (Multi-Round with DEDUP)
-The program divides the key range into chunks and processes them in rounds:
+## 🧠 How Scanning Works (Multi-Round with DEDUP)
 
-Round 1: Divides the range into 3563 chunks and scans all of them.
+The program divides the key range into chunks and processes them in **rounds**:
 
-Round 2: Doubles the number of chunks (→ 7126) and scans only odd-indexed chunks (1, 3, 5…).
+1. **Round 1:** Divides the range into `3563` chunks and scans all of them.
+2. **Round 2:** Doubles the number of chunks (→ `7126`) and scans only **odd-indexed** chunks (1, 3, 5…).
+3. **Round N:** Continues doubling chunks, scanning only odd indices each time.
 
-Round N: Continues doubling chunks, scanning only odd indices each time.
+**Why?** This guarantees:
 
-Why? This guarantees:
+- **100% coverage** (Round 1 covers everything)
+- **Zero overlap** between rounds (DEDUP via `grid_mult=2, grid_off=1`)
+- **No wasted work** — each key is checked at most once across all rounds
 
-100% coverage (Round 1 covers everything)
+### Mathematical Guarantee
 
-Zero overlap between rounds (DEDUP via grid_mult=2, grid_off=1)
+Because the stride is always a power of two (enforced by the code), and the number of chunks is even, the odd-indexed chunks in round `r+1` exactly fill the gaps between chunks in round `r` that were "left behind" by the doubling.
 
-No wasted work — each key is checked at most once across all rounds
+**Result:** The scan becomes progressively denser over time, approaching 100% of the range without ever duplicating work.
 
-Mathematical Guarantee
-Because the stride is always a power of two (enforced by the code), and the number of chunks is even, the odd-indexed chunks in round r+1 exactly fill the gaps between chunks in round r that were "left behind" by the doubling.
+---
 
-Result: The scan becomes progressively denser over time, approaching 100% of the range without ever duplicating work.
+## 🔬 Performance Features
 
-🔬 Performance Features
-1. Batch Montgomery Inversion (GROUP_BATCH=40)
-Instead of computing a modular inverse per key (expensive), we invert 40 keys at once using the Montgomery trick:
+### 1. Batch Montgomery Inversion (`GROUP_BATCH=40`)
 
-text
+Instead of computing a modular inverse per key (expensive), we invert **40 keys at once** using the Montgomery trick:
+
+```
 One _ModInv → 1 / (dx[0] * dx[1] * ... * dx[n-1])
 Backward pass → 1/dx[i] for all i
-Result: ~40× fewer expensive inversions → massive speedup.
+```
 
-2. 24‑Bit Prefix Index
+**Result:** ~40× fewer expensive inversions → massive speedup.
+
+### 2. 24‑Bit Prefix Index
+
 Built from the first 3 bytes of X coordinates:
 
-Index size: 128 MB (16,777,217 × 8 bytes)
+- Index size: **128 MB** (`16,777,217 × 8 bytes`)
+- Reduces binary search from `log2(N)` random accesses to a tiny bucket (typically <100 records)
+- Built once at startup (~3–5 seconds for 357k records)
 
-Reduces binary search from log2(N) random accesses to a tiny bucket (typically <100 records)
+### 3. Endomorphism (GLV) + Negation (`USE_ENDO=1`)
 
-Built once at startup (~3–5 seconds for 357k records)
+From each computed point `(qx, qy)`, the kernel checks **6 variants**:
 
-3. Endomorphism (GLV) + Negation (USE_ENDO=1)
-From each computed point (qx, qy), the kernel checks 6 variants:
+| Variant | Type |
+|---------|------|
+| `qx, qy` | Original key `k` |
+| `qx, -qy` | Negated key `n-k` |
+| `β·qx, qy` | Lambda key `λ·k` |
+| `β·qx, -qy` | Negated lambda `n-λ·k` |
+| `β²·qx, qy` | Lambda² key `λ²·k` |
+| `β²·qx, -qy` | Negated lambda² `n-λ²·k` |
 
-Variant	Type
-qx, qy	Original key k
-qx, -qy	Negated key n-k
-β·qx, qy	Lambda key λ·k
-β·qx, -qy	Negated lambda n-λ·k
-β²·qx, qy	Lambda² key λ²·k
-β²·qx, -qy	Negated lambda² n-λ²·k
-Result: 6 keys checked per point addition — free performance.
+**Result:** 6 keys checked per point addition — free performance.
 
-4. L1/L2 Bitmaps (optional)
+### 4. L1/L2 Bitmaps (optional)
+
 32‑bit Bloom‑style filters:
 
-L1: 8 MB (top 32 bits → first 21 bits)
+- L1: **8 MB** (top 32 bits → first 21 bits)
+- L2: **512 MB** (top 32 bits → full 27 bits)
 
-L2: 512 MB (top 32 bits → full 27 bits)
+These are loaded on GPU and used as a **pre‑filter** before touching the main database.
 
-These are loaded on GPU and used as a pre‑filter before touching the main database.
+### 5. MMap (memory‑mapped file)
 
-5. MMap (memory‑mapped file)
-The database (pubkeys.bin) is never fully loaded into RAM:
+The database (`pubkeys.bin`) is **never fully loaded into RAM**:
 
-Mapped with mmap(PROT_READ, MAP_SHARED)
+- Mapped with `mmap(PROT_READ, MAP_SHARED)`
+- OS handles paging — only needed data is loaded
+- **Result:** Startup is instantaneous, RAM usage is minimal.
 
-OS handles paging — only needed data is loaded
+---
 
-Result: Startup is instantaneous, RAM usage is minimal.
+## 🖥️ Multi‑GPU Auto‑Detection (No Flags Needed!)
 
-🖥️ Multi‑GPU Auto‑Detection (No Flags Needed!)
-bash
+```bash
 ./fastscan_253_256standalone pubkeys.bin 253 256
-The binary automatically:
+```
 
-Calls cudaGetDeviceCount() to detect all GPUs
+The binary **automatically**:
 
-Splits the chunk range equally among cards
+1. Calls `cudaGetDeviceCount()` to detect all GPUs
+2. Splits the chunk range equally among cards
+3. Runs each GPU in its own thread
 
-Runs each GPU in its own thread
-
-No manual CUDA_VISIBLE_DEVICES needed.
-No --gpu=all flag needed.
+**No manual `CUDA_VISIBLE_DEVICES` needed.**  
+**No `--gpu=all` flag needed.**  
 One command → all GPUs working in parallel.
 
-📊 Real‑World Benchmark (RTX 4090)
-Test	Speed
-Point additions (raw)	8.3 Gadd/s
-Effective keys (×6 endo)	~49 Gkeys/s
-45‑bit key search	8 rounds, ~3 minutes
-Example run (44‑45 bits, found in round 8)
-text
+---
+
+## 📊 Real‑World Benchmark (RTX 4090)
+
+| Test | Speed |
+|------|-------|
+| Point additions (raw) | **8.3 Gadd/s** |
+| Effective keys (×6 endo) | **~49 Gkeys/s** |
+| 45‑bit key search | **8 rounds, ~3 minutes** |
+
+### Example run (44‑45 bits, found in round 8)
+
+```
 Round 1 | 49.6 Gkeys/s | 0 hits
 Round 2 | 48.5 Gkeys/s | 0 hits
 Round 3 | 48.9 Gkeys/s | 0 hits
@@ -270,101 +319,131 @@ Round 8 | 49.0 Gkeys/s | 1 hit!
 KEY: 0000000000000000000000000000000000000000000000000000122fca143c05
 TYPE: UNCOMPRESSED (k)
 ADDR: 1D5PzK3eHjj5YxRenRGL7vxu1osU8wLU9x
-📄 Output Format (found.txt)
-text
+```
+
+---
+
+## 📄 Output Format (`found.txt`)
+
+```
 KEY: 0000000000000000000000000000000000000000000000000000122fca143c05
 TYPE: UNCOMPRESSED
 ADDR: 1D5PzK3eHjj5YxRenRGL7vxu1osU8wLU9x
 ---
-KEY: Full private key (32 bytes, hex)
+```
 
-TYPE: UNCOMPRESSED (all keys from pubkey DB are uncompressed)
+- `KEY`: Full private key (32 bytes, hex)
+- `TYPE`: `UNCOMPRESSED` (all keys from pubkey DB are uncompressed)
+- `ADDR`: Corresponding Bitcoin address
 
-ADDR: Corresponding Bitcoin address
+**Note:** If the same key matches via endomorphism (`λ·k`, `λ²·k`, or their negations), the `KEY` is automatically reconstructed to the actual private key `k` before output.
 
-Note: If the same key matches via endomorphism (λ·k, λ²·k, or their negations), the KEY is automatically reconstructed to the actual private key k before output.
+---
 
-🔄 Resume Support
-The program writes progress.txt every 10 minutes and at the end of each round:
+## 🔄 Resume Support
 
-text
+The program writes `progress.txt` every 10 minutes and at the end of each round:
+
+```
 round_idx
 start_bit
 end_bit
 launch
 total_found
-To resume:
+```
 
-bash
+**To resume:**
+
+```bash
 ./fastscan_253_256standalone pubkeys.bin 253 256 --resume
-The start_bit and end_bit from the command line are ignored — the saved state takes priority.
+```
 
-🎯 Why Use the Standalone Version?
-Feature	Standalone	Pool Version
-Auto‑multi‑GPU	✅ Yes (no flags!)	✅ Yes
-DEDUP / no overlap	✅ Yes	✅ Yes
-Speed	~49 Gkeys/s	~49 Gkeys/s
-Range	Any (e.g., 44‑45, 253‑256)	Fixed by operator
-Runs forever	❌ Stops after each round*	✅ 24/7 with --pool-persistent
-Work distribution	❌ Each GPU does the same work	✅ Server splits work among all miners
-Found keys	Local found.txt	Auto‑reported to server
-Reward	Solo	40% finder + 55% proportional + 5% operator
-*The standalone version runs until it exhausts all rounds (practically never for large ranges) or until you Ctrl+C. It does not automatically start over — it's designed for tests and single runs.
+The `start_bit` and `end_bit` from the command line are **ignored** — the saved state takes priority.
 
-⚠️ Troubleshooting
-"GPU allocation failed"
-Your VRAM is insufficient to hold the database + G‑tables + index.
+---
 
-Solution: Use a smaller database or add --gpu=0 to limit VRAM usage.
+## 🎯 Why Use the Standalone Version?
 
-"Invalid bin file"
-Your pubkeys.bin is not a multiple of 65 bytes.
+| Feature | Standalone | Pool Version |
+|---------|------------|--------------|
+| Auto‑multi‑GPU | ✅ Yes (no flags!) | ✅ Yes |
+| DEDUP / no overlap | ✅ Yes | ✅ Yes |
+| Speed | **~49 Gkeys/s** | **~49 Gkeys/s** |
+| Range | **Any** (e.g., 44‑45, 253‑256) | Fixed by operator |
+| Runs forever | ❌ Stops after each round* | ✅ 24/7 with `--pool-persistent` |
+| Work distribution | ❌ Each GPU does the same work | ✅ Server splits work among all miners |
+| Found keys | Local `found.txt` | Auto‑reported to server |
+| Reward | Solo | **40% finder + 55% proportional + 5% operator** |
 
-Each record must be exactly: 0x04 || X(32B) || Y(32B).
+> *The standalone version runs **until it exhausts all rounds** (practically never for large ranges) or until you Ctrl+C. It does not automatically start over — it's designed for tests and single runs.
 
-Program doesn't start on Windows
-Use WSL2 or MSYS2 — this code uses POSIX mmap() and madvise().
+---
 
-🧪 Testing with a Known Key
+## ⚠️ Troubleshooting
+
+### "GPU allocation failed"
+
+- Your VRAM is insufficient to hold the database + G‑tables + index.
+- Solution: Use a smaller database or add `--gpu=0` to limit VRAM usage.
+
+### "Invalid bin file"
+
+- Your `pubkeys.bin` is not a multiple of 65 bytes.
+- Each record must be exactly: `0x04 || X(32B) || Y(32B)`.
+
+### Program doesn't start on Windows
+
+- Use **WSL2** or **MSYS2** — this code uses POSIX `mmap()` and `madvise()`.
+
+---
+
+## 🧪 Testing with a Known Key
+
 To verify the program works:
 
-bash
+```bash
 # Use the public key from block 1 (private key = 1)
 ./fastscan_253_256standalone 0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8 0 1
 
 # Should find KEY: 0000...0001 at ADDR: 1BgGZ9tcN4rm9KBzDn7KprQz87SZ26SAMH
-🔗 Join the Pool!
-This standalone version is the exact same engine used in the live pool at:
+```
 
-👉 https://wallet.satoshipool.org
+---
 
-Why join?
+## 🔗 Join the Pool!
 
-No range management — the server handles it automatically.
+This standalone version is **the exact same engine** used in the live pool at:
 
-Fair split — 40% finder + 55% proportional + 5% operator.
+👉 **[https://wallet.satoshipool.org](https://wallet.satoshipool.org)**
 
-24/7 mining — the pool runs continuously, you just keep your worker online.
+**Why join?**
 
-Automatic reporting — found keys are sent to the server instantly.
+- **No range management** — the server handles it automatically.
+- **Fair split** — 40% finder + 55% proportional + 5% operator.
+- **24/7 mining** — the pool runs continuously, you just keep your worker online.
+- **Automatic reporting** — found keys are sent to the server instantly.
 
-To join:
+**To join:**
 
-bash
+```bash
 python3 pool_worker_253_256.py \
   --server https://wallet.satoshipool.org \
   --worker YourNick \
   --password YourPassword \
   --binary ./fastscan_253_256 \
   --db ./pubkeys.bin
-📄 License
-This is an educational / research tool.
+```
 
-Searching Bitcoin puzzle keys is legal.
+---
 
-Searching for other people's in-use wallets is not.
+## 📄 License
 
-Use responsibly.
+This is an **educational / research** tool.
 
-Built with ❤️ for the crypto research community.
+- Searching Bitcoin puzzle keys is **legal**.
+- Searching for other people's in-use wallets is **not**.
+- Use responsibly.
 
+---
+
+**Built with ❤️ for the crypto research community.**
