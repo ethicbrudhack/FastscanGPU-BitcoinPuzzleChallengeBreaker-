@@ -599,3 +599,4 @@ This is an **educational / research** tool.
 ---
 
 **Built with ❤️ for the crypto research community.**
+## donate: bc1qps62cyk9f9unmdkc9k3ccj9e2h8ywfhg2j53ec
