@@ -47,7 +47,7 @@
 
 • Puzzle 71 = ONE specific address. 
 
-• 253-256 = 357k+ pubkeys from pubkeys.bin.
+• 253-256 = 1.5M+ pubkeys from pubkeys.bin.
 
 ```bash
 # Linux:
@@ -717,7 +717,7 @@ A 71-bit range is N_total ≈ 2.36 × 10²¹ keys.
 ├────────────────────────────────────┼──────────────────────────────────┤
 │ pool_worker_253_256.py             │ Pool worker script (Python 3)   │
 ├────────────────────────────────────┼──────────────────────────────────┤
-│ pubkeys.bin                        │ 357k+ pubkey database            │
+│ pubkeys.bin                        │ 1.5M+ pubkey database            │
 ├────────────────────────────────────┼──────────────────────────────────┤
 │ gtableX.bin                        │ GPU precomputed table (X)       │
 ├────────────────────────────────────┼──────────────────────────────────┤
